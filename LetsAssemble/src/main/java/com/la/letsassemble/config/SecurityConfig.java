@@ -28,7 +28,9 @@ public class SecurityConfig {
     }
     @Bean
     WebSecurityCustomizer webSecurityCustomizer(){
-        return null;
+        return (web -> {
+            web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error"});
+        });
     }
     @Bean
     AuthenticationFailureHandler customAuthFailurHandler(){
@@ -40,7 +42,7 @@ public class SecurityConfig {
         security.authorizeHttpRequests(auth ->{
                 auth
                         .requestMatchers("/error/**").denyAll()
-                        .requestMatchers("/mamnager/**").hasAnyRole("MANAGER","ADMIN")
+                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll();
         });
