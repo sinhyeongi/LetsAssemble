@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/api/v1/mails")
 @RequiredArgsConstructor
 public class EmailController {
-    private final UsersService usersService;
+    //private final UsersService usersService;
 //    private final MailSendService mailSendService;
 //    private final MailVerifyService mailVerifyService;
 //
