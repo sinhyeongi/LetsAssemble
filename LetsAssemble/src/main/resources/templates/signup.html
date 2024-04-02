@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" th:href="@{CSS/signup.css}">
+    <script type="text/javascript" th:src="@{JS/signup.js}"></script>
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="inner">
+        <!--<div class="logo_ilmo">-->
+        <h1 class="title_ilmo">ILDANASSEMBLE</h1>
+        <div class="content">
+            <form action="/user" method="POST">
+                <table>
+                    <tr>
+                        <td>이메일</td>
+                        <td><i class="fa-solid fa-envelope"></i><input type="email" name="email" id="email"placeholder="이메일"/><td>
+                        <td><button onclick="">이메일인증</button></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="pw1" id="pw1" placeholder="비밀번호" value minlength="8" maxlength="12"/><td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="pw2" id="pw2" placeholder="비밀번호" value minlength="8" maxlength="12" /><td>
+                    </tr>
+                    <tr>
+                        <td>이름</td>
+                        <td><input type="text" name="name" id="name"placeholder="이름" value maxlength="16" /><td>
+                    </tr>
+                    <tr>
+                        <td>생년월일</td>
+                        <td><input type="text" name="birthdayInput" id="birthdayInput" placeholder="생년월일" value maxlength="8" /><td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul class="gender_list" id="listGender">
+                                <li class="radio_item">
+                                    <input type="radio" id="gender1" name="gender" value="M" class="blind">
+                                    <label>남자</label>
+                                </li>
+                                <li class="radio_item">
+                                    <input type="radio" id="gender2" name="gender" value="F" class="blind">
+                                    <label>여자</label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>연락처</td>
+                        <td><input type="tel" id="phoneNo" name="phoneNo" placeholder="휴대전화번호" value maxlength="16"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="button" id="submit_btn"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <!--content-->
+    </div>
+    <!--inner-->
+</div>
+<!-- container-->
+</body>
+</html>
