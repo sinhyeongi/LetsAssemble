@@ -1,11 +1,0 @@
-
-š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(É–òıÿÿÿÿJ$78b73cd0-71f9-4ec9-bf13-0ca8ca35f79d
-€
-java:S1128	"?Remove this unused import 'org.hibernate.annotations.OnDelete'.(¸´€áùÿÿÿÿJ$551b10f5-8433-40e7-bd3d-1c53df79abc8
-†
-java:S1128
-"ERemove this unused import 'org.hibernate.annotations.OnDeleteAction'.(ÅöŒ”üÿÿÿÿJ$5e70d287-6a57-4f3c-b44f-933d78bfd77c
-l
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒJ$699887a6-975c-4b51-a5e4-4c1a2ae8ff51
-l
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±ÄøÿÿÿÿJ$652455da-7e2d-4fdc-9a17-27922f525f91
