@@ -1,0 +1,6 @@
+
+š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(É–òıÿÿÿÿJ$5f53c2e6-48e4-43c1-a9dc-2b653e40fb8c
+r
+java:S1874"/Remove this use of "NotNull"; it is deprecated.(š«É£8û’Ìğé1J$09ccf771-8064-4180-b0c6-5f48fd630550
+
+java:S1128"JRemove this unused import 'com.fasterxml.jackson.annotation.JsonProperty'.(ËÃ§Ï8‘àÙğé1J$c2d810c0-db92-4bea-a05e-30c285da3432
