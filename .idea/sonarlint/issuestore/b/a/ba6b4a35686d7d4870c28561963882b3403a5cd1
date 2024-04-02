@@ -1,0 +1,16 @@
+
+h
+java:S1602(",Remove useless curly braces around statement(Üó†İJ$3e715fa5-fcd5-48d6-bd73-70d0dd1e5c7a
+w	java:S1250"<This block of commented-out lines of code should be removed.(¹Ğ¼ÙJ$a7f9195c-ff64-4d18-a690-e33373a04e77
+y
+java:S1128"=Remove this unused import 'jakarta.servlet.ServletException'.(®Â­ÇJ$b21b0f84-733a-47c5-a00a-736ff8ab8483
+
+java:S1128"DRemove this unused import 'jakarta.servlet.http.HttpServletRequest'.(õ3J$0b5008c7-b469-48c7-a419-4059defcc815
+†
+java:S1128"ERemove this unused import 'jakarta.servlet.http.HttpServletResponse'.(ÂÓÕÇÿÿÿÿÿJ$7193bc04-3cd2-4386-ae5d-e1368152a43f
+‰
+java:S1128"MRemove this unused import 'org.springframework.security.core.Authentication'.(ñıÓ“J$008d0881-02a8-4660-8493-aa7d95a9d2d5
+ª
+java:S1128"iRemove this unused import 'org.springframework.security.web.authentication.AuthenticationSuccessHandler'.(Â©ŠÏüÿÿÿÿJ$2c21b236-8936-4070-97e3-a4e48748e7f3
+q
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»ÚıÿÿÿÿJ$515d063b-fef1-49e0-acaf-8bedf018c61e

@@ -31,7 +31,7 @@ public class SecurityConfig {
         return null;
     }
     @Bean
-    AuthenticationFailureHandler customAuthFailurHandler(){
+    AuthenticationFailureHandler customAuthFailureHandler(){
         return null;
     }
     @Bean
