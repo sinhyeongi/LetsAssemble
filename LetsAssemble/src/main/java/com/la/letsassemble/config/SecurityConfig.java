@@ -1,5 +1,6 @@
 package com.la.letsassemble.config;
 
+import com.la.letsassemble.Security.CustomAuthenticationFailure;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ public class SecurityConfig {
     }
     @Bean
     AuthenticationFailureHandler customAuthFailurHandler(){
-        return null;
+        return new CustomAuthenticationFailure();
     }
     @Bean
     SecurityFilterChain filterChain(HttpSecurity security) throws Exception{
@@ -45,12 +46,13 @@ public class SecurityConfig {
                         .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll();
-        });
-           /*     .formLogin(
+        }).formLogin(
                form ->{
                    form.loginPage("/loginForm")
                            .loginProcessingUrl("/login")
-                           .failureHandler(null)
+                           .usernameParameter("username")
+                           .passwordParameter("password")
+                           .failureHandler( customAuthFailurHandler())
                            .successHandler(
                                    new AuthenticationSuccessHandler() {
                                        @Override
@@ -61,7 +63,7 @@ public class SecurityConfig {
                            );
                }
         );
-        */
+
 
         return security.build();
     }

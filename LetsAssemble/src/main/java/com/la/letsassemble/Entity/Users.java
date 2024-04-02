@@ -1,5 +1,6 @@
 package com.la.letsassemble.Entity;
 
+import com.la.letsassemble.Role.UsersRole;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +42,8 @@ public class Users {
     private String gender; // 성별
     @Column(nullable = false)
     private int age; // 나이
-
+    @Enumerated(EnumType.STRING)
+    private UsersRole role;
     //Build 작성
     @Builder
     public Users(String email,String password,String phone,String name,String nickname,String gender,int age){
@@ -52,5 +54,6 @@ public class Users {
         this.nickname = nickname;
         this.gender = gender;
         this.age = age;
+        this.role = UsersRole.ROLE_USER;
     }
 }
