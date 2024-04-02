@@ -33,7 +33,7 @@ public class SecurityConfig {
         });
     }
     @Bean
-    AuthenticationFailureHandler customAuthFailurHandler(){
+    AuthenticationFailureHandler customAuthFailureHandler(){
         return null;
     }
     @Bean
