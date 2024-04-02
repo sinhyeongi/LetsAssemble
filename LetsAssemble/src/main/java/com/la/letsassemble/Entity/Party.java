@@ -1,6 +1,7 @@
 package com.la.letsassemble.Entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,7 +23,7 @@ public class Party {
     @Column(nullable = false)
     private String title; //파티 이름
     @Column(nullable = false)
-    private Boolean isOnline; //온라인 여부
+    private boolean isOnline; //온라인 여부
     @Column(nullable = false)
     private String interest; // 관심사 ex) 공부,게임 등
     private String area; // 지역
@@ -33,4 +34,16 @@ public class Party {
     @Column(nullable = false)
     private int personnel; // 모집인원
     private String notification; // 전체 공지
+
+    @Builder
+    public Party(String email,String title,Boolean isOnline,String interest,String area,String content,int personnel,String notification){
+        this.user.setEmail(email);
+        this.title = title;
+        this.isOnline = isOnline;
+        this.interest = interest;
+        this.area = area;
+        this.content = content;
+        this.personnel = personnel;
+        this.notification = notification;
+    }
 }
