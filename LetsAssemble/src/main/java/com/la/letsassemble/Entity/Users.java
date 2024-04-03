@@ -6,12 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.time.LocalDate;
+
 
 
 @Entity
@@ -31,11 +29,10 @@ public class Users {
     private String name; // 이름
     @Column(nullable = false,unique = true, name = "nick_name")
     private String nickname; // 닉네임
-    @CreationTimestamp
     @Column(nullable = false)
     private String lastLogin; // 마지막 로그인 날
     @ColumnDefault("0")
-    private int suspensionPeriod; // 정지 기간
+    private String suspensionPeriod; // 정지 기간
     @ColumnDefault("0")
     private int point; // 포인트
     @Column(nullable = false)
@@ -44,6 +41,11 @@ public class Users {
     private int age; // 나이
     @Enumerated(EnumType.STRING)
     private UsersRole role;
+    @PrePersist
+    private void prepersist(){
+        this.lastLogin = LocalDate.now().toString();
+        this.role = UsersRole.ROLE_USER;
+    }
     //Build 작성
     @Builder
     public Users(String email,String password,String phone,String name,String nickname,String gender,int age){
@@ -54,6 +56,5 @@ public class Users {
         this.nickname = nickname;
         this.gender = gender;
         this.age = age;
-        this.role = UsersRole.ROLE_USER;
     }
 }

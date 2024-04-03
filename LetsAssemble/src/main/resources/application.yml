@@ -18,6 +18,8 @@ spring:
       hibernate:
         format_sql: true
     #  이메일 본인인증
+  jackson:
+    time-zone: Asia/Seoul #한국 시간으로 가져오도록 변경
   mail:
     host: smtp.gmail.com               # Gmail의 SMTP 서버 호스트
     port: 587                          #SMTP 서버의 포트 번호. Gmail SMTP 서버는 587번 포트를 사용

@@ -32,9 +32,9 @@ public class SecurityConfig {
         return (web -> {
             web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error"});
         });
+
     }
     @Bean
-
     AuthenticationFailureHandler customAuthFailurHandler(){
         return new CustomAuthenticationFailure();
     }
@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll();
         }).formLogin(
-               form ->{
+                form ->{
                    form.loginPage("/loginForm")
                            .loginProcessingUrl("/login")
                            .usernameParameter("username")
