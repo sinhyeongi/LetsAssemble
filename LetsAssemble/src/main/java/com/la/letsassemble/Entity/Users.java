@@ -2,6 +2,7 @@ package com.la.letsassemble.Entity;
 
 import com.la.letsassemble.Role.UsersRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+@Entity(name="user")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,8 @@ public class Users {
     private String name; // 이름
     @Column(nullable = false,unique = true, name = "nick_name")
     private String nickname; // 닉네임
+    @Column(nullable = false)
+    private String type; // 소셜타입
     @CreationTimestamp
     @Column(nullable = false)
     private String lastLogin; // 마지막 로그인 날

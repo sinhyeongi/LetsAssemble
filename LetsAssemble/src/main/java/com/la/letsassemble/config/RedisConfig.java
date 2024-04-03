@@ -15,14 +15,5 @@ public class RedisConfig {
     @Value("${spring.data.redis.mail.port}")
     private int port;
 
-    public RedisConnectionFactory redisMailConnectionFactory() {
-        return new LettuceConnectionFactory(host, port);
-    }
 
-    @Bean(name = "redisTemplate")
-    public StringRedisTemplate redisTemplate() {
-        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
-        stringRedisTemplate.setConnectionFactory(redisMailConnectionFactory());
-        return stringRedisTemplate;
-    }
 }
