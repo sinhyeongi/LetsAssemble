@@ -46,6 +46,8 @@ dependencies {
     //excel
     implementation 'org.apache.poi:poi:5.2.4'
     implementation 'org.apache.poi:poi-ooxml:5.2.4'
+    // css , js update
+    implementation 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {

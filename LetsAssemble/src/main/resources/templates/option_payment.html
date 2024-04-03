@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>옵션 선택하기</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script type="text/javascript" th:src="@{JS/option_payment.js}"></script>
     <link type="text/css" rel="stylesheet" th:href="@{CSS/option_payment.css}">
 </head>
 <body>
     <main>
-        <h1>fdsafdsa</h1>
-        <table>
-
-        </table>
+        <div class="option_payment_content">
+            <span class="option_payment_content_title">파티글 상단에 고정하기</span>
+            <div class="option_payment_content_box">
+                <div>날짜 선택</div><div><input class="option_payment_flatpickr"> </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>

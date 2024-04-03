@@ -32,8 +32,7 @@ class LetsAssembleApplicationTests {
     PartyRepository parepo;
     @Autowired
     BCryptPasswordEncoder encoder;
-    @Autowired
-    MessegeFilter msgfilter;
+
     @PostConstruct
     @Commit
     void init(){
@@ -55,6 +54,6 @@ class LetsAssembleApplicationTests {
     }
     @Test
     void test1(){
-        msgfilter.print();
+
     }
 }

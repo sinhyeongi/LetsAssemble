@@ -2,12 +2,61 @@
     margin: 0;
     padding: 0;
 }
+
 body{
     height: 100vh;
+    overflow: auto;
 }
 main{
-    width: 80%;
     height: 100%;
-    border: 1px solid red;
+    width: 80%;
     margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+/* 콘텐츠 박스 */
+.option_payment_content:first-child{
+    margin-top: 10px;
+}
+.option_payment_content:last-child{
+    margin-bottom: 10px;
+}
+.option_payment_content{
+    flex:1;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    min-width: 100px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+}
+/* 콘텐츠 박스 타이틀 */
+.option_payment_content_title{
+    flex:1;
+    font-size: 24px;
+    width: 100%;
+    height: 100%;
+}
+.option_payment_content_box{
+    flex:9;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.option_payment_content_box > div{
+    flex:1;
 }
