@@ -1,0 +1,16 @@
+
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(àñˆJ$f623caa8-c167-4bba-b095-7ea6a90b39b2
+€
+java:S1128"=Remove this unused import 'com.la.letsassemble.Entity.Users'.(¨æà8úŞ¼ñé1J$89a05c61-8ac4-46d9-a994-4afe2ff16d0d
+’
+java:S1128"ORemove this unused import 'org.springframework.beans.factory.annotation.Value'.(ìø›8ûŞ¼ñé1J$79c4a3fe-b7cd-41b2-b24e-adf144aebfee
+‹
+java:S1128"CRemove this unused import 'java.security.NoSuchAlgorithmException'.(ŒòÍ¾şÿÿÿÿ8ûŞ¼ñé1J$943a7f87-7188-40ca-850a-af959c2efe06
+
+java:S1128"7Remove this unused import 'java.security.SecureRandom'.(›éè™úÿÿÿÿ8ûŞ¼ñé1J$8814b9f7-366a-43e5-b1a5-fa5828cbd964
+w
+java:S1128"/Remove this unused import 'java.time.Duration'.(ëá¯‰üÿÿÿÿ8üŞ¼ñé1J$e2df9167-a5c7-48d1-ad89-f00481403e97
+w
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8üŞ¼ñé1J$9f09b71e-6329-42d4-8a25-4cc313424935
+u
+java:S1128"-Remove this unused import 'java.util.Random'.(èøÉ›ùÿÿÿÿ8ıŞ¼ñé1J$ccdd50d7-27fa-4bf8-afbc-e5690b3a0297

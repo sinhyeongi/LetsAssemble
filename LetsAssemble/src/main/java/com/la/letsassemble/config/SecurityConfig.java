@@ -1,6 +1,6 @@
 package com.la.letsassemble.config;
 
-import com.la.letsassemble.Security_Custom.CustomAuthenticationFailure;
+import com.la.letsassemble.Security.CustomAuthenticationFailure;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

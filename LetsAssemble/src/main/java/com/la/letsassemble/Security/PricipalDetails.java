@@ -1,4 +1,4 @@
-package com.la.letsassemble.Security_Custom;
+package com.la.letsassemble.Security;
 
 import com.la.letsassemble.Entity.Users;
 import org.springframework.security.core.GrantedAuthority;
