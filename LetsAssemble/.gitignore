@@ -16,7 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-
+ProhibitedWord.xlsx
 ### IntelliJ IDEA ###
 .idea
 *.iws
