@@ -40,8 +40,10 @@ spring:
           starttls: #SMTP 서버가 TLS를 사용하여 안전한 연결을 요구하는 경우 true로 설정한다. TLS는 데이터를 암호화하여 안전한 전송을 보장하는 프로토콜이다.
             enable: true
             required: true
-      timeout: 5000                 #클라이언트가 SMTP 서버로부터 응답을 대기해야 하는 시간(Millisecond). 서버에서 응답이 오지 않는 경우 대기 시간을 제한하기 위해 사용된다.
-    auth-code-expiration-millis: 180000  # 3 * 60 * 1000 == 3분 #auth-code-expiration-millis: 이메일 인증 코드의 만료 시간(Millisecond)
+          connection timeout: 5000
+          timeout: 5000                 #클라이언트가 SMTP 서버로부터 응답을 대기해야 하는 시간(Millisecond). 서버에서 응답이 오지 않는 경우 대기 시간을 제한하기 위해 사용된다.
+          write timeout: 5000
+          auth-code-expiration-millis: 180000  # 3 * 60 * 1000 == 3분 #auth-code-expiration-millis: 이메일 인증 코드의 만료 시간(Millisecond)
 
   data:
     redis:
