@@ -23,4 +23,9 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final BCryptPasswordEncoder encoder;
 
+    public Optional<Users>findByEmail (String email){
+
+        return usersRepository.findByEmail(email);
+    }
+
 }

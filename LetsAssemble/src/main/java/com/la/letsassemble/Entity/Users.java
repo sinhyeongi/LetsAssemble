@@ -32,8 +32,8 @@ public class Users {
     @Column(nullable = false,unique = true, name = "nick_name")
     private String nickname; // 닉네임
 
-    @Column(nullable = false)
-    private String type; // 소셜타입
+    private String type; // 소셜타입 //naver
+    private String typeId;//소셜아이디 = 소셜아이디
  
     @Column(nullable = false)
     private String lastLogin; // 마지막 로그인 날

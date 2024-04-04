@@ -18,6 +18,7 @@
 .input-box{
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 
     gap: 8px;
 }
@@ -89,10 +90,11 @@
 
     cursor: pointer;
 }
-.input-box-button-disable{
+.input-box-button-disabled{
     display: flex;
     justify-content: center;
     align-items: center;
+
 
     border-radius: 6px;
     width: 110px;
@@ -126,4 +128,8 @@
     font-size: 13px;
     font-weight: 400;
     line-height: normal;
+}
+
+.display-none{
+    display: none;
 }

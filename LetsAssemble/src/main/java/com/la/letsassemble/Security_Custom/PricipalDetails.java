@@ -59,7 +59,6 @@ public class PricipalDetails implements UserDetails, OAuth2User {
 
     @Override //계정 잠김 여부
     public boolean isAccountNonLocked() {
-
         return true;
     }
 
