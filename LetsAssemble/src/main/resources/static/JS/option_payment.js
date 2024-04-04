@@ -119,11 +119,10 @@ function requestPay(){
    const date = Today();
    const item_count = $('.option_payment_aside_div_info').length;
    const uid = date + (item_count > 0 ? ' 외'+(item_count-1):'');
-   alert(uid);
-   // IMP.request_pay({
-   //    pg : 'html5_inicis.INIpayTest',
-   //    pay_method : 'card'
-   // });
+   IMP.request_pay({
+      pg : 'html5_inicis.INIpayTest',
+      pay_method : 'card'
+   });
 }
 function Today(){
    const today = new Date();
