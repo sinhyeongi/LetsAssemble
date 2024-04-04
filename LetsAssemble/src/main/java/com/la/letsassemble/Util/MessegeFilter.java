@@ -21,7 +21,7 @@ public class MessegeFilter {
         ReadXls();
     }
     private void ReadXls(){
-        try(FileInputStream fis = new FileInputStream("ProhibitedWord.xlsx");
+        try(FileInputStream fis = new FileInputStream("LetsAssemble_Filter.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fis)){
             XSSFSheet sheet = workbook.getSheetAt(0);
             for(int i = 0 ; i <= sheet.getLastRowNum(); i++){
@@ -55,3 +55,4 @@ public class MessegeFilter {
         }
     }
 }
+
