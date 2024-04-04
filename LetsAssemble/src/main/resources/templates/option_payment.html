@@ -7,17 +7,39 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <script type="text/javascript" th:src="@{JS/option_payment.js}"></script>
+    <script defer type="text/javascript" th:src="@{JS/option_payment.js}"></script>
     <link type="text/css" rel="stylesheet" th:href="@{CSS/option_payment.css}">
+    <script th:inline="javascript">
+        var disabledDates = /* [[${disabledDates}]]*/[];
+    </script>
 </head>
 <body>
     <main>
-        <div class="option_payment_content">
-            <span class="option_payment_content_title">파티글 상단에 고정하기</span>
-            <div class="option_payment_content_box">
-                <div>날짜 선택</div><div><input class="option_payment_flatpickr"> </div>
+        <section class="option_payment_content_section">
+            <div class="option_payment_content">
+                <div class="option_payment_content_title">파티글 상단에 고정하기</div>
+                <div class="option_payment_content_box">
+                    <div class="option_payment_view_name">선택 날짜</div><div><input type="text" class="option_payment_flatpickr"></div>
+                    <div><button class="option_payment_add_btn">추가하기</button></div>
+                </div>
+                <input type="hidden" class="option_price" value="1000">
+            </div>
+        </section>
+        <aside class="option_payment_aside">
+            <h2>추가 된 옵션 정보</h2>
+            <hr/>
+            <div class="option_payment_aside_div">
+            </div>
+            <div class="option_payment_aside_total_price">
+                <span>총 금액 : </span><span id="option_payment_total_price_text">0원</span>
+            </div>
+        </aside>
+        <div class="option_payment_pay_div">
+            <div>
+                <div><button id="option_payment_btn">결제하기</button></div>
             </div>
         </div>
     </main>

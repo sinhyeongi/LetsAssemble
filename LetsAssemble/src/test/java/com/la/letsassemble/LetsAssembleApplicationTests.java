@@ -33,25 +33,7 @@ class LetsAssembleApplicationTests {
     @Autowired
     BCryptPasswordEncoder encoder;
 
-    @PostConstruct
-    @Commit
-    void init(){
-        Users u = Users.builder()
-                .email("test")
-                .password(encoder.encode("test"))
-                .phone("010-1234-1234")
-                        .name("test")
-                                .nickname("test")
-                                        .gender("M")
-                                                .age(123)
-                .build();
 
-        urepo.save(u);
-        List<Users> list= urepo.findAll();
-        for (Users u2 : list){
-            System.out.println(u2);
-        }
-    }
     @Test
     void test1(){
 
