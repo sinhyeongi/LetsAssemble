@@ -22,20 +22,8 @@ import java.util.Formatter;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
+
 class LetsAssembleApplicationTests {
-    @Autowired
-    UsersRepository urepo;
-    @Autowired
-    PartyInfoRepository painrepo;
-    @Autowired
-    PartyRepository parepo;
-    @Autowired
-    BCryptPasswordEncoder encoder;
 
 
-    @Test
-    void test1(){
-
-    }
 }
