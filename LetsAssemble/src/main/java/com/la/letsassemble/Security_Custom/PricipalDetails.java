@@ -1,6 +1,7 @@
 package com.la.letsassemble.Security_Custom;
 
 import com.la.letsassemble.Entity.Users;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+@Data
 public class PricipalDetails implements UserDetails, OAuth2User {
     private Users user;
     private Map<String,Object> attr;
