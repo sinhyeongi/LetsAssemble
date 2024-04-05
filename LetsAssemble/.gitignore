@@ -16,8 +16,8 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-LetsAssemble_Filter.xlsx
-application-secret.yml
+
+
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,3 +36,8 @@ out/
 
 ### VS Code ###
 .vscode/
+### Filter ###
+LetsAssemble_Filter.xlsx
+
+### secret ###
+/src/main/resources/application-secret.yml
