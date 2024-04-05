@@ -40,4 +40,4 @@ out/
 LetsAssemble_Filter.xlsx
 
 ### secret ###
-/src/main/resources/application-secret.yml
+LetsAssemble/src/main/resources/application-secret.yml
