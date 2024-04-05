@@ -16,9 +16,8 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-
 LetsAssemble_Filter.xlsx
-/src/main/resources/application-secret.yml
+application-secret.yml
 
 ### IntelliJ IDEA ###
 .idea
