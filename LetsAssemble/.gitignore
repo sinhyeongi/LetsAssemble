@@ -16,8 +16,10 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+
 LetsAssemble_Filter.xlsx
 application-secret.yml
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
