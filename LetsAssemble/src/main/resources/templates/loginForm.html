@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인하기</title>
+    <link rel="stylesheet" href="/CSS/login.css">
+    <script defer src="/Js/login.js"></script>
+</head>
+<body>
+<div class="login-container">
+    <h1 class="lg_h1">환영합니다! 일단모여를 시작하고 다양한 모임에 참여해 보세요.</h1>
+
+    <div class="login_btns">
+        <div id="kakao" class="login_btn" style="max-width: 100vw;">
+            <div class="login_img">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABIUExURUdwTP/kK/3kK//nKP/kK/7kK/7kK/7lKv7lKv/nKP3kK//kK/7lKwAAAA4MAi0oB4Z5Fu3VJ7imHkU+C+DJJZyNGmhdEdC8IjpxVbEAAAAMdFJOUwBgkCAw8MDQ4ECPX3SbiIQAAADwSURBVDjL7ZTZEoMgDEWRIqhFVtH//9Mi4AIGp9O+eh8zZ0hyE4LQI4T6gXacMzqQW6zx0KbuXcUI45nYq5K15YXaHuQ4IIAkLQS21+x7fXoxZtF7nZd+N0xZ6WXVlAJNASZfjBRjkJAmuQR2YhIWlMjceRxikz1xo4zZcQbSEHPnB0fhQpACJaoxkwL6juWo/MUIcgA0MgMNAMbUej4/OWsgdWyGTwcp5mQ5BexZB5Mw67YpYnh1nPdPKXcMuzB8GyG3YtbZ/nSVpbCuWLSmsmZTwbHfFxf+CuSfz/X9dy0PQHN7KwimbD0pmDzn1esDBTkeb1yOZtoAAAAASUVORK5CYII="
+                        class="sc-cDnByv fDAkYr" style="width: 40px; height: 40px;">
+            </div>
+            <span class="login_start">카카오로 시작하기</span>
+        </div>
+
+        <div id="naver" class="login_btn" style="max-width: 100vw;">
+            <div class="login_img">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoBAMAAAB+0KVeAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAeUExURUdwTBzHIB3IIBXKIBzIIBzIIBvIIBzIIBzIIB3IIDDwvR4AAAAJdFJOUwBA7BjIWHCQsEhxwEgAAABeSURBVCjP3cixDUBAGIbhX0hEpzXCdVqd1gg3gs4aOo4T37YS3fFOcE/5mOWpkS6zTtrSDD2kFsqD8qZUSzlSRsrgITX98nz/k9FB7p6yoiwobaUcKGvK0kHanGZOHremWetzQCZnAAAAAElFTkSuQmCC"
+                        class="sc-cDnByv fDAkYr" style="width: 40px; height: 40px;">
+            </div>
+            <span class="login_start">네이버로 시작하기</span>
+        </div>
+
+        <div id="google" class="login_btn" style="max-width: 100vw;">
+            <div class="login_img">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACNUExURUdwTECD8+pDNTOoU0KF8+pCNDCvUOpCNPNjJTOoUjOnU+pDNfu7BOpCMzOoUjeVrkGF9UGE80CA/zKnUulDNPu7BDOoUjCnUOxAM/y9A/u7BDOoUulCNEGE9OpCNUGF8/aUEzWgdu9uI4KwM7y1HUKF9OpDNTSoU/u8BfaxCj6L1jahce5ZK1qrQ9W4E02qYOQAAAAldFJOUwBAoKiA8BB+EH3iz7Bf8C9b8BBgr4DQIChgwJDg0JDA9Gbk9egGGMHPAAAA2ElEQVQ4y+2UyQ6DIBCGqRvivlVt7d4KaJf3f7yCpNWDUA9NvPidhuTLDPyTAMDCrNh+ZmLsZr6t9iCzBCZUaKWLB7jSpqU59LAmvZ7oZ2oQHnYKD8DOg2IglHv2iXv+72A2tHlgOCFBj9LmYk8Qt5RST5T1F2NEZB5d/1WcPJo/5mp15YoTcTEajef1JFV/NriYjAV+I4z0cwxj5u1H80FcJEhMP8eyyQBYeWcGOkKVQ+5tXR8lkRcBGdLGiWw5YT4UnVCxR9Q31S3lxq1Ud1gzHRXLRzMvbyw5IdzB4fwVAAAAAElFTkSuQmCC"
+                        class="sc-cDnByv fDAkYr" style="width: 40px; height: 40px;">
+            </div>
+            <span class="login_start">Google로 시작하기</span>
+        </div>
+
+        <div class="login_btn" style="max-width: 100vw;">
+            <div class="login_img">
+                <img src="img/logo.png">
+            </div>
+            <span class="login_start">일단모여로 시작하기</span>
+        </div>
+    </div>
+</div>
+<!--<h1>로그인 페이지</h1>-->
+<!--<hr/>-->
+
+<!--<form action="/login" method="post">-->
+<!--    <input type="text" name="username" />-->
+<!--    <input type="password" name="password" />-->
+<!--    <button>로그인</button>-->
+<!--</form>-->
+<!--<br>-->
+
+<!--<button onclick='location.href="/oauth2/authorization/google"'> 구글 로그인 하기 </button>-->
+<!--<button onclick='location.href="/oauth2/authorization/naver"'> 네이버 로그인 하기 </button>-->
+<!--<button onclick='location.href="/oauth2/authorization/kakao"'> 카카오 로그인 하기 </button>-->
+<!--<button onclick='location.href="/loginForm/logout"'> 로그아웃하기 </button>-->
+<!--<a href="/oauth2/authorization/kakao">-->
+<!--    <img src="/img/kakao.png" style="width:25px; height:25px;">-->
+<!--</a>-->
+
+
+<!--<hr>-->
+<!--<a href="/joinForm"> 회원가입 하러가기 </a>-->
+</body>
+</html>
