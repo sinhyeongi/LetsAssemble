@@ -10,7 +10,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 
 import java.time.LocalDate;
-
+import java.util.HashMap;
+import java.util.List;
 
 
 @Entity(name="user")
@@ -47,6 +48,8 @@ public class Users {
     private int age; // 나이
     @Enumerated(EnumType.STRING)
     private UsersRole role;
+
+    
     @PrePersist
     private void prepersist(){
         this.lastLogin = LocalDate.now().toString();

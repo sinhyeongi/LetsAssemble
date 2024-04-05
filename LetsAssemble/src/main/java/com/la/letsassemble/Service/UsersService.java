@@ -28,4 +28,8 @@ public class UsersService {
         return usersRepository.findByEmail(email);
     }
 
+    public Optional<Users>findByNickName(String nickname){
+        return usersRepository.findByNickname(nickname);
+    }
+
 }

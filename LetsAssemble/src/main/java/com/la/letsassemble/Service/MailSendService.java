@@ -18,10 +18,8 @@ public class MailSendService {
     private String authNumber;
 
     public boolean CheckAuthNum(String email,String authNum){
-        if(redisUtil.getData(authNum)==null){
-            return false;
-        }
-        else if(redisUtil.getData(authNum).equals(email)){
+        if(redisUtil.getData(email).equals(authNum)){
+            redisUtil.deleteData(email);
             return true;
         }
         else{
@@ -72,12 +70,10 @@ public class MailSendService {
             mailSender.send(message);
         } catch (MessagingException e) {//이메일 서버에 연결할 수 없거나, 잘못된 이메일 주소를 사용하거나, 인증 오류가 발생하는 등 오류
             // 이러한 경우 MessagingException이 발생
-            System.out.println("여기서 오류");
             e.printStackTrace();//e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
         }
-        redisUtil.setDataExpire(authNumber,toMail,20L);
-
-
+        redisUtil.setDataExpire(toMail,authNumber,60*3L);
     }
+
 
 }

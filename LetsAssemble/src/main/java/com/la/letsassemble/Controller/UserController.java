@@ -24,5 +24,10 @@ public class UserController {
         System.out.println("param = "+ email);
         return usersService.findByEmail(email).isPresent();
     }
+    @GetMapping("/validate/nickname")
+    public @ResponseBody boolean nicknameValidate(@RequestParam String nickname){
+        System.out.println("param = "+ nickname);
+        return usersService.findByNickName(nickname).isPresent();
+    }
 
 }

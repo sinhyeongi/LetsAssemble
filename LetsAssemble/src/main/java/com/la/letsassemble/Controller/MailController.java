@@ -21,12 +21,13 @@ public class MailController {
     }
     @PostMapping("/mailAuthCheck")
     public String AuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto){
-        Boolean Checked=mailService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum());
-        if(Checked){
+        System.out.println("getEmail = "+  emailCheckDto.getEmail());
+        System.out.println("getAuthNum = "+  emailCheckDto.getAuthNum());
+        if(mailService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum())){
             return "ok";
         }
         else{
-            throw new NullPointerException("에러 발생");
+            return "error";
         }
     }
 
