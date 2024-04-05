@@ -28,7 +28,6 @@ application-secret.yml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-application-secret.yml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
