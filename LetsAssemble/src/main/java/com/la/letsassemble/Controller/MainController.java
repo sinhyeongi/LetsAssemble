@@ -14,10 +14,15 @@ public class MainController {
     public String Home(){
         return "Home";
     }
+
     @GetMapping("/login")
     public String Loginform(){
         return "loginForm";
     }
+
+    @GetMapping("/ttt")
+    public String test(){ return "qna"; }
+
     @PostMapping("/login")
     public void Login(){
 
