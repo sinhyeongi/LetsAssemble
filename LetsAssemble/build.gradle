@@ -52,8 +52,8 @@ dependencies {
     implementation 'p6spy:p6spy:3.9.1'
     implementation 'com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.0'
     //excel
-    implementation 'org.apache.poi:poi:5.2.4'
-    implementation 'org.apache.poi:poi-ooxml:5.2.4'
+    implementation 'org.apache.poi:poi:5.2.4' // 2007년 이전 파일 포맷
+    implementation 'org.apache.poi:poi-ooxml:5.2.4' // 2007년 이후 파일 포맷
     // css , js update
     implementation 'org.springframework.boot:spring-boot-devtools'
 
