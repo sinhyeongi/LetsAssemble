@@ -15,24 +15,14 @@ public class MainController {
         return "Home";
     }
 
-    @GetMapping("/login")
-    public String Loginform(){
-        return "loginForm";
-    }
 
-    @GetMapping("/ttt")
+
+    @GetMapping("/ttt") // q & a
     public String test(){ return "qna"; }
 
-    @PostMapping("/login")
-    public void Login(){
 
-    }
-    @GetMapping("/pay")
-    public String pay(){
-        return "option_payment";
-    }
     @ResponseBody
-    @GetMapping("/oauth2/endpoint")
+    @GetMapping("/oauth2/endpoint") // 테스트
     public String Oauth2Login(@AuthenticationPrincipal PricipalDetails details){
         return details.getUser().toString();
     }

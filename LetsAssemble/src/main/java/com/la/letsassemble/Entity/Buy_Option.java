@@ -44,13 +44,27 @@ public class Buy_Option {
         this.buy_day = LocalDate.now().toString();
     }
     @Builder
-    public Buy_Option(Long party_id, String even_day, int price, String name, String email, String imp_uid, boolean isOnline){
-        this.party.setId(party_id);
+    public Buy_Option(Party party, String even_day, int price, String name, Users user, String imp_uid, boolean isOnline){
+        this.party = party;
         this.even_day = even_day;
         this.price = price;
         this.name =name;
-        this.user.setEmail(email);
+        this.user = user;
         this.impUid = imp_uid;
         this.isOnline = isOnline;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", party_name=" + party.getTitle() +
+                ", even_day='" + even_day + '\'' +
+                ", price=" + price +
+                ", name='" + name + '\'' +
+                ", impUid='" + impUid + '\'' +
+                ", buy_day='" + buy_day + '\'' +
+                ", isOnline=" + isOnline +
+                '}';
     }
 }

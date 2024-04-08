@@ -1,9 +1,7 @@
 package com.la.letsassemble.Controller;
 
-import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Service.UsersService;
-import com.la.letsassemble.dto.EmailRequestDto;
-import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +27,8 @@ public class UserController {
         System.out.println("param = "+ nickname);
         return usersService.findByNickName(nickname).isPresent();
     }
-
+    @GetMapping("/loginForm") // 로그인 폼 이동
+    public String Loginform(){
+        return "loginForm";
+    }
 }

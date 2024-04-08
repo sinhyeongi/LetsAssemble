@@ -1,7 +1,7 @@
 //옵션 선택 시 추가 되어야 할 곳
 const option_view = $('.option_payment_aside_div');
 const total_price = $('#option_payment_total_price_text');
-var IMP = IMP.init('imp62080161');
+
 const datepickr =$(".option_payment_flatpickr");
 
 const flatinstance = flatpickr(datepickr,{
@@ -119,10 +119,61 @@ function requestPay(){
    const date = Today();
    const item_count = $('.option_payment_aside_div_info').length;
    const uid = date + (item_count > 0 ? ' 외'+(item_count-1):'');
+   const _name = $('.option_payment_aside_div_info:eq(0)').find('span:eq(0)').text()+(item_count > 0 ? ' 외'+(item_count-1):'');
+   const price = $('#option_payment_total_price_text').text().replace("원","").replaceAll(" ","");
+   const buy_name = $('input[name=username]').val();
+   const buy_tel = $('input[name=tel]').val();
+   const partyId = $('input[name=partyId]').val();
+   const isOnline = $('input[name=online]').val();
    IMP.request_pay({
       pg : 'html5_inicis.INIpayTest',
-      pay_method : 'card'
+      pay_method : 'card',
+      merchant_uid : uid,
+      name : _name,
+      amount : parseInt(price),
+      buyer_name : buy_name,
+      buyer_tel : buy_tel
+
+   },function(rsp){
+      if(rsp.success){
+         InsertData(uid,isOnline,partyId);
+         return;
+      }
+      $('#option_payment_btn').removeAttr("disabled")
    });
+
+}
+function InsertData(imp_uid,isOnline,partyId){
+   const email = $('input[name=email]').val();
+   let array_data = [];
+   $('.option_payment_aside_div_info').each(function(){
+      const data = {
+         partyId : partyId,
+         even_day : $(this).find('span:eq(1) span:eq(1)').text(),
+         price : $(this).find('.price').text().replace('원',''),
+         name : $(this).find('span:eq(0)').text(),
+         email :email,
+         imp_uid : imp_uid,
+         isOnline : isOnline
+      }
+      array_data.push(data);
+   })
+   $.ajax({
+      type:"post",
+      url : "/pay/add",
+      contentType : "application/json; charset=utf-8",
+      data : JSON.stringify(array_data),
+      async:false,
+      success: function(data,status,xhr){
+         if(status === 'success'){
+            alert('이벤트 신청이 완료 되었습니다.')
+            location.href="/";
+         }
+      },
+      error : function(err){
+         alert('에러 발생 : '+err);
+      }
+   })
 }
 function Today(){
    const today = new Date();

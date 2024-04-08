@@ -73,4 +73,7 @@ public class PricipalDetails implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+    public String getEmail(){
+        return user.getEmail();
+    }
 }

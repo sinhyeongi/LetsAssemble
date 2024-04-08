@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
@@ -22,7 +23,7 @@ public class Party {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "host",referencedColumnName = "email")
-    private Users user; // 파티장 / 파티 생성자
+    private Users user;// 파티장 / 파티 생성자
     @Column(nullable = false)
     private String title; //파티 이름
     @Column(nullable = false,columnDefinition = "TINYINT(1)")
@@ -43,8 +44,8 @@ public class Party {
         this.riterDay = LocalDate.now().toString();
     }
     @Builder
-    public Party(String email,String title,Boolean isOnline,String interest,String area,String content,int personnel,String notification){
-        this.user.setEmail(email);
+    public Party(Users user,String title,Boolean isOnline,String interest,String area,String content,int personnel,String notification){
+        this.user= user;
         this.title = title;
         this.isOnline = isOnline;
         this.interest = interest;

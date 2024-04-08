@@ -51,8 +51,8 @@ public class SecurityConfig {
                         .anyRequest().permitAll();
         }).formLogin(
                 form ->{
-                   form.loginPage("/loginForm")
-                           .loginProcessingUrl("/login")
+                   form.loginPage("/user/loginForm")
+                           .loginProcessingUrl("/user/login")
                            .usernameParameter("username")
                            .passwordParameter("password")
                            .failureHandler( customAuthFailurHandler())
@@ -67,7 +67,7 @@ public class SecurityConfig {
                }
         ).oauth2Login(
                 oauth2 -> oauth2
-                        .loginPage("/loginForm")
+                        .loginPage("/user/loginForm")
                         .userInfoEndpoint(userInfoEndpointConfig -> {
                             userInfoEndpointConfig.userService(principalOauthUserService);
                         })
