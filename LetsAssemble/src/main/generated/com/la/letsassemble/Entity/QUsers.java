@@ -47,10 +47,6 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath suspensionPeriod = createString("suspensionPeriod");
 
-    public final StringPath type = createString("type");
-
-    public final StringPath typeId = createString("typeId");
-
     public QUsers(String variable) {
         super(Users.class, forVariable(variable));
     }

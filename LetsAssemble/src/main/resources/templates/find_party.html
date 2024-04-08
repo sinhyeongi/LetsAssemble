@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/find_party.css}">
+    <script defer th:src="@{/JS/find_party.js}"></script>
+</head>
+<body>
+<h1 class="find_party_header"> 어떤 파티를 찾고 있나요? </h1>
+<div class="find_category">
+    <span>전체</span> &nbsp;&nbsp; <span> 게임 </span>&nbsp;&nbsp; <span> 스포츠 </span>&nbsp;&nbsp;<span>교육 / 도서</span>
+</div>
+<div class="find_main">
+    <!-- 4개의 big_content 요소 생성 -->
+    <div th:each="index : ${#numbers.sequence(1, 4)}" class="big_content" onclick="adMyParty(this)">
+        <!-- 리스트의 값에 따라 조건부 처리 -->
+        <div th:if="${big_items == null or big_items.size() < index}">
+            <!-- 리스트가 비어있거나 현재 인덱스가 리스트의 길이보다 큰 경우 -->
+            <div class="ad_my_party">
+                내 파티 홍보하기
+            </div>
+        </div>
+        <div th:if="${big_items != null and big_items.size() >= index}">
+            <!-- 리스트의 값이 있는 경우 -->
+            <input type="hidden" name="party_id" th:value="${big_items[index - 1].id}">
+            <div class="big_content_sub">
+                <span th:text="${big_items[index - 1].title}"></span>
+            </div>
+            <div class="big_content_category">
+                카테고리 : <span th:text="${big_items[index - 1].interest}"></span>
+            </div>
+            <div class="big_content_intro">
+                파티 소개 : <span th:text="${big_items[index - 1].intro}"></span>
+            </div>
+            <div class="big_content_loc">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
+                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                    </svg>
+                </span>
+                <span class="big_loc_name" th:text="${big_items[index - 1].area}"></span>
+            </div>
+            <div class="big_content_personnel">
+                모집 인원 : (<span th:text="${big_items[index - 1].personnel}"></span> / 5) 명
+            </div>
+        </div>
+    </div>
+
+    <div th:each="small : ${small_items}" class="small_content" onclick="go_partyInfo(this)">
+        <input type="hidden" name="party_id" th:value="${small.id}">
+        <div class="small_content_sub" th:text="${small.title}"></div>
+        <div class="small_content_category">
+            카테고리 : <span th:text="${small.interest}"></span>
+        </div>
+        <div class="small_content_intro">
+            파티 소개 : <span th:text="${small.intro}"></span>
+        </div>
+        <div class="small_content_loc">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
+            <path
+                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+          </svg>
+        </span>
+            <span class="small_loc_name" th:text="${small.area}"></span>
+        </div>
+        <div class="small_content_personnel">
+            모집 인원 : (<span th:text="${small.personnel}"></span> / 11) 명
+        </div>
+    </div> <!-- small_content -->
+
+</div>  <!-- find_main -->
+</body>
+</html>
