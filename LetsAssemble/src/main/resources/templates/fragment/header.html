@@ -13,14 +13,14 @@
     <nav class="topNav">
         <div class="top-nav-wrap">
             <div class="nav-item">
-                <h1 class="logo-h1">일단모여</h1>
+                <a th:href="@{/}"> <h1 class="logo-h1">일단모여</h1></a>
                 <!--<img th:src="@{/img/logo.png}" class="top-nav-logo">-->
             </div>
             <div class="nav-item">
                 <div class="nav-list">
                     <a class="nav-data" th:href="@{/party/create}">파티 만들기</a>
                     <a class="nav-data" th:href="@{/party/find}">파티 찾기</a>
-                    <a class="nav-data" th:href="@{/basic/qna}">자주 묻는 질문</a>
+                    <a class="nav-data" th:href="@{/ttt}">자주 묻는 질문</a>
                     <a th:if="${login} == null" class="nav-data" th:href="@{/user/login}">로그인</a>
                     <a th:if="${login} != null" class="nav-data" th:href="@{/user/mypage}">마이페이지</a>
                     <a th:if="${login} != null" class="nav-data" th:href="@{/user/logout}">로그아웃</a>

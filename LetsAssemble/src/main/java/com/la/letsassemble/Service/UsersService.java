@@ -2,6 +2,7 @@ package com.la.letsassemble.Service;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,15 @@ public class UsersService {
 
     public Optional<Users>findByNickName(String nickname){
         return usersRepository.findByNickname(nickname);
+    }
+
+    public void signup(UserForm form){
+        Users user = Users.createUser(form,encoder);
+        if(user != null){
+            System.out.println("signup user =" + user.toString());
+            System.out.println("가입성공");
+            /*usersRepository.saveAndFlush(user);*/
+        }
     }
 
 }

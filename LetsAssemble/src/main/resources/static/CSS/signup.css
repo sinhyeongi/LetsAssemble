@@ -6,7 +6,6 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-
 .container{
     width: 100%;
 }
@@ -130,4 +129,27 @@
 
 .display-none{
     display: none;
+}
+.buttons{
+    display: flex;
+}
+
+#submit-button{
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    width: 110px;
+    height: 44px;
+    background-color: rgba(58,87,232,0.2);
+    color:  rgba(45, 66, 178, 1);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%; /* 28px */
+    cursor: pointer;
+}
+
+.redLine{
+    border: solid 1px crimson;
 }

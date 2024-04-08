@@ -1,12 +1,14 @@
 package com.la.letsassemble.Entity;
 
 import com.la.letsassemble.Role.UsersRole;
+import com.la.letsassemble.dto.UserForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.time.LocalDate;
@@ -31,12 +33,15 @@ public class Users {
     private String name; // 이름
     @Column(nullable = false,unique = true, name = "nick_name")
     private String nickname; // 닉네임
+
     private String provider; // 소셜타입
     private String providerId;
+
     @Column(nullable = false)
     private String lastLogin; // 마지막 로그인 날
-    @ColumnDefault("0")
+
     private String suspensionPeriod; // 정지 기간
+
     @ColumnDefault("0")
     private int point; // 포인트
     @Column(nullable = false)
@@ -57,10 +62,18 @@ public class Users {
     public Users(String email,String password,String phone,String name,String nickname,String gender,int age){
         this.email = email;
         this.password = password;
-        this.phone = phone;
-        this.name = name;
         this.nickname = nickname;
+        this.name = name;
+        this.phone = phone;
         this.gender = gender;
         this.age = age;
+    }
+
+    public static Users createUser(UserForm form , BCryptPasswordEncoder encoder ){
+        Users users = new Users();
+        users.email = form.getEmail();
+        users.nickname = form.getNickname();
+        users.password = encoder.encode(form.getPassword());
+        return users;
     }
 }

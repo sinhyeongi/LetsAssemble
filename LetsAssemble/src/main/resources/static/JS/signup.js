@@ -13,23 +13,27 @@ let inputBoxs = {
     nickNameInputBox: null
 };
 window.onload = function() {
-    init();
     form = document.querySelector(".signupForm");
+    init();
     inputBoxs.certificationInputBox.classList.add("display-none");
 }
 function init(){
-    createInputBox("이메일","이메일을 입력해주세요","email","",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
-    createInputBox("인증번호","인증번호를 입력해주세요","text","",false,"번호인증",onCertificationChangeHandler,undefined,undefined,onCertificationButtonClickHandler,"인증번호를 확인해주세요",'certificationInputBox');
-    createInputBox("비밀번호","비밀번호를 입력해주세요","password","",false,undefined,onPwChangeHandler,undefined,undefined,undefined,undefined,'pw1InputBox');
-    createInputBox("비밀번호 확인","비밀번호를 입력해주세요","password","",false,undefined,onPwChangeHandler,undefined,undefined,undefined,"비밀번호가 일치하지 않습니다.",'pw2InputBox');
-    createInputBox("닉네임","닉네임을 입력해주세요","text","",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
+    createInputBox("이메일","이메일을 입력해주세요","email","","email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
+    createInputBox("인증번호","인증번호를 입력해주세요","text","","certify","certify",false,"번호인증",onCertificationChangeHandler,undefined,undefined,onCertificationButtonClickHandler,"인증번호를 확인해주세요",'certificationInputBox');
+    createInputBox("비밀번호","비밀번호를 입력해주세요","password","","pw1","password",false,undefined,onPwChangeHandler,undefined,undefined,undefined,undefined,'pw1InputBox');
+    createInputBox("비밀번호 확인","비밀번호를 입력해주세요","password","","pw2","password2",false,undefined,onPwChangeHandler,undefined,undefined,undefined,"비밀번호가 일치하지 않습니다.",'pw2InputBox');
+    createInputBox("닉네임","닉네임을 입력해주세요","text","","nickname","nickname",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
+    createButton('submit-button','회원가입',submit);
 }
+
 ///////////////////////////////////////////이메일
 const onEmailChangeHandler = (event)=>{
     buttonClassChange(event);
+    isCertification = false;
 }
 const onEmailButtonClickHandler = async (event) => {
     if (isSendMail) return;
+    if (isCertification)return;
     const email = event.target.parentElement.firstChild.value.trim();
     if(email === "") return;
     const emailMessage=inputBoxs.emailInputBox.querySelector(".input-box-message");
@@ -80,6 +84,7 @@ function emailCertification(email, emailMessage, emailButton, certificationInput
 //인증메일 성공적으로 발송 시
 function success(result  , emailMessage, emailButton, certificationInputBox){
     if(result === "success"){
+        inputBoxs.emailInputBox.querySelector('.input-box-content').classList.remove('redLine');
         clearInterval(intervalId);
         certificationInputBox.classList.remove("display-none");
         inputBoxs.emailInputBox.querySelector('.input-box-input').readOnly = true;
@@ -99,12 +104,23 @@ function success(result  , emailMessage, emailButton, certificationInputBox){
             // div 태그에 남은 시간을 표시합니다.
             countDiv.innerHTML = '남은 시간: ' + countdown + '초';
             // 카운트다운이 0이 되면 div 태그를 숨기고 카운트다운을 중지합니다.
-            if (isCertification || countdown <= 0) {
-                countDiv.style.display = 'none';
+            if(isCertification){
+                countDiv.innerHTML = '인증이 완료되었습니다.';
                 clearInterval(intervalId);
+                return;
+            }
+            if (countdown <= 0) {
+                countDiv.classList.add('display-none');
+                clearInterval(intervalId);
+                certificationInputBox.classList.add('display-none');
+                inputBoxs.emailInputBox.querySelector('.input-box-input').readOnly = false;
+                inputBoxs.emailInputBox.querySelector('.input-box-button').innerText = "이메일 인증"
             }
         }, 1000); // 1초마다 실행
-        countDiv.classList.remove('display-none')
+        countDiv.innerHTML = '남은 시간: ' + countdown + '초';
+        countDiv.classList.remove('display-none');
+        countDiv.classList.remove('error');
+
     }else{//이메일 전송 실패
         isSendMail=false;
         emailButton.innerText = "이메일 인증"
@@ -121,6 +137,7 @@ const onCertificationChangeHandler= (event)=>{
     buttonClassChange(event);
 }
 const onCertificationButtonClickHandler = (event)=> {
+    if(isCertification)return;
     const authNumber = inputBoxs.certificationInputBox.querySelector('.input-box-input').value.trim();
     if(authNumber === '')return;
     CertificationCheck(authNumber);
@@ -144,9 +161,14 @@ function CertificationCheck(authNum){
                 isCertification = true;
                 inputBoxs.certificationInputBox.querySelector('.input-box-message').innerText="인증이 완료되었습니다."
                 inputBoxs.certificationInputBox.querySelector('.input-box-message').classList.remove('error');
+                inputBoxs.emailInputBox.querySelector('.input-box-input').readOnly = true;
                 inputBoxs.certificationInputBox.querySelector('.input-box-input').readOnly = true;
                 inputBoxs.certificationInputBox.querySelector('.input-box-button').classList.add('disabled');
+                inputBoxs.certificationInputBox.querySelector('.input-box-button').classList.remove('btn-active');
                 inputBoxs.emailInputBox.querySelector('.input-box-message').classList.add('display-none');
+                inputBoxs.emailInputBox.querySelector('.input-box-button').classList.add('disabled');
+                inputBoxs.emailInputBox.querySelector('.input-box-button').classList.remove('btn-active');
+                inputBoxs.emailInputBox.querySelector('.input-box-button').innerText='인증완료';
             //인증실패
             }else{
                 inputBoxs.certificationInputBox.querySelector('.input-box-message').innerText="인증 번호가 맞지않습니다."
@@ -168,6 +190,7 @@ function pwCheck(password,message){
         setErrorMessage(message,'공백문자는 사용할 수 없습니다.');
         return false;
     }
+    inputBoxs.pw1InputBox.querySelector('.input-box-content').classList.remove('redLine');
     return true;
 }
 const onPwChangeHandler = (event) =>{
@@ -179,6 +202,7 @@ const onPwChangeHandler = (event) =>{
     }
     if(pw1 !== pw2){
         setErrorMessage(message,'비밀번호가 일치하지 않습니다.')
+        isPwCheck = false;
         return;
     }else{
         deleteErrorMessage(message);
@@ -189,6 +213,7 @@ const onPwChangeHandler = (event) =>{
 ////////////////////////////////////닉네임
 const onNickNameChangeHandler= (event)=>{
     buttonClassChange(event);
+    isNickname=false;
 }
 const onNickNameButtonClickHandler = (event) => {
     const nickname = inputBoxs.nickNameInputBox.querySelector('.input-box-input').value;
@@ -204,22 +229,19 @@ const onNickNameButtonClickHandler = (event) => {
     fetch(`/user/validate/nickname?nickname=${nickname}`)
         .then(response => response.text())
         .then(result=>{
-            if(result === true){
+            console.log('닉네임=' + result);
+            if(result === 'true'){
                 //닉네임 중복
-                setErrorMessage(message,"이미 사용중인 닉네임 입니다.")
+                setErrorMessage(message,"이미 사용중인 닉네임 입니다.");
 
             }else{
                 //사용 가능
-                setPossibleMessage(message,"사용 가능한 닉네임입니다.")
-
+                setPossibleMessage(message,"사용 가능한 닉네임입니다.");
+                inputBoxs.nickNameInputBox.querySelector('.input-box-content').classList.remove('redLine');
+                isNickname=true;
             }
         })
-
-
 }
-
-
-
 
 function setPossibleMessage(element,text){
     element.classList.remove('error');
@@ -248,9 +270,46 @@ function buttonClassChange(event){
         button.classList.add('disabled');
     }
 }
+function createButton(id,value,onclick){
+    const Button = document.createElement('input');
+    Button.type = 'button';
+    Button.id = id;
+    Button.value= value;
+    Button.onclick = onclick;
+    const buttons = document.querySelector(".buttons");
+    form.append(Button);
+}
+function submit(){
+    const signupForm = document.querySelector(".signupForm");
+    //이메일인증
+/*    if(!isCertification) {
+        redLine(signupForm, '.email');
+        return;
+    }
+
+    //비밀번호체크
+    if(!isPwCheck){
+        redLine(signupForm, '.pw2');
+        redLine(signupForm, '.pw1');
+        return;
+    }
+
+    //닉네임중복
+    if(!isNickname){
+        redLine(signupForm, '.nickname');
+        return;
+    }*/
+    console.log(signupForm);
+    signupForm.submit();
+}
+function redLine(form, target){
+    target = form.querySelector(target);
+    target.classList.add('redLine');
+    target.firstChild.firstChild.focus();
+}
 
 //inputBox 생성 함수
-function createInputBox(title, placeholder, type, value, isErrorMessage, buttonTitle, onChange, onKeyDown,onKeyUp, onButtonClick , message , querySelector){
+function createInputBox(title, placeholder, type, value, className, inputName, isErrorMessage, buttonTitle, onChange, onKeyDown,onKeyUp, onButtonClick , message , querySelector){
 
     const signupForm = document.querySelector(".signupForm");
 
@@ -269,6 +328,7 @@ function createInputBox(title, placeholder, type, value, isErrorMessage, buttonT
     //인풋박스 컨텐츠 설정
     const inputBoxContent = document.createElement("div");
     inputBoxContent.classList.add("input-box-content");
+    inputBoxContent.classList.add(className)
     inputBox.append(inputBoxContent);
 
     //인풋박스 바디 설정
@@ -280,6 +340,7 @@ function createInputBox(title, placeholder, type, value, isErrorMessage, buttonT
     inputBoxInput.classList.add("input-box-input");
     inputBoxInput.type = type;
     inputBoxInput.value = value;
+    inputBoxInput.name = inputName;
     inputBoxInput.placeholder = placeholder;
     inputBoxInput.onchange = onChange;
     inputBoxInput.onkeydown = onKeyDown;
