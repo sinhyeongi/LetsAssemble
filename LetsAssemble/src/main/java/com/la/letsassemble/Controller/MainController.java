@@ -14,6 +14,8 @@ public class MainController {
     public String Home(){
         return "Home";
     }
+    @GetMapping("/ttt")
+    public String test(){ return "qna"; }
     @PostMapping("/login")
     public void Login(){}
     @GetMapping("/pay")
