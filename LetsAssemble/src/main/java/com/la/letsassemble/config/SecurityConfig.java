@@ -1,6 +1,7 @@
 package com.la.letsassemble.config;
 
 import com.la.letsassemble.Security_Custom.CustomAuthenticationFailure;
+import com.la.letsassemble.Security_Custom.PrincipalOauthUserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
 
@@ -23,10 +25,8 @@ import java.io.IOException;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    @Bean
-    BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
+    private final PrincipalOauthUserService principalOauthUserService;
+
     @Bean
     WebSecurityCustomizer webSecurityCustomizer(){
         return (web -> {
@@ -34,6 +34,7 @@ public class SecurityConfig {
         });
 
     }
+
     @Bean
     AuthenticationFailureHandler customAuthFailurHandler(){
         return new CustomAuthenticationFailure();
@@ -43,6 +44,7 @@ public class SecurityConfig {
         security.csrf(AbstractHttpConfigurer :: disable);
         security.authorizeHttpRequests(auth ->{
                 auth
+                        .requestMatchers("/oauth2/login").authenticated()
                         .requestMatchers("/error/**").denyAll()
                         .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -63,7 +65,19 @@ public class SecurityConfig {
                                    }
                            );
                }
-        );
+        ).oauth2Login(
+                oauth2 -> oauth2
+                        .loginPage("/loginForm")
+                        .userInfoEndpoint(userInfoEndpointConfig -> {
+                            userInfoEndpointConfig.userService(principalOauthUserService);
+                        })
+
+        ).logout((logout) -> logout
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                // 성공하면 루트 페이지로 이동
+                .logoutSuccessUrl("/")
+                // 로그아웃 시 생성된 사용자 세션 삭제
+                .invalidateHttpSession(true));
 
 
         return security.build();

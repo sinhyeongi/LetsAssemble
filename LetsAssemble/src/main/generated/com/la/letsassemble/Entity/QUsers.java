@@ -39,6 +39,10 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
+    public final StringPath provider = createString("provider");
+
+    public final StringPath providerId = createString("providerId");
+
     public final EnumPath<com.la.letsassemble.Role.UsersRole> role = createEnum("role", com.la.letsassemble.Role.UsersRole.class);
 
     public final StringPath suspensionPeriod = createString("suspensionPeriod");

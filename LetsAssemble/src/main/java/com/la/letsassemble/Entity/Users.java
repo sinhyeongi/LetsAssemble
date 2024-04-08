@@ -10,13 +10,13 @@ import org.hibernate.annotations.ColumnDefault;
 
 
 import java.time.LocalDate;
-
+import java.util.HashMap;
+import java.util.List;
 
 
 @Entity(name="user")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,8 @@ public class Users {
     private String name; // 이름
     @Column(nullable = false,unique = true, name = "nick_name")
     private String nickname; // 닉네임
-
-    private String type; // 소셜타입 //naver
-    private String typeId;//소셜아이디 = 소셜아이디
- 
+    private String provider; // 소셜타입
+    private String providerId;
     @Column(nullable = false)
     private String lastLogin; // 마지막 로그인 날
     @ColumnDefault("0")
@@ -47,6 +45,8 @@ public class Users {
     private int age; // 나이
     @Enumerated(EnumType.STRING)
     private UsersRole role;
+
+    
     @PrePersist
     private void prepersist(){
         this.lastLogin = LocalDate.now().toString();
