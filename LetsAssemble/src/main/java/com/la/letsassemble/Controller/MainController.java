@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
-    @GetMapping("/")
+    @GetMapping(value = {"/",""})
     public String Home(){
         return "Home";
     }
+    @GetMapping("/login")
+    public String Loginform(){
+        return "loginForm";
+    }
     @PostMapping("/login")
-    public void Login(){}
+    public void Login(){
+
+    }
     @GetMapping("/pay")
     public String pay(){
         return "option_payment";
