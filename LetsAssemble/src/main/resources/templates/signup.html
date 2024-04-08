@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/fragment/header :: common_header(~{::title},~{::link},~{::script})">
     <meta charset="UTF-8">
     <title>Sign up</title>
     <link rel="stylesheet" type="text/css" th:href="@{CSS/signup.css}">
@@ -8,12 +8,14 @@
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:replace="~{/fragment/header :: header}"></div>
 <div class="container">
     <div class="inner">
         <!--<div class="logo_ilmo">-->
-        <h1 class="title_ilmo">ILDANASSEMBLE</h1>
+        <h1 class="title">회원가입</h1>
         <div class="content">
-            <form class="signupForm" action="/user" method="POST">
+            <form class="signupForm" action='/user' method="POST">
+                <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
             </form>
         </div>
         <!--content-->

@@ -14,7 +14,7 @@
 <div class="main">
     <div class="container">
     <!--search-->
-        <div class="search-wrap">
+        <!--<div class="search-wrap">
             <div class="search-section section">
                 <h1 class="word">무엇을 도와드릴까요?</h1>
                 <div class="search-input-wrap">
@@ -23,7 +23,7 @@
                         <input type="text" placeholder="궁금한 것을 검색해 보세요." class="search-input-input" value="">
                     </div>
                 </div>
-                <!--/search-input-wrap-->
+                &lt;!&ndash;/search-input-wrap&ndash;&gt;
                 <div class="quickButton">
                     <div class="button-items">
                         <div id="item-0" class="item" data-id="top" >질문 TOP</div>
@@ -34,14 +34,14 @@
                         <div id="item-5" class="item" data-id="chat">채팅</div>
                         <div id="item-6" class="item" data-id="service">일단모여 이용</div>
                     </div>
-                    <!--/button-items-->
+                    &lt;!&ndash;/button-items&ndash;&gt;
                 </div>
-                <!--/quickButton-->
+                &lt;!&ndash;/quickButton&ndash;&gt;
             </div>
-            <!--/search-section-->
+            &lt;!&ndash;/search-section&ndash;&gt;
         </div>
-       <!--/search-->
-    <!--qna-->
+       &lt;!&ndash;/search&ndash;&gt;
+    &lt;!&ndash;qna&ndash;&gt;
         <div class="qna-wrap">
             <div class="qna-section section">
                 <div class="qna-title">질문 TOP</div>
@@ -54,16 +54,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     <!--ask -->
+
+
+
         <div class="ask-wrap">
             <div class="ask-section">
                 <div class="ask-box">
-                    <h1 class="word">문제가 해결되지 않았다면 연락해 주세요.</h1>
+                    <h1 class="word">도움이 필요하시면 연락해 주세요.</h1>
                     <div class="inner-word">
-                        <span>일단모여 고객센터</span>운영 시간 | 평일 10:00 ~ 19:00
+                        <!--<span>일단모여 고객센터</span>운영 시간 | 평일 10:00 ~ 19:00-->
                     </div>
-                    <button class="ask-button">1:1 문의하기</button>
+                    <a th:href="@{mailto:firstkjy1123@gmail.com}" class="ask-button">이메일 문의하기</a>
                 </div>
                 <div class="ask-img-box">
                     <img src="https://tse4.mm.bing.net/th/id/OIG1.t45UTPDt6rv6Fejv7ty.?pid=ImgGn" class="askImage">
@@ -73,11 +76,70 @@
            <!-- /ask-section-->
         </div>
         <!--/ask-->
+        <!--qna-->
+        <div class="qna-wrap">
+            <div class="qna-section section">
+                <div class="qna-title">자주 묻는 질문</div>
+                <div class="qna-items-wrap">
+                    <div class="qna-items">
+                        <div class="qna-item">
+                            <div class="boarder-title-wrap">
+                                <i class="fa-duotone fa-q"></i>
+                                <span class="boarder-title">파티장의 파티 요금은 어떻게 산정되나요?</span>
+                            </div>
+                            <div class="boarder-content" style="display: none; ">
+                                <p>파티장의 <strong>파티 요금은 ...</strong> 입니다</p>
+                                <p>파티장의 .....입니다</p>
+                                <p>자세한 내용은 ...</p>
+                                <blockquote><strong>..........이며 아래내용을 확인해주세요</strong></blockquote>
+                                <ul>
+                                    <li>A.알파</li>
+                                    <li>B.베타</li>
+                                    <li>C.세타</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="qna-item">
+                            <div class="boarder-title-wrap">
+                                <i class="fa-duotone fa-q"></i>
+                                <span class="boarder-title">파티원은 어떻게 하나요?</span>
+                            </div>
+                            <div class="boarder-content" style="display: none; ">
+                                <p>파티원은 <strong>파티 저렇게이렇게 ...</strong> 입니다</p>
+                                <p>파티원의 .....입니다</p>
+                                <p>자세한 내용은 ...</p>
+                                <blockquote><strong>..........이며 아래내용을 확인해주세요</strong></blockquote>
+                                <ul>
+                                    <li>A.알파</li>
+                                    <li>B.베타</li>
+                                    <li>C.세타</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="qna-item">
+                            <div class="boarder-title-wrap">
+                                <i class="fa-duotone fa-q"></i>
+                                <span class="boarder-title">파티는 어떻게 만드나요?</span>
+                            </div>
+                            <div class="boarder-content" style="display: none; ">
+                                <p>파티는 <strong>이렇게 ...</strong> 입니다</p>
+                                <p>파티는 .....입니다</p>
+                                <p>자세한 내용은 ...</p>
+                                <blockquote><strong>..........이며 아래내용을 확인해주세요</strong></blockquote>
+                                <ul>
+                                    <li>A.알파</li>
+                                    <li>B.베타</li>
+                                    <li>C.세타</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!--/container-->
 </div>
-
-
 
 <div th:replace="~{/fragment/footer :: footer}"></div>
 </body>

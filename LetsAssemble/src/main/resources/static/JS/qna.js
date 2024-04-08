@@ -1,25 +1,22 @@
-/* 카테고리 클릭 시*/
-const buttonItems = document.querySelector('.button-items');
-const $qna_wrap = document.querySelector(".qna-wrap");
+/* 질문 클릭 시*/
+const qnaItems = document.querySelectorAll('.boarder-title');
 
-buttonItems.addEventListener('click',(event)=>{
-    if(event.target.className !== 'item'){
-        return;
-    }
-    const keyword = event.target.dataset.id;
-    loadList(keyword)
-});
+qnaItems.forEach((qnaItem)=>{
+    qnaItem.addEventListener('click',(event)=>{
+        const target = event.target.parentElement.parentElement;
+        const content = target.querySelector('.boarder-content');
+        if(content.style.display === 'none'){
+            console.log('열림');
+            console.log(content.style.display);
+            content.style.display = 'block';
+        }else{
+            console.log(content.style.display);
+            console.log('닫힘');
+            content.style.display = 'none';
+        }
+    });
+})
 
 function loadList(keyword) {
-    fetch(`qna?keyword=${keyword}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then(data => makeView(data, memID))
-        .catch(error => {
-            console.error("Error occurred while processing the request:", error);
-        });
+
 }
