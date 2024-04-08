@@ -36,8 +36,6 @@ out/
 
 ### VS Code ###
 .vscode/
-### Filter ###
-LetsAssemble_Filter.xlsx
 
 ### secret ###
 application-secret.yml
