@@ -14,12 +14,15 @@ import java.util.Map;
 public class PricipalDetails implements UserDetails, OAuth2User {
     private Users user;
     private Map<String,Object> attr;
+
     public PricipalDetails(Users user){
         this.user = user;
+
     }
     public PricipalDetails(Users user, Map<String, Object> attr) {
         this.user = user;
         this.attr = attr;
+
     }
 
     @Override
@@ -51,7 +54,7 @@ public class PricipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getEmail();
     }
 
     @Override
@@ -72,8 +75,5 @@ public class PricipalDetails implements UserDetails, OAuth2User {
     @Override //계정 활성화 여부
     public boolean isEnabled() {
         return true;
-    }
-    public String getEmail(){
-        return user.getEmail();
     }
 }
