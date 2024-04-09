@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    background-color: rgb(250, 250, 250);
 }
 .find_party_header{
     text-align: center;
@@ -18,7 +19,7 @@ body {
     align-items: center;
     padding: 60px;
     box-sizing: border-box;
-    background-color: rgb(250, 250, 250);
+    /*background-color: rgb(250, 250, 250);*/
 }
 
 .big_content {
