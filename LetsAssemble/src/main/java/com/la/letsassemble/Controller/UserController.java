@@ -3,6 +3,7 @@ package com.la.letsassemble.Controller;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Service.UsersService;
 
+import com.la.letsassemble.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +46,11 @@ public class UserController {
     @PostMapping("/login")
     public void Login(){
 
+    }
+
+    @GetMapping("/ilmo_login")
+    public String ilmo_login(){
+        return "ilmo_loginForm";
     }
 
 }

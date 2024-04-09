@@ -13,7 +13,7 @@ import java.net.URLEncoder;
 
 public class CustomAuthenticationFailure extends SimpleUrlAuthenticationFailureHandler {
     public CustomAuthenticationFailure(){}
-    public void onAuthenticationFilure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String msg;
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             msg = "아이디 또는 비밀번호가 틀립니다.";
