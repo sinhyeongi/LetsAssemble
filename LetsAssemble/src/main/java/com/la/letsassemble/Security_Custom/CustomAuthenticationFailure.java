@@ -13,7 +13,6 @@ import java.net.URLEncoder;
 
 public class CustomAuthenticationFailure extends SimpleUrlAuthenticationFailureHandler {
     public CustomAuthenticationFailure(){}
-
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String msg;
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){

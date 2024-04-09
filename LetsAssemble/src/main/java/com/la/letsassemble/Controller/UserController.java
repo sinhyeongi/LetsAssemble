@@ -64,4 +64,9 @@ public class UserController {
         return "ilmo_loginForm";
     }
 
+    @GetMapping("/ilmo_login")
+    public String ilmo_login(){
+        return "ilmo_loginForm";
+    }
+
 }
