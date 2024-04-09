@@ -22,9 +22,9 @@
                     <a class="nav-data" th:href="@{/party/create}">파티 만들기</a>
                     <a class="nav-data" th:href="@{/party/find}">파티 찾기</a>
                     <a class="nav-data" th:href="@{/ttt}">자주 묻는 질문</a>
-                    <a th:if="${login} == null" class="nav-data" th:href="@{/user/login}">로그인</a>
+                    <a th:if="${login} == null" class="nav-data" th:href="@{/user/loginForm}">로그인</a>
                     <a th:if="${login} != null" class="nav-data" th:href="@{/user/mypage}">마이페이지</a>
-                    <a th:if="${login} != null" class="nav-data" th:href="@{/user/logout}">로그아웃</a>
+                    <a th:if="${login} != null" class="nav-data" th:href="@{/logout}">로그아웃</a>
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UsersService {
     private final UsersRepository usersRepository;
@@ -28,12 +28,10 @@ public class UsersService {
     public Optional<Users>findByNickName(String nickname){
         return usersRepository.findByNickname(nickname);
     }
-
+    @Transactional
     public void signup(UserForm form){
         Users user = Users.createUser(form,encoder);
         if(user != null){
-            System.out.println("signup user =" + user.toString());
-            System.out.println("가입성공");
             usersRepository.saveAndFlush(user);
         }
     }

@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragment/header :: common_header(~{::title},~{::link},~{::script})">
     <meta charset="UTF-8">
     <title>LetsAssemble!</title>
-    <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}" >
+    <script></script>
 </head>
 <body>
-<h1>Home</h1>
+<header th:replace="~{/fragment/header :: header}"></header>
+    <main>
+
+
+
+
+        <div class="main_image">
+            <img th:src="@{/IMG/Main.jpeg}" alt="메인이미지">
+        </div>
+    </main>
+<footer th:replace="~{/fragment/footer :: footer}"></footer>
 </body>
 </html>

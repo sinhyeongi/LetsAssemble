@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-@Entity(name="user")
+@Entity
 @Data
 @NoArgsConstructor
 public class Users {

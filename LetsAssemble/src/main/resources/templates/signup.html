@@ -7,8 +7,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{CSS/signup.css}">
     <script type="text/javascript" th:src="@{JS/signup.js}"></script>
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+    <script defer th:inline="javascript">
+        var user = /*[[${user}]]*/ [];
+    </script>
 </head>
 <body>
+
 <div th:replace="~{/fragment/header :: header}"></div>
 <div class="container">
     <div class="inner">

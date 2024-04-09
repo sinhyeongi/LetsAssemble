@@ -73,6 +73,12 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfoEndpointConfig -> {
                             userInfoEndpointConfig.userService(principalOauthUserService);
                         })
+                        .successHandler(new AuthenticationSuccessHandler() {
+                            @Override
+                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                                response.sendRedirect("/user");
+                            }
+                        })
 
         ).logout((logout) -> logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

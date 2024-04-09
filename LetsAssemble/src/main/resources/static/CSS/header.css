@@ -1,8 +1,16 @@
+*{
+    margin:0;
+    padding:0;
+}
 body{
     box-sizing: border-box;
     margin-top: 80px;
+    min-height: 100vh;
 }
-
+main{
+    min-height: 100vh;
+    width: 100%;
+}
 .topNav{
     position: fixed;
     top: 0px;

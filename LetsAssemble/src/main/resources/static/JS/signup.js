@@ -31,7 +31,7 @@ window.onload = function() {
     })
 }
 function init(){
-    createInputBox("이메일","이메일을 입력해주세요","email","","email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
+    createInputBox("이메일","이메일을 입력해주세요","email",email,"email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
     createInputBox("인증번호","인증번호를 입력해주세요","text","","certify","certify",false,"번호인증",onCertificationChangeHandler,undefined,undefined,onCertificationButtonClickHandler,"인증번호를 확인해주세요",'certificationInputBox');
     createInputBox("이름","이름을 입력해주세요","text","","name","name",false,undefined,onNameChangeHandler,undefined,undefined,undefined,"이름을 입력해주세요",'nameInputBox');
     createInputBox("닉네임","닉네임을 입력해주세요","text","","nickname","nickname",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
@@ -343,6 +343,7 @@ const onAgeChangeHandler = (event) => {
     const messageBox = inputBoxs.ageInputBox.querySelector('.input-box-message')
     if(value ===''){
         setErrorMessage(messageBox,"나이를 입력해주세요.");
+        isAge=false;
         return;
     }
     if(value < 10 || value > 100){

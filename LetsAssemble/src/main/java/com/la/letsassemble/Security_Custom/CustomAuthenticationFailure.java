@@ -13,7 +13,8 @@ import java.net.URLEncoder;
 
 public class CustomAuthenticationFailure extends SimpleUrlAuthenticationFailureHandler {
     public CustomAuthenticationFailure(){}
-    public void onAuthenticationFilure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String msg;
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             msg = "아이디 또는 비밀번호가 틀립니다.";
@@ -29,7 +30,7 @@ public class CustomAuthenticationFailure extends SimpleUrlAuthenticationFailureH
             msg = "알수없는 오류로인해 로그인 할 수없는 상태입니다.\n같은 증상이 반복 된다면 관리자에게 문의 해주세요";
         }
         msg = URLEncoder.encode(msg,"UTF-8");
-        this.setDefaultFailureUrl("/login?error=true&exception="+msg);
+        this.setDefaultFailureUrl("/user/ilmo_loginForm?error=true&exception="+msg);
         super.onAuthenticationFailure(request,response,exception);
 
     }
