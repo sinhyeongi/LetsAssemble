@@ -20,6 +20,7 @@ public class UserController {
     }
     @PostMapping("")
     public String signup(@ModelAttribute UserForm form){
+        System.out.println(form.toString());
         usersService.signup(form);
         return "redirect:/";
     }
@@ -37,8 +38,7 @@ public class UserController {
     public String Loginform(){
         return "loginForm";
     }
-    @PostMapping("/login")
-    public void Login(){
 
-    }
+    @PostMapping("/login")
+    public void Login(){}
 }
