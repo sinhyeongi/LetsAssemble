@@ -6,7 +6,13 @@ import lombok.Setter;
 
 @Data
 public class UserForm {
-    String email;
-    String password;
-    String nickname;
+    private String email;
+    private String password;
+    private String nickname;
+    private String name;
+    private String phone;
+    private String gender;
+    private int age;
+    private String provider; // 소셜타입
+    private String providerId;
 }

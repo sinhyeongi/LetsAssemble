@@ -105,7 +105,10 @@ footer {
 
 }
 
-.right_content {}
+.right_content {
+    display: flex;
+    flex-direction: column;
+}
 
 .rc {
     cursor: pointer;

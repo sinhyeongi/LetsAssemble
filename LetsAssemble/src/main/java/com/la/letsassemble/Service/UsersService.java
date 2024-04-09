@@ -37,8 +37,7 @@ public class UsersService {
         Users user = Users.createUser(form,encoder);
         if(user != null){
             System.out.println("signup user =" + user.toString());
-            System.out.println("가입성공");
-            /*usersRepository.saveAndFlush(user);*/
+            usersRepository.saveAndFlush(user);
         }
     }
 

@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
-<footer th:fragment="copy">
-    <p>© 2024 회사명. 모든 권리 보유.</p>
-    <div class="footer-links">
-        <a th:href="@{/}">서비스 약관</a>
-        <a th:href="@{/}">개인정보처리방침</a>
-        <a th:href="@{/}">문의하기</a>
+<footer th:fragment="footer">
+    <div class="footer_main">
+        <div class="footer_left">
+            일단모여
+        </div>
+        <div class="footer_right">
+            <div class="right_contents">
+                <div class="right_label">
+                    서비스
+                </div>
+                <div class="right_content">
+                    <div class="rc">공지사항</div>
+                    <div class="rc">자주 묻는 질문</div>
+                    <a class="rc" href="#">파티 만들기</a>
+                    <a class="rc" href="#">파티 찾기</a>
+                </div>
+            </div>
+
+            <div class="right_contents">
+                <div class="right_label">
+                    회사
+                </div>
+                <div class="right_content">
+                    <div class="rc">소개</div>
+                </div>
+            </div>
+
+            <!-- <div class="right_contents">
+              <div class="right_label">
+                문의
+              </div>
+              <div class="right_content">
+                <div class="rc">사업 제휴</div>
+                <div class="rc">마케팅</div>
+              </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="footer_foot">
+        <div class="foot_label">
+            (주) 여기모여
+        </div>
+        <p class="foot_main">
+            <span>사업자 등록번호 : 111-11-11111 |</span><span> 대표 : 신현기, 김준영, 신기훈 </span>
+            | 통신판매업 신고번호 : 2021-서울서초-0315 036732 | 본사: 충청남도 아산시 배방읍 광장로 210, 202동 2층 씨236호 | 서울 지사: 서울 영등포구 의사당대로 83, 8층
+            109호
+        </p>
     </div>
 </footer>
 </body>
