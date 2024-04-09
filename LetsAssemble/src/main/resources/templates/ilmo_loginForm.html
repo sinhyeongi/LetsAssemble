@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/ilmo_login.css}">
+<!--    <script type="text/javascript" th:src="@{JS/ilmo_login.js}"></script>-->
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<h1 th:text="${session.log}"></h1>
+<div class="container">
+    <div class="inner">
+        <!--<div class="logo_ilmo">-->
+        <h1 class="title_ilmo">ILDANASSEMBLE</h1>
+        <div class="content">
+            <form class="loginForm" action="/user/ilmo_loginForm" method="POST">
+                <div class="input-box">
+                    <div class="input-box-title">아이디</div>
+                    <div class="input-box-content">
+                        <div class="input-box-body">
+                            <input class="input-box-input" name="userId" type="email" placeholder="이메일을 입력해주세요">
+                        </div>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <div class="input-box-title">비밀번호</div>
+                    <div class="input-box-content">
+                        <div class="input-box-body">
+                            <input class="input-box-input" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="로그인" class="input-box-button disabled"></input>
+            </form>
+        </div>
+        <!--content-->
+    </div>
+    <!--inner-->
+</div>
+<!-- container-->
+</body>
+</html>

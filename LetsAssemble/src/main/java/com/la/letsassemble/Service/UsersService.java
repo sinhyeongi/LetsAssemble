@@ -5,16 +5,12 @@ import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Slf4j
 @Service
@@ -38,8 +34,9 @@ public class UsersService {
         if(user != null){
             System.out.println("signup user =" + user.toString());
             System.out.println("가입성공");
-            /*usersRepository.saveAndFlush(user);*/
+            usersRepository.saveAndFlush(user);
         }
     }
+
 
 }
