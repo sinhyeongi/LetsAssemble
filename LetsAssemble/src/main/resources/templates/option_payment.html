@@ -17,12 +17,17 @@
         var disabledDates = /* [[${disabledDates}]]*/[];
         IMP.init([[${imp_data}]]);
     </script>
+
 </head>
 <body>
     <main>
-        <!--<input type="hidden" th:value="${#authentication.principal.email()}" readonly> -->
-        <span th:text="${party}"></span>
-        <input type="hidden" value="test@test.tes" name="email">
+        <input type="hidden" th:value="${user.email}" name="email" readonly>
+        <input type="hidden" th:value="${user.phone}" name="tel" readonly>
+        <input type="hidden" th:value="${user.name}" name="username" readonly>
+        <input type="hidden" th:value="${party.isOnline}" name="online" readonly>
+        <input type="hidden" th:value="${party.id}" name="partyId" readonly>
+
+
         <section class="option_payment_content_section">
             <div class="option_payment_content">
                 <div class="option_payment_content_title">파티글 상단에 고정하기</div>

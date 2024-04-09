@@ -6,6 +6,7 @@ import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.Buy_OptionRepository;
 import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Util.InicisUtil;
 import com.la.letsassemble.Util.PriceUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +27,19 @@ public class Buy_OptionService {
     private final UsersRepository usersRepository;
     private final PartyRepository partyRepository;
     private final PriceUtil priceUtil;
+    private final InicisUtil inicisUtil;
     @Transactional
     public String add(List<Map<String,Object>> reqdata, HttpServletResponse response){
         String msg = CheckJsonData(reqdata);
         if(!msg.equals("ok")){
             return msg;
         }
-
+        String uid = reqdata.get(0).get("imp_uid").toString();
         int oprice = getTotalPrice(reqdata);
+        if(Integer.parseInt(inicisUtil.getPrice(uid)) != oprice){
+            inicisUtil.Cancel(uid,inicisUtil.RefundableAmount(uid));
+            return "Not match price";
+        }
         int uprice = 0;
 
         List<Map<String,Object>> result = new ArrayList<>();

@@ -2,7 +2,9 @@ package com.la.letsassemble;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Util.InicisUtil;
 import com.la.letsassemble.Util.MessegeFilter;
+import com.la.letsassemble.config.InicisConfig;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -25,7 +27,10 @@ public class LetsAssembleApplication {
     JPAQueryFactory jpaQueryFactory(EntityManager manager){
         return new JPAQueryFactory(manager);
     }
-
+    @Bean
+    InicisUtil inicisUtil(InicisConfig config) {
+        return new InicisUtil(config);
+    }
     public static void main(String[] args) {
         SpringApplication.run(LetsAssembleApplication.class, args);
     }

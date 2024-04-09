@@ -62,6 +62,12 @@ function createoption_view(_name,view_name,_date,_price){
       price *= -1;
       ChangePrice(price);
       top_div.remove();
+      const removedate = top_div.find('span:eq(1) span:eq(1)').text();
+      disabledDates = disabledDates.filter((value,)=>{
+         return value !== removedate;
+      });
+      console.log(disabledDates)
+      flatinstance.set('disable',disabledDates);
    })
    ChangePrice(_price)
 }
@@ -118,8 +124,14 @@ $('#option_payment_btn').click(function(){
 function requestPay(){
    const date = Today();
    const item_count = $('.option_payment_aside_div_info').length;
-   const uid = date + (item_count > 0 ? ' 외'+(item_count-1):'');
-   const _name = $('.option_payment_aside_div_info:eq(0)').find('span:eq(0)').text()+(item_count > 0 ? ' 외'+(item_count-1):'');
+   if(item_count == 0){
+      alert("아이템을 추가 후 결제해 주세요");
+      $('.option_payment_content').click();
+      $('#option_payment_btn').removeAttr("disabled");
+      return;
+   }
+   const uid = date + (item_count > 1 ? (' 외'+(item_count-1)):'');
+   const _name = $('.option_payment_aside_div_info:eq(0)').find('span:eq(0)').text()+(item_count > 1 ? ' 외'+(item_count-1):'');
    const price = $('#option_payment_total_price_text').text().replace("원","").replaceAll(" ","");
    const buy_name = $('input[name=username]').val();
    const buy_tel = $('input[name=tel]').val();
@@ -165,10 +177,12 @@ function InsertData(imp_uid,isOnline,partyId){
       data : JSON.stringify(array_data),
       async:false,
       success: function(data,status,xhr){
-         if(status === 'success'){
-            alert('이벤트 신청이 완료 되었습니다.')
-            location.href="/";
+         let msg = '이벤트 신청이 완료 되었습니다.';
+         if(data === 'Not match price'){
+            msg = '결제 필요 금액과 결제 금액이 일치하지 않습니다.\n결제를 취소합니다.'
          }
+         location.href="/";
+         alert(msg)
       },
       error : function(err){
          alert('에러 발생 : '+err);

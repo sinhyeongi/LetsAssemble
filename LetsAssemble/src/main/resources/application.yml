@@ -69,14 +69,3 @@ server:
     path: /error
     whitelabel:
       enabled: true
-
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id:
-            client-secret:
-            scope:
-              - email
-              - profile

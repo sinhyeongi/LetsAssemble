@@ -37,4 +37,8 @@ public class UserController {
     public String Loginform(){
         return "loginForm";
     }
+    @PostMapping("/login")
+    public void Login(){
+
+    }
 }
