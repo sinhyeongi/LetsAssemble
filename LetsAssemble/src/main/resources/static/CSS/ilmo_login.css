@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.container{
+    width: 100%;
+}
+.inner{
+    width: 600px;
+    margin: 50px auto;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    gap: 8px;
+}
+.input-box-title{
+    color: rgba(138, 146, 166, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+
+    cursor:default;
+    font-family: Pretendard;
+}
+.input-box-content{
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.input-box-body{
+    display: flex;
+
+    gap: 10px;
+}
+
+.input-box-input{
+    flex:1;
+    border-radius: 6px;
+    border: 1px solid rgba(240, 240, 240, 1);
+    background: #FFF;
+    outline: none;
+    padding: 8px 16px;
+    height: 28px;
+
+    color: #404040;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%; /* 28px */
+}
+
+.input-box-input::placeholder{
+    color: rgba(138, 146, 166, 1);
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%; /* 28px */
+}
+
+.input-box-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 6px;
+    width: 600px;
+    height: 44px;
+
+    background-color: rgba(58,87,232,0.2);
+
+    color:  rgba(45, 66, 178, 1);
+
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%; /* 28px */
+
+    cursor: pointer;
+}
+
+.disabled{
+    border : none;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 6px;
+    width: 600px;
+    height: 44px;
+
+    background-color: rgba(240, 240, 240, 1);
+
+    color:  rgba(138, 146, 166, 1);
+
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%; /* 28px */
+
+    cursor: default;
+}
+
+.btn-active:hover{
+    background-color: rgba(58,87,232,0.4);
+}
+.input-box-message{
+    color: rgba(58,87,248,1);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+}
+.error{
+    color: rgba(255,84,64,1);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.display-none{
+    display: none;
+}
