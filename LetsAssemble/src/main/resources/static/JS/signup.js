@@ -5,7 +5,7 @@ let isNickname = false;
 let isName = false;
 let isPhone = false;
 let isAge = false;
-
+let isSignup = false;
 let intervalId = null;
 let form ;
 let inputBoxs = {
@@ -25,10 +25,6 @@ window.onload = function() {
     form = document.querySelector(".signupForm");
     init();
     inputBoxs.certificationInputBox.classList.add("display-none");
-    inputBoxs.phoneInputBox.querySelector('.input-box-input').addEventListener("keyup",(event)=>{
-         const val = event.target.value.trim();
-         event.target.value = autoHyphen(val);
-    })
 }
 function init(){
     createInputBox("이메일","이메일을 입력해주세요","email",email,"email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
@@ -37,8 +33,8 @@ function init(){
     createInputBox("닉네임","닉네임을 입력해주세요","text","","nickname","nickname",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
     createInputBox("비밀번호","비밀번호를 입력해주세요","password","","pw1","password",false,undefined,onPwChangeHandler,undefined,undefined,undefined,undefined,'pw1InputBox');
     createInputBox("비밀번호 확인","비밀번호를 입력해주세요","password","","pw2","password2",false,undefined,onPwChangeHandler,undefined,undefined,undefined,"비밀번호가 일치하지 않습니다.",'pw2InputBox');
-    createInputBox("휴대폰번호","휴대폰번호를 입력해주세요","tel","","phone","phone",false,undefined,onPhoneChangeHandler,undefined,undefined,undefined,"형식에 맞게 입력해주세요",'phoneInputBox');
-    createInputBox("나이","나이를 입력해주세요","number","","age","age",false,undefined,onAgeChangeHandler,undefined,undefined,undefined,"나이를 입력해주세요",'ageInputBox');
+    createInputBox("휴대폰번호","휴대폰번호를 입력해주세요","tel","","phone","phone",false,undefined,onPhoneChangeHandler,undefined,onPhoneKeyup,undefined,"형식에 맞게 입력해주세요",'phoneInputBox');
+    createInputBox("나이","나이를 입력해주세요","number","","age","age",false,undefined,onAgeChangeHandler,undefined,onAgeKeyup,undefined,"나이를 입력해주세요",'ageInputBox');
 
     createRadioButton(
         '성별',
@@ -144,6 +140,7 @@ function success(result  , emailMessage, emailButton, certificationInputBox){
                 certificationInputBox.classList.add('display-none');
                 inputBoxs.emailInputBox.querySelector('.input-box-input').readOnly = false;
                 inputBoxs.emailInputBox.querySelector('.input-box-button').innerText = "이메일 인증"
+                isCertification = false;
             }
         }, 1000); // 1초마다 실행
         countDiv.innerHTML = '남은 시간: ' + countdown + '초';
@@ -152,6 +149,7 @@ function success(result  , emailMessage, emailButton, certificationInputBox){
 
     }else{//이메일 전송 실패
         isSendMail=false;
+        isCertification = false;
         emailButton.innerText = "이메일 인증"
         emailButton.classList.remove('disabled');
         emailMessage.classList.add('error');
@@ -170,6 +168,7 @@ const onCertificationButtonClickHandler = (event)=> {
     const authNumber = inputBoxs.certificationInputBox.querySelector('.input-box-input').value.trim();
     if(authNumber === '')return;
     CertificationCheck(authNumber);
+
 }
 function CertificationCheck(authNum){
     const email = inputBoxs.emailInputBox.querySelector('.input-box-input').value;
@@ -201,6 +200,7 @@ function CertificationCheck(authNum){
         }else{
             //인증실패
             setErrorMessage(inputBoxs.certificationInputBox.querySelector('.input-box-message'),'인증 번호가 맞지 않습니다.');
+            isCertification=false;
         }
     })
 }
@@ -221,9 +221,9 @@ const onNameChangeHandler = (event) =>{
 /****************닉네임*******************/
 const onNickNameChangeHandler= (event)=>{
     buttonClassChange(event);
-    isNickname=false;
     deleteLine(form,'.nickname');
     deleteErrorMessage(inputBoxs.nickNameInputBox.querySelector('.input-box-message'));
+    isNickname=false;
 }
 const onNickNameButtonClickHandler = (event) => {
     const nickname = inputBoxs.nickNameInputBox.querySelector('.input-box-input').value;
@@ -261,7 +261,6 @@ function pwCheck(password,message){
         deleteErrorMessage(message);
     }
     if(password.indexOf(" ") !== -1){
-        console.log(password);
         setErrorMessage(message,'공백문자는 사용할 수 없습니다.');
         return false;
     }
@@ -273,16 +272,16 @@ const onPwChangeHandler = (event) =>{
     const message = inputBoxs.pw2InputBox.querySelector('.input-box-message');
     const pw1 = inputBoxs.pw1InputBox.querySelector('.input-box-input').value;
     const pw2 = inputBoxs.pw2InputBox.querySelector('.input-box-input').value;
+    isPwCheck = false;
     if(!pwCheck(pw2,message)){
         return;
     }
     if(pw1 !== pw2){
         setErrorMessage(message,'비밀번호가 일치하지 않습니다.')
-        isPwCheck = false;
         return;
     }
     if(pw2.indexOf(" ") !== -1){
-        setErrorMessage(message,"공백문자 사용불가")
+        setErrorMessage(message,"공백문자 사용불가");
         return;
     }
     deleteErrorMessage(message);
@@ -306,6 +305,10 @@ const onPhoneChangeHandler = (event) => {
     deleteLine(form,'.phone');
     deleteErrorMessage(messageBox);
     isPhone =true;
+}
+const onPhoneKeyup = (event)=>{
+    const val = event.target.value.trim();
+    event.target.value = autoHyphen(val);
 }
 
 function autoHyphen(str) {
@@ -339,9 +342,10 @@ function autoHyphen(str) {
 /****************나이*******************/
 
 const onAgeChangeHandler = (event) => {
-    const value = event.target.value.trim();
+    const value = event.target.value;
     const messageBox = inputBoxs.ageInputBox.querySelector('.input-box-message')
-    if(value ===''){
+    isAge = false;
+    if(value.trim() ===''){
         setErrorMessage(messageBox,"나이를 입력해주세요.");
         isAge=false;
         return;
@@ -355,48 +359,66 @@ const onAgeChangeHandler = (event) => {
     isAge =true;
 
 }
+const onAgeKeyup = (event)=>{
+    let value = event.target.value.trim();
+    value = value.replace(/[^0-9]/g, '');
+    event.target.value = value;
+}
 
 /******************서밋********************/
 function submit(){
+    if(isSignup)return;
     const signupForm = document.querySelector(".signupForm");
+
     //이메일인증
-    if(!isCertification) {
-        redLine(signupForm, '.email');
-        setErrorMessage(inputBoxs.emailInputBox.querySelector('.input-box-message'),"이메일 인증을 해주세요");
-        return;
-    }
-    //이름
-    if(!isName){
-        redLine(signupForm,'.name');
-        setErrorMessage(inputBoxs.nameInputBox.querySelector('.input-box-message'),"이름을 입력해주세요");
-        return;
-    }
-    //비밀번호체크
-    if(!isPwCheck){
-        redLine(signupForm, '.pw2');
-        redLine(signupForm, '.pw1');
-        setErrorMessage(inputBoxs.pw2InputBox.querySelector('.input-box-message'),"비밀번호를 확인해 주세요");
-        return;
-    }
-    //닉네임중복
-    if(!isNickname){
-        redLine(signupForm, '.nickname');
-        setErrorMessage(inputBoxs.nickNameInputBox.querySelector('.input-box-message'),"중복체크를 해주세요");
-        return;
-    }
-    //연락처
-    if(!isPhone){
-        redLine(signupForm,'.phone');
-        setErrorMessage(inputBoxs.phoneInputBox.querySelector('.input-box-message'),"형식에 맞게 입력 해주세요");
-        return;
-    }
-    //나이
-    if(!isAge){
-        redLine(signupForm,'.age');
-        setErrorMessage(inputBoxs.ageInputBox.querySelector('.input-box-message'),"나이를 제대로 입력 해주세요");
-        return;
-    }
-    signupForm.submit();
+    // if(!isCertification) {
+    //     redLine(signupForm, '.email');
+    //     setErrorMessage(inputBoxs.emailInputBox.querySelector('.input-box-message'),"이메일 인증을 해주세요");
+    //     return;
+    // }
+    // //이름
+    // if(!isName){
+    //     redLine(signupForm,'.name');
+    //     setErrorMessage(inputBoxs.nameInputBox.querySelector('.input-box-message'),"이름을 입력해주세요");
+    //     return;
+    // }
+    // //비밀번호체크
+    // if(!isPwCheck){
+    //     redLine(signupForm, '.pw2');
+    //     redLine(signupForm, '.pw1');
+    //     setErrorMessage(inputBoxs.pw2InputBox.querySelector('.input-box-message'),"비밀번호를 확인해 주세요");
+    //     return;
+    // }
+    // //닉네임중복
+    // if(!isNickname){
+    //     redLine(signupForm, '.nickname');
+    //     setErrorMessage(inputBoxs.nickNameInputBox.querySelector('.input-box-message'),"중복체크를 해주세요");
+    //     return;
+    // }
+    // //연락처
+    // if(!isPhone){
+    //     redLine(signupForm,'.phone');
+    //     setErrorMessage(inputBoxs.phoneInputBox.querySelector('.input-box-message'),"형식에 맞게 입력 해주세요");
+    //     return;
+    // }
+    // //나이
+    // if(!isAge){
+    //     redLine(signupForm,'.age');
+    //     setErrorMessage(inputBoxs.ageInputBox.querySelector('.input-box-message'),"나이를 제대로 입력 해주세요");
+    //     return;
+    // }
+    isSignup = true;
+
+    fetch('/user/signup',{
+        method : 'POST',
+        headers : {
+            'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(signupForm),
+    })
+        .then(response => ()=>{
+            console.log(response);
+        });
 }
 
 //사용가능메세지(블루메세지)
@@ -539,7 +561,7 @@ function createInputBox(title, placeholder, type, value, className, inputName, i
     inputBoxInput.placeholder = placeholder;
     inputBoxInput.onchange = onChange;
     inputBoxInput.onkeydown = onKeyDown;
-    inputBoxInput.onKeyUp = onKeyUp;
+    inputBoxInput.addEventListener('keyup',onKeyUp);
     inputBoxBody.append(inputBoxInput);
 
     if(buttonTitle !== undefined && onButtonClick !== undefined) {

@@ -17,7 +17,7 @@ public class MainController {
 
 
 
-    @GetMapping("/ttt") // q & a
+    @GetMapping("/qna") // q & a
     public String test(){ return "qna"; }
 
 
