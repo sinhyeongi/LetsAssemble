@@ -37,8 +37,11 @@ public class UserController {
     @GetMapping("/loginForm") // 로그인 폼 이동
     public String Loginform(){
         return "loginForm";
-    
-
     }
     
+    @GetMapping("/ilmo_login")
+    public String ilmo_login(){
+        return "ilmo_loginForm";
+    }
+
 }
