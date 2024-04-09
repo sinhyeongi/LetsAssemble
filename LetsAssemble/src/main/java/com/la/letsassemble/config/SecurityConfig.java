@@ -57,7 +57,7 @@ public class SecurityConfig {
                            .loginProcessingUrl("/user/login")
                            .usernameParameter("username")
                            .passwordParameter("password")
-                           .failureHandler( customAuthFailurHandler())
+                           .failureHandler(customAuthFailurHandler())
                            .successHandler(
                                    new AuthenticationSuccessHandler() {
                                        @Override

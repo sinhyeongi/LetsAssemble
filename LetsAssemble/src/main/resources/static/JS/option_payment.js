@@ -181,8 +181,8 @@ function InsertData(imp_uid,isOnline,partyId){
          if(data === 'Not match price'){
             msg = '결제 필요 금액과 결제 금액이 일치하지 않습니다.\n결제를 취소합니다.'
          }
-         location.href="/";
          alert(msg)
+         location.href="/";
       },
       error : function(err){
          alert('에러 발생 : '+err);

@@ -3,6 +3,7 @@ package com.la.letsassemble.Controller;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Service.UsersService;
 
+import com.la.letsassemble.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,14 +19,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
     private final UsersService usersService;
-    @GetMapping("")
+    @GetMapping("/signupFrom")
     public String signupForm(){
         return "signup";
     }
-    @PostMapping("")
-    public String signup(@ModelAttribute UserForm form){
+    @PostMapping("/signup")
+    @ResponseBody public String signup(@RequestBody UserForm form){
         System.out.println(form.toString());
-        usersService.signup(form);
+        //usersService.signup(form);
         return "redirect:/";
     }
     @GetMapping("/validate")
@@ -40,18 +41,10 @@ public class UserController {
     }
     @GetMapping("/loginForm") // 로그인 폼 이동
     public String Loginform(){
-        return "loginForm";
+        return "ilmo_loginForm";
     }
-<<<<<<< HEAD
-
-    @PostMapping("/login")
-    public void Login(){}
-=======
-
     @PostMapping("/login")
     public void Login(){
 
     }
-
->>>>>>> main
 }

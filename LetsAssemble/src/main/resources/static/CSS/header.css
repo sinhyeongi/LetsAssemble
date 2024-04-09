@@ -2,7 +2,6 @@ body{
     box-sizing: border-box;
     margin-top: 80px;
 }
-
 .topNav{
     position: fixed;
     top: 0px;
