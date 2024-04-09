@@ -153,3 +153,8 @@
 .redLine{
     border: solid 1px crimson;
 }
+.radio-box-content{
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+}

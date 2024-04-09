@@ -74,6 +74,12 @@ public class Users {
         users.email = form.getEmail();
         users.nickname = form.getNickname();
         users.password = encoder.encode(form.getPassword());
+        users.name = form.getName();
+        users.phone = form.getPhone();
+        users.gender = form.getGender();
+        users.age = form.getAge();
+        users.provider = form.getProvider();
+        users.providerId = form.getProviderId();
         return users;
     }
 }

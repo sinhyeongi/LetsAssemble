@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -30,7 +31,7 @@ public class SecurityConfig {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer(){
         return (web -> {
-            web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error"});
+            web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error","/js/**"});
         });
 
     }
@@ -41,13 +42,14 @@ public class SecurityConfig {
     }
     @Bean
     SecurityFilterChain filterChain(HttpSecurity security) throws Exception{
+
         security.csrf(AbstractHttpConfigurer :: disable);
         security.authorizeHttpRequests(auth ->{
                 auth
-                        .requestMatchers("/oauth2/login").authenticated()
-                        .requestMatchers("/error/**").denyAll()
-                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/error/**").denyAll() // 전체 접근 허용
+                        .requestMatchers("/oauth2/login").authenticated() // 인증된 사용자만 접근 허용
+                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN") // 매니저,어드민 역할만 허용
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 어드민만 허용
                         .anyRequest().permitAll();
         }).formLogin(
                 form ->{

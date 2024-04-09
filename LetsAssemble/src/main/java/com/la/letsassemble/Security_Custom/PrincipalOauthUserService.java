@@ -39,7 +39,6 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         else if(userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
             oAuth2UserInfo = new KakaoUserInfo((Map)oAuth2User.getAttributes().get("kakao_account"),
                     String.valueOf(oAuth2User.getAttributes().get("id")));
-
         }
         else{
             throw new OAuth2AuthenticationException("지원하지 않는 유저");

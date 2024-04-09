@@ -161,7 +161,7 @@ input{
 .ask-section{
     padding: 80px 20px 90px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     max-width: 783px;
     width: 100%;
 
@@ -187,7 +187,9 @@ input{
     color: rgb(50, 50, 50);
 }
 .askImage{
-    max-width: 140px;
+    border-radius : 5px;
+    margin-left: 100px;
+    max-width: 200px;
     width: 100%;
     max-height: 140px;
 }

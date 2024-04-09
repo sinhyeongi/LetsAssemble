@@ -7,9 +7,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
 
-import java.io.FileInputStream;
+import java.io.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 @Component
@@ -21,7 +20,7 @@ public class MessegeFilter {
         ReadXls();
     }
     private void ReadXls(){
-        try(FileInputStream fis = new FileInputStream("LetsAssemble_Filter.xlsx");
+        try(FileInputStream fis = new FileInputStream("classpath:LetsAssemble_Filter.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fis)){
             XSSFSheet sheet = workbook.getSheetAt(0);
             for(int i = 0 ; i <= sheet.getLastRowNum(); i++){
