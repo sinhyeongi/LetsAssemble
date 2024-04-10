@@ -8,6 +8,8 @@ import com.la.letsassemble.config.InicisConfig;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,14 +20,15 @@ import java.util.Map;
 
 @SpringBootApplication
 public class LetsAssembleApplication {
-
+    @PersistenceContext
+    private EntityManager em;
     @Bean
     BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
     @Bean
-    JPAQueryFactory jpaQueryFactory(EntityManager manager){
-        return new JPAQueryFactory(manager);
+    JPAQueryFactory jpaQueryFactory(){
+        return new JPAQueryFactory(em);
     }
     @Bean
     InicisUtil inicisUtil(InicisConfig config) {

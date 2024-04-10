@@ -36,6 +36,7 @@ public class OptionCotroller {
     private final Buy_OptionService service;
     private final PartyService partyService;
     private final UsersRepository usersRepository;
+
     //옵션 선택 및 결제 페이지 이동
     @GetMapping(value = {"/{partyId}","/"})
     public String optionPage(Model model, @Nullable @PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userdetail){
@@ -54,6 +55,7 @@ public class OptionCotroller {
 
 
         String imp = "imp62080161";
+        model.addAttribute("disabledDates",service.getDisabledDates(p.isOnline()));
         model.addAttribute("imp_data",imp);
         model.addAttribute("party",p);
         model.addAttribute("user",u);

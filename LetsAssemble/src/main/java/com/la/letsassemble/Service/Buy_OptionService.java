@@ -28,54 +28,81 @@ public class Buy_OptionService {
     private final PartyRepository partyRepository;
     private final PriceUtil priceUtil;
     private final InicisUtil inicisUtil;
+
     @Transactional
     public String add(List<Map<String,Object>> reqdata, HttpServletResponse response){
         String msg = CheckJsonData(reqdata);
-        if(!msg.equals("ok")){
-            return msg;
+        if(reqdata.get(0).get("imp_uid") == null){
+            return "Empty uid";
         }
         String uid = reqdata.get(0).get("imp_uid").toString();
         int oprice = getTotalPrice(reqdata);
+
+        if(!msg.equals("ok")){
+            inicisUtil.Cancel(uid,inicisUtil.RefundableAmount(uid));
+            return msg;
+        }
         if(Integer.parseInt(inicisUtil.getPrice(uid)) != oprice){
             inicisUtil.Cancel(uid,inicisUtil.RefundableAmount(uid));
             return "Not match price";
         }
         int uprice = 0;
+        msg = "";
+        List<Map<String, Object>> result = new ArrayList<>();
+        try {
+            for (Map<String, Object> n : reqdata) {
+                if (priceUtil.getPrice(n.get("price").toString()) == null) {
+                    msg= "Price Err";
+                    throw new Exception();
+                }
+                int price = Integer.parseInt(n.get("price").toString());
+                Long partyId = Long.parseLong(n.get("partyId").toString());
+                String userEmail = n.get("email").toString();
+                String even_date = n.get("even_day").toString();
+                if (repo.searchEven_day(even_date) >= 4) {
+                    msg= even_date + "is Full";
+                }
+                Optional<Party> party = partyRepository.findById(partyId);
+                Optional<Users> user = usersRepository.findByEmail(userEmail);
+                if (party.isEmpty()) {
+                    msg =  "'partyId' value does not exist";
+                    throw new Exception();
+                } else if (user.isEmpty()) {
+                    msg= "'email' value does not exist";
+                    throw new Exception();
+                }
 
-        List<Map<String,Object>> result = new ArrayList<>();
-        for(Map<String,Object>n : reqdata) {
-            uprice += Integer.parseInt(n.get("price").toString());
-            Long partyId = Long.parseLong(n.get("partyId").toString());
-            String userEmail = n.get("email").toString();
-            Optional<Party> party = partyRepository.findById(partyId);
-            Optional<Users> user = usersRepository.findByEmail(userEmail);
-            if (party.isEmpty()) {
-                return "'partyId' value does not exist";
-            } else if (user.isEmpty()) {
-                return "'email' value does not exist";
+                uprice += price;
+                Buy_Option option = new Buy_Option().builder()
+                        .party(party.get())
+                        .even_day(even_date)
+                        .price(Integer.parseInt(n.get("price").toString()))
+                        .name(n.get("name").toString())
+                        .user(user.get())
+                        .imp_uid(n.get("imp_uid").toString())
+                        .isOnline(party.get().isOnline())
+                        .build();
+                option = repo.saveAndFlush(option);
+                if (option == null) {
+                    msg =  "Err";
+                    throw new Exception();
+                }
+                result.add(n);
             }
-            Buy_Option option = new Buy_Option().builder()
-                    .party(party.get())
-                    .even_day(n.get("even_day").toString())
-                    .price(Integer.parseInt(n.get("price").toString()))
-                    .name(n.get("name").toString())
-                    .user(user.get())
-                    .imp_uid(n.get("imp_uid").toString())
-                    .isOnline(false)
-                    .build();
-            option = repo.saveAndFlush(option);
-            if (option == null) {
-                return "Err";
+            if (oprice != uprice) {
+                msg = "Err price";
+                throw new Exception();
             }
-            result.add(n);
-        }
-        if(oprice != uprice){
-            return "Err price";
+        }catch(Exception e){
+            inicisUtil.Cancel(uid,inicisUtil.RefundableAmount(uid));
+            return msg;
         }
         response.setStatus(HttpServletResponse.SC_OK);
         return result.toString();
     }
-
+    public List<String> getDisabledDates(Boolean isOnline){
+        return repo.searchFullDate(isOnline);
+    }
     private String CheckJsonData(List<Map<String,Object>> reqdata){
         String Numreg ="^[0-9]*$";
         String Emailreg = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
@@ -117,6 +144,7 @@ public class Buy_OptionService {
     private int getTotalPrice(List<Map<String,Object>>list){
         int price = 0;
         for(Map<String,Object>n : list){
+
             Integer i =priceUtil.getPrice(n.get("name").toString());
             if( i != null) {
                 price += i;
