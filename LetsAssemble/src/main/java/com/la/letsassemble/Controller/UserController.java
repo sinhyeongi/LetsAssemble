@@ -34,13 +34,9 @@ public class UserController {
         if(details != null){//소셜로그인이 존재시
             Users u = details.getUser();
             //기존회원이 접근시.
-            if(usersService.findByProviderAndProviderId(u.getProvider(),u.getProviderId()).isPresent()){
+            if(usersService.findByEmail(u.getEmail()).isPresent()){
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            }
-            //소셜회원이면서 회원정보 없을 시
-            //닉네임이 없을 경우로 함 (닉네임 not null)
-            if(u.getNickname() != null){
-                return "redirect:/";
+                return null;
             }
             model.addAttribute("user",u);
         }
@@ -50,13 +46,7 @@ public class UserController {
     public @ResponseBody String signup(@RequestBody UserForm form){
         Users u;
         if((u = usersService.signup(form)) != null){
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(authentication != null && authentication.getPrincipal() instanceof PricipalDetails) {
-                PricipalDetails details = (PricipalDetails) authentication.getPrincipal();
-                details.setUser(u);
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(details,authentication.getCredentials(),details.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            }
+            usersService.UpdatePricipal(u);
             return "ok";
         }else{
             return "fail";
