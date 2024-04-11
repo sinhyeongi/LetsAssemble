@@ -67,6 +67,7 @@ public class SecurityConfig {
                                    }
                            );
                }
+               
         ).oauth2Login(
                 oauth2 -> oauth2
                         .loginPage("/user/loginForm")
@@ -76,7 +77,7 @@ public class SecurityConfig {
                         .successHandler(new AuthenticationSuccessHandler() {
                             @Override
                             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                response.sendRedirect("/user");
+                                response.sendRedirect("/user/auth2/check");
                             }
                         })
 
