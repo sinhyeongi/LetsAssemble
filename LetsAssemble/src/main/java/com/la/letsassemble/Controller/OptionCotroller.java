@@ -52,7 +52,9 @@ public class OptionCotroller {
             return "redirect:/";
         }
         Party p = party.get();
-
+        if(u.getPhone() == null){
+            return "redirect:/user";
+        }
         if(!p.getUser().getEmail().equals(u.getEmail())){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
