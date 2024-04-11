@@ -7,6 +7,7 @@ import com.la.letsassemble.Service.UsersService;
 import com.la.letsassemble.dto.EmailRequestDto;
 import com.la.letsassemble.dto.UserForm;
 import jakarta.annotation.Nullable;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -21,12 +23,18 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
     private final UsersService usersService;
-
+//403에러 response.sendError(HttpServletResponse.SC_FORBIDDEN);
     @GetMapping("")
-    public String signupForm(@Nullable @AuthenticationPrincipal PricipalDetails details, Model model){
-        if(details != null){
+    public String signupForm(@Nullable @AuthenticationPrincipal PricipalDetails details, Model model,HttpServletResponse response) throws IOException {
+        if(details != null){//소셜로그인이 존재시
             Users u = details.getUser();
-            if(u.getNickname()!= null){
+            //기존회원이 접근시.
+            if(usersService.findByProviderAndProviderId(u.getProvider(),u.getProviderId()).isPresent()){
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            }
+            //소셜회원이면서 회원정보 없을 시
+            //닉네임이 없을 경우로 함 (닉네임 not null)
+            if(u.getNickname() != null){
                 return "redirect:/";
             }
             model.addAttribute("user",u);
@@ -60,6 +68,7 @@ public class UserController {
     public String ilmo_login(){
         return "ilmo_loginForm";
     }
+
     @GetMapping("/auth2/check")
     public String Auth2Login(@AuthenticationPrincipal PricipalDetails details){
         Users u =details.getUser();

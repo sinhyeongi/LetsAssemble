@@ -20,9 +20,12 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final BCryptPasswordEncoder encoder;
 
-    public Optional<Users>findByEmail (String email){
-
+    public Optional<Users> findByEmail (String email){
         return usersRepository.findByEmail(email);
+    }
+
+    public Optional<Users> findByProviderAndProviderId(String provider, String providerId){
+        return usersRepository.findByProviderAndProviderId(provider,providerId);
     }
 
     public Optional<Users>findByNickName(String nickname){
