@@ -60,7 +60,6 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
                     .email(email)
                     .build();
             user.setProvider(provider);
-            user.setProviderId(providerId);
         } else {
             user = userOptional.get();
         }

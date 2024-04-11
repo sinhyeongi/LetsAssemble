@@ -11,9 +11,12 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 
 @Entity
@@ -73,6 +76,10 @@ public class Users {
         Users users = new Users();
         users.email = form.getEmail();
         users.nickname = form.getNickname();
+        if(form.getProvider() != null){
+            form.setPassword(generateRandomString(new Random().nextInt(9)+1));
+            System.out.println("생성 비밀번호  = " + form.getPassword());
+        }
         users.password = encoder.encode(form.getPassword());
         users.name = form.getName();
         users.phone = form.getPhone();
@@ -81,5 +88,16 @@ public class Users {
         users.provider = form.getProvider();
         users.providerId = form.getProviderId();
         return users;
+    }
+    public static String generateRandomString(int length) {
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            sb.append(CHARACTERS.charAt(randomIndex));
+        }
+        return sb.toString();
     }
 }
