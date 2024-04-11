@@ -11,6 +11,7 @@ import com.la.letsassemble.Service.PartyService;
 
 
 import jakarta.annotation.Nullable;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,7 +41,8 @@ public class OptionCotroller {
 
     //옵션 선택 및 결제 페이지 이동
     @GetMapping(value = {"/{partyId}","/"})
-    public String optionPage(Model model, @Nullable @PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userdetail){
+    public String optionPage(Model model, @Nullable @PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userdetail,
+                             HttpServletResponse response) throws IOException {
         if(partyId == null || userdetail == null){
             return "redirect:/";
         }
@@ -50,7 +53,7 @@ public class OptionCotroller {
         }
         Party p = party.get();
         if(!p.getUser().getEmail().equals(u.getEmail())){
-            return "redirect:/";
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
 
@@ -60,6 +63,10 @@ public class OptionCotroller {
         model.addAttribute("party",p);
         model.addAttribute("user",u);
         return "option_payment";
+    }
+    @GetMapping(value = "/add")
+    public void GetRequestAdd(HttpServletResponse response)throws IOException{
+        response.sendError(HttpServletResponse.SC_FORBIDDEN);
     }
     //결제 추가
     @PostMapping(value = "/add")
