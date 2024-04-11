@@ -26,7 +26,7 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
                 .from(buy_Option)
                 .where(builder)
                 .groupBy(buy_Option.even_day)
-                .having(buy_Option.even_day.count().goe(max_count).and(buy_Option.even_day.goe(LocalDate.now().toString())))
+                .having(buy_Option.even_day.count().goe(max_count).and(buy_Option.even_day.gt(LocalDate.now().toString())))
                 .fetch();
 
     }

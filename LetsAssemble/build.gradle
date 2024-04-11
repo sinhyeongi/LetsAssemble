@@ -65,7 +65,7 @@ dependencies {
 
     // stomp (websocket)
     // https://mvnrepository.com/artifact/org.webjars/stomp-websocket
-    implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
+    //implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
