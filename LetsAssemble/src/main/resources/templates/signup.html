@@ -17,7 +17,9 @@
 <div class="container">
     <div class="inner">
         <!--<div class="logo_ilmo">-->
-        <h1 class="title">회원가입</h1>
+        <h1 th:if="${#authorization.expression('isAuthenticated()')}">추가 정보 입력</h1>
+        <h1 th:if="${#authorization.expression('isAnonymous()')}">회원가입</h1>
+
         <div class="content">
             <form class="signupForm">
                 <!--<input type="hidden" th:value="${#authentication.principal.email()}" readonly>-->

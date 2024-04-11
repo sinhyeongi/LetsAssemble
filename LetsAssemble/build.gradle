@@ -67,6 +67,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.webjars/stomp-websocket
     implementation group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    //sockjs
+    implementation 'org.webjars:sockjs-client:1.5.1'
+    //stomp
+    //implementation 'org.webjars:stomp-websocket:2.3.4'
+    //gson
+    implementation 'com.google.code.gson:gson:2.9.0'
 }
 
 tasks.named('test') {

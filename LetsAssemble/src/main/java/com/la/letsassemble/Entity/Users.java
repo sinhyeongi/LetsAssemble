@@ -25,6 +25,7 @@ import java.util.UUID;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
     @Column(unique = true,nullable = false)
     private String email; // 이메일 유저 아이디 값
@@ -89,6 +90,7 @@ public class Users {
         users.providerId = form.getProviderId();
         return users;
     }
+
     public static String generateRandomString(int length) {
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom random = new SecureRandom();
