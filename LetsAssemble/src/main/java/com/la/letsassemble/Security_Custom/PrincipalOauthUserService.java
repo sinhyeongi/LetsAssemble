@@ -61,7 +61,6 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             user = ouser.orElse(null);
         }
 
-        // 처음 서비스를 이용한 회원일 경우
         if(user != null && user.getEmail() != null && userOptional.isEmpty()){
             user.setProvider(provider);
             user.setProviderId(providerId);
@@ -69,6 +68,7 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         } else if(user == null && userOptional.isPresent()){
             user = userOptional.get();
         }else{
+            // 처음 서비스를 이용한 회원일 경우
             user = Users.builder()
                     .name(name)
                     .password(password)

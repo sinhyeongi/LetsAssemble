@@ -68,6 +68,5 @@ public class UserController {
         }
         System.out.println("details = " + details.getUser());
         return "redirect:/";
-
     }
 }
