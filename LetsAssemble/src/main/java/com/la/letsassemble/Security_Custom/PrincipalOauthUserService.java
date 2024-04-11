@@ -8,6 +8,7 @@ import com.la.letsassemble.Security_Custom.Auth_Info.NaverUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.OAuth2UserInfo;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -75,12 +76,14 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             user = Users.builder()
                     .name(name)
                     .password(password)
-                    .email(email)
                     .build();
+            if(email != null) {
+                user.setEmail(email);
+            }else{
+                user.setEmail(password);
+            }
             user.setProvider(provider);
             user.setProviderId(providerId);
-        } else {
-            user = userOptional.get();
         }
 
 
