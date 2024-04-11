@@ -63,7 +63,8 @@ public class UserController {
 
     @GetMapping("/auth2/check")
     public String Auth2Login(@AuthenticationPrincipal PricipalDetails details){
-        if(details.getUser().getEmail() == null){
+        Users u = details.getUser();
+        if(u.getEmail() == null|| u.getPhone() == null){
             return "redirect:/user";
         }
         return "redirect:/";

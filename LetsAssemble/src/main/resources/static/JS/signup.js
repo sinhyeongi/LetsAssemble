@@ -28,15 +28,14 @@ window.onload = function() {
 
 }
 function init(){
-    createInputBox("이메일","이메일을 입력해주세요","email",user?.email,"email","email",false,user !== null && user['email']!==null?undefined:"이메일 인증",onEmailChangeHandler,undefined,undefined,user !== null && user['email']!==null?undefined:onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
-    if(user === null) {
-        createInputBox("인증번호", "인증번호를 입력해주세요", "text", "", "certify", "certify", false, "번호인증", onCertificationChangeHandler, undefined, undefined, onCertificationButtonClickHandler, "인증번호를 확인해주세요", 'certificationInputBox');
-        inputBoxs.certificationInputBox.classList.add("display-none");
-    }else{
-        isCertification = true;
-    }
+    console.log('email = '+ user['email'])
+    console.log('name = '+ user['name'])
+    console.log('nickname = '+ user['nickname'])
+    console.log('phone = '+ user['phone'])
+    createInputBox("이메일","이메일을 입력해주세요","email",user !== null?cheackEmail():'',"email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
+    createInputBox("인증번호", "인증번호를 입력해주세요", "text", "", "certify", "certify", false, "번호인증", onCertificationChangeHandler, undefined, undefined, onCertificationButtonClickHandler, "인증번호를 확인해주세요", 'certificationInputBox');
     createInputBox("이름","이름을 입력해주세요","text",user?.name,"name","name",false,undefined,onNameChangeHandler,undefined,undefined,undefined,"이름을 입력해주세요",'nameInputBox');
-    createInputBox("닉네임","닉네임을 입력해주세요","text",user?.nickname,"nickname","nickname",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
+    createInputBox("닉네임","닉네임을 입력해주세요","text",user?.nickname || '',"nickname","nickname",false,"중복 확인",onNickNameChangeHandler,undefined,undefined,onNickNameButtonClickHandler,"사용가능한 닉네임 입니다.",'nickNameInputBox');
     if(user === null){
         createInputBox("비밀번호","비밀번호를 입력해주세요","password","","pw1","password",false,undefined,onPwChangeHandler,undefined,undefined,undefined,undefined,'pw1InputBox');
         createInputBox("비밀번호 확인","비밀번호를 입력해주세요","password","","pw2","password2",false,undefined,onPwChangeHandler,undefined,undefined,undefined,"비밀번호가 일치하지 않습니다.",'pw2InputBox');
@@ -46,7 +45,7 @@ function init(){
         isPwCheck = true;
     }
     createInputBox("휴대폰번호","휴대폰번호를 입력해주세요","tel",user?.tel,"phone","phone",false,undefined,onPhoneChangeHandler,undefined,onPhoneKeyup,undefined,"형식에 맞게 입력해주세요",'phoneInputBox');
-    createInputBox("나이","나이를 입력해주세요","number",user?.age,"age","age",false,undefined,onAgeChangeHandler,undefined,onAgeKeyup,undefined,"나이를 입력해주세요",'ageInputBox');
+    createInputBox("나이","나이를 입력해주세요","number",user?.age ||"","age","age",false,undefined,onAgeChangeHandler,undefined,onAgeKeyup,undefined,"나이를 입력해주세요",'ageInputBox');
 
     createRadioButton(
         '성별',
@@ -60,6 +59,8 @@ function init(){
         undefined
     );
     createButton('submit-button','회원가입',submit);
+    inputBoxs.certificationInputBox.classList.add("display-none");
+    if(inputBoxs.nameInputBox.querySelector('.input-box-input').value.trim().length > 1) isName = true;
 }
 /****************이메일*******************/
 //Change Event
@@ -67,6 +68,15 @@ const onEmailChangeHandler = (event)=>{
     buttonClassChange(event);
     isCertification = false;
     deleteLine(form,'.email');
+}
+function cheackEmail(){
+    const email = user['email'];
+    const pattern =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+[.][a-zA-Z]{2,3}$/;
+    if(pattern.test(email)){
+        return email;
+    }
+    return '';
+
 }
 const onEmailButtonClickHandler = async (event) => {
     if (isSendMail) return;
@@ -594,17 +604,13 @@ function createInputBox(title, placeholder, type, value, className, inputName, i
     const inputBoxInput = document.createElement("input");
     inputBoxInput.classList.add("input-box-input");
     inputBoxInput.type = type;
-    inputBoxInput.value = value === undefined?'':value;
+    inputBoxInput.value = value === undefined || value === null || value === 'null' ?'':value;
     inputBoxInput.name = inputName;
     inputBoxInput.placeholder = placeholder;
     inputBoxInput.onchange = onChange;
     inputBoxInput.onkeydown = onKeyDown;
     inputBoxInput.addEventListener('keyup',onKeyUp);
     inputBoxBody.append(inputBoxInput);
-
-    if(querySelector === 'emailInputBox' && inputBoxInput.value !== ''){
-        inputBoxInput.readOnly=true;
-    }
 
     if(buttonTitle !== undefined && onButtonClick !== undefined) {
         const inputBoxButton = document.createElement("div");
