@@ -29,7 +29,7 @@ public class CustomAuthenticationFailure extends SimpleUrlAuthenticationFailureH
             msg = "알수없는 오류로인해 로그인 할 수없는 상태입니다.\n같은 증상이 반복 된다면 관리자에게 문의 해주세요";
         }
         msg = URLEncoder.encode(msg,"UTF-8");
-        this.setDefaultFailureUrl("/user/ilmo_loginForm?error=true&exception="+msg);
+        this.setDefaultFailureUrl("/user/ilmo_login?error=true&exception="+msg);
         super.onAuthenticationFailure(request,response,exception);
 
     }

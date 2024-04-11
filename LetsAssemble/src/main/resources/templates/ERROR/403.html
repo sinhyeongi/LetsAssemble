@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>페이지를 찾을 수 없습니다....</title>
+    <title>잘못된 접근입니다.</title>
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <link th:href="@{/CSS/sb-admin-2.min.css}" rel="stylesheet">
+    <link th:href="@{/CSS/404.css}" rel="stylesheet">
 </head>
 <body>
-
+<div class="text-center">
+    <div class="error mx-auto" data-text="403">403</div>
+    <p class="lead text-gray-800 mb-5">허용되지 않은 접근입니다.</p>
+    <p class="text-gray-500 mb-0">잘못된 접근 입니다.</p>
+    <a href="/">&larr; Main</a>
+</div>
 </body>
 </html>

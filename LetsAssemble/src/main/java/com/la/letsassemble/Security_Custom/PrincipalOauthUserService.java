@@ -67,11 +67,7 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             user.setProviderId(providerId);
             repo.save(user);
         } else if(user == null && userOptional.isPresent()){
-            user = userOptional.orElse(Users.builder()
-                    .name(name)
-                    .password(password)
-                    .email(email)
-                    .build());
+            user = userOptional.get();
         }else{
             user = Users.builder()
                     .name(name)
@@ -80,7 +76,7 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             if(email != null) {
                 user.setEmail(email);
             }else{
-                user.setEmail(password);
+                user.setEmail(provider+"_"+providerId);
             }
             user.setProvider(provider);
             user.setProviderId(providerId);

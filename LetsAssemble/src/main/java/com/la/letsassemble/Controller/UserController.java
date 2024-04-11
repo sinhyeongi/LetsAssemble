@@ -60,5 +60,14 @@ public class UserController {
     public String ilmo_login(){
         return "ilmo_loginForm";
     }
+    @GetMapping("/auth2/check")
+    public String Auth2Login(@AuthenticationPrincipal PricipalDetails details){
+        Users u =details.getUser();
+        if(u.getEmail() == null|| u.getPhone() == null){
+            return "redirect:/user";
+        }
+        System.out.println("details = " + details.getUser());
+        return "redirect:/";
 
+    }
 }
