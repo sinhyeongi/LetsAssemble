@@ -29,11 +29,13 @@ public class UsersService {
         return usersRepository.findByNickname(nickname);
     }
     @Transactional
-    public void signup(UserForm form){
+    public Long signup(UserForm form){
         Users user = Users.createUser(form,encoder);
+        System.out.println("signup user = " + user.toString());
         if(user != null){
-            usersRepository.saveAndFlush(user);
+            return usersRepository.saveAndFlush(user).getId();
         }
+        return null;
     }
 
 

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -32,9 +34,12 @@ public class UserController {
         return "signup";
     }
     @PostMapping("")
-    public String signup(@ModelAttribute UserForm form){
-        usersService.signup(form);
-        return "redirect:/";
+    public @ResponseBody String signup(@RequestBody UserForm form){
+        if(usersService.signup(form) != null){
+            return "ok";
+        }else{
+            return "fail";
+        }
     }
     @GetMapping("/validate")
     public @ResponseBody boolean emailValidate(@RequestParam String email){

@@ -79,7 +79,8 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
                     .build();
             user.setProvider(provider);
             user.setProviderId(providerId);
-            repo.save(user);
+        } else {
+            user = userOptional.get();
         }
 
 

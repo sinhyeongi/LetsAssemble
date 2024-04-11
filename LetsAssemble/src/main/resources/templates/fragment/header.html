@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="common_header(title,links,scripts)">
     <meta charset="UTF-8">
     <title th:replace="${title}">레이아웃 타이틀</title>
@@ -19,11 +20,11 @@
             <div class="nav-item">
                 <div class="nav-list">
                     <a class="nav-data" th:href="@{/party/create}">파티 만들기</a>
-                    <a class="nav-data" th:href="@{/party/find}">파티 찾기</a>
+                    <a class="nav-data" th:href="@{/party/find_party}">파티 찾기</a>
                     <a class="nav-data" th:href="@{/qna}">자주 묻는 질문</a>
-                    <a th:if="${login} == null" class="nav-data" th:href="@{/user/loginForm}">로그인</a>
-                    <a th:if="${login} != null" class="nav-data" th:href="@{/user/mypage}">마이페이지</a>
-                    <a th:if="${login} != null" class="nav-data" th:href="@{/logout}">로그아웃</a>
+                    <a sec:authorize="!isAuthenticated()" class="nav-data" th:href="@{/user/loginForm}">로그인</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/user/mypage}">마이페이지</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/logout}">로그아웃</a>
                 </div>
             </div>
         </div>
