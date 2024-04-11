@@ -23,10 +23,10 @@ public class UserController {
     private final UsersService usersService;
 
     @GetMapping("")
-    public String signupForm(@Nullable @AuthenticationPrincipal PricipalDetails pricipalDetails, Model model){
-        if(pricipalDetails != null){
-            Users u = pricipalDetails.getUser();
-            if(u.getNickname() != null){
+    public String signupForm(@Nullable @AuthenticationPrincipal PricipalDetails details, Model model){
+        if(details != null){
+            Users u = details.getUser();
+            if(u.getNickname()!= null){
                 return "redirect:/";
             }
             model.addAttribute("user",u);

@@ -8,23 +8,27 @@ import com.la.letsassemble.Security_Custom.Auth_Info.NaverUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.OAuth2UserInfo;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PrincipalOauthUserService extends DefaultOAuth2UserService {
 
     private final UsersRepository repo;
 
     private final BCryptPasswordEncoder encoder;
+    @Transactional
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
@@ -45,24 +49,41 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         }
         Optional<Users> userOptional =
                 repo.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
-        Users user;
+        Users user = null;
 
         String provider = oAuth2UserInfo.getProvider(); // google , kakao, naver 등
         String providerId = oAuth2UserInfo.getProviderId();
         String name = oAuth2UserInfo.getName();
         String password = encoder.encode("rfdgsvcgfdfb");
         String email = oAuth2UserInfo.getEmail();
+        if(email != null){
+            Optional<Users> ouser =repo.findByEmail(email);
+            user = ouser.orElse(null);
+        }
+
         // 처음 서비스를 이용한 회원일 경우
-        if(!userOptional.isPresent()){
-            user = Users.builder()
+        if(user != null && user.getEmail() != null && userOptional.isEmpty()){
+            user.setProvider(provider);
+            user.setProviderId(providerId);
+            repo.save(user);
+        } else if(user == null && userOptional.isPresent()){
+            user = userOptional.orElse(Users.builder()
                     .name(name)
                     .password(password)
                     .email(email)
+                    .build());
+        }else{
+            user = Users.builder()
+                    .name(name)
+                    .password(password)
                     .build();
+            if(email != null) {
+                user.setEmail(email);
+            }else{
+                user.setEmail(password);
+            }
             user.setProvider(provider);
             user.setProviderId(providerId);
-        } else {
-            user = userOptional.get();
         }
 
 

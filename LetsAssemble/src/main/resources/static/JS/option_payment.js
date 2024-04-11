@@ -66,7 +66,7 @@ function createoption_view(_name,view_name,_date,_price){
       disabledDates = disabledDates.filter((value,)=>{
          return value !== removedate;
       });
-      console.log(disabledDates)
+
       flatinstance.set('disable',disabledDates);
    })
    ChangePrice(_price)
@@ -178,8 +178,8 @@ function InsertData(imp_uid,isOnline,partyId){
       async:false,
       success: function(data,status,xhr){
          let msg = '이벤트 신청이 완료 되었습니다.';
-         if(data === 'Not match price'){
-            msg = '결제 필요 금액과 결제 금액이 일치하지 않습니다.\n결제를 취소합니다.'
+         if(data !== 'ok'){
+            msg = ErrMsg(data);
          }
          alert(msg)
          location.href="/";
@@ -192,6 +192,19 @@ function InsertData(imp_uid,isOnline,partyId){
 function Today(){
    const today = new Date();
    return today.getFullYear()+'-'+("0"+(today.getMonth()+1)).slice(-2)+ '-'+("0"+today.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
+}
+function ErrMsg(msg){
+   if(msg === 'Not match price'|| msg === "Err price"){
+      return '결제 필요 금액과 결제 금액이 일치하지 않습니다.\n결제를 취소합니다.'
+   }else if(msg.indexOf("is Full") !== -1){
+      return "날짜 : "+msg.substring(0,msg.indexOf("is Full"))+"에 대한 이벤트 등록이 마감 되어 결제가 취소되었습니다.";
+   }else if(msg === "'partyId' value does not exist"){
+      return "파티 정보 불러오는중 오류가 발생하였습니다.";
+   }else if(msg === "'email' value does not exist"){
+      return "유저 정보를 불러오는 중 오류가 발생했습니다.";
+   }else if(msg === "Err" || msg === "Price Err"){
+      return "서버 문제로 인해 결제가 취소 되었습니다.\n관리자에게 문의해주세요.";
+   }
 }
 createoption_view("파티글 상단에 고정하기","선택날짜",'2024-04-04',1000);
 createoption_view("파티글 상단에 고정하기","선택날짜",'2024-04-04',1000);

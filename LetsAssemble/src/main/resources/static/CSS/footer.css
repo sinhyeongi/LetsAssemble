@@ -15,6 +15,7 @@ footer {
     align-items: center;
     padding: 60px 0px 0px 20px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .footer_main {

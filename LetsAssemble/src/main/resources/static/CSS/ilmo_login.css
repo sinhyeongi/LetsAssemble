@@ -70,6 +70,8 @@
 }
 
 .input-box-button{
+    border : none;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
