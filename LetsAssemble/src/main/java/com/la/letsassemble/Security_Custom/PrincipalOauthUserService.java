@@ -2,6 +2,7 @@ package com.la.letsassemble.Security_Custom;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Role.UsersRole;
 import com.la.letsassemble.Security_Custom.Auth_Info.GoogleUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.KakaoUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.NaverUserInfo;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -47,28 +49,25 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
         else{
             throw new OAuth2AuthenticationException("지원하지 않는 유저");
         }
-        Optional<Users> userOptional =
-                repo.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
-        Users user = null;
-
+        String email = oAuth2UserInfo.getEmail();
         String provider = oAuth2UserInfo.getProvider(); // google , kakao, naver 등
         String providerId = oAuth2UserInfo.getProviderId();
         String name = oAuth2UserInfo.getName();
         String password = encoder.encode("rfdgsvcgfdfb");
-        String email = oAuth2UserInfo.getEmail();
+
+        Users user = null;
         if(email != null){
-            Optional<Users> ouser =repo.findByEmail(email);
-            user = ouser.orElse(null);
+            user = repo.findByEmail(email).orElse(null);
+        }
+        if(user == null){
+            user = repo.findByProviderAndProviderId(provider,providerId).orElse(null);
         }
 
-        if(user != null && user.getEmail() != null && userOptional.isEmpty()){
+        if(user != null && user.getPhone() != null&& user.getProvider() == null){
             user.setProvider(provider);
             user.setProviderId(providerId);
             repo.save(user);
-        } else if(user == null && userOptional.isPresent()){
-            user = userOptional.get();
-        }else{
-            // 처음 서비스를 이용한 회원일 경우
+        } else if(user == null){
             user = Users.builder()
                     .name(name)
                     .password(password)
@@ -81,8 +80,9 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             user.setProvider(provider);
             user.setProviderId(providerId);
         }
-
-
-        return new PricipalDetails(user , oAuth2User.getAttributes());
+        if(user.getRole() == null){
+            user.setRole(UsersRole.ROLE_USER);
+        }
+        return new PricipalDetails(user);
     }
 }

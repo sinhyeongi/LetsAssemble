@@ -77,7 +77,7 @@ public class SecurityConfig {
                         .successHandler(new AuthenticationSuccessHandler() {
                             @Override
                             public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                response.sendRedirect("/user/auth2/check");
+                                response.sendRedirect("/");
                             }
                         })
 

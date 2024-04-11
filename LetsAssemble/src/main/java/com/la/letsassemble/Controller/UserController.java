@@ -10,7 +10,12 @@ import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +48,15 @@ public class UserController {
     }
     @PostMapping("")
     public @ResponseBody String signup(@RequestBody UserForm form){
-        if(usersService.signup(form) != null){
+        Users u;
+        if((u = usersService.signup(form)) != null){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if(authentication != null && authentication.getPrincipal() instanceof PricipalDetails) {
+                PricipalDetails details = (PricipalDetails) authentication.getPrincipal();
+                details.setUser(u);
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(details,authentication.getCredentials(),details.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
             return "ok";
         }else{
             return "fail";
@@ -69,13 +82,4 @@ public class UserController {
         return "ilmo_loginForm";
     }
 
-    @GetMapping("/auth2/check")
-    public String Auth2Login(@AuthenticationPrincipal PricipalDetails details){
-        Users u =details.getUser();
-        if(u.getEmail() == null|| u.getPhone() == null){
-            return "redirect:/user";
-        }
-        System.out.println("details = " + details.getUser());
-        return "redirect:/";
-    }
 }
