@@ -40,6 +40,7 @@ main{
 }
 .logo-h1{
     /*color: rgba(18, 115, 228 ,1);*/
+    margin-left: 50px;
     font-weight: 900;
 }
 .nav-list{
