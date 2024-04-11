@@ -178,7 +178,9 @@ function InsertData(imp_uid,isOnline,partyId){
       async:false,
       success: function(data,status,xhr){
          let msg = '이벤트 신청이 완료 되었습니다.';
-         msg = ErrMsg(data);
+         if(data !== 'ok'){
+            msg = ErrMsg(data);
+         }
          alert(msg)
          location.href="/";
       },
@@ -200,7 +202,7 @@ function ErrMsg(msg){
       return "파티 정보 불러오는중 오류가 발생하였습니다.";
    }else if(msg === "'email' value does not exist"){
       return "유저 정보를 불러오는 중 오류가 발생했습니다.";
-   }else if(msg === "Err"){
+   }else if(msg === "Err" || msg === "Price Err"){
       return "서버 문제로 인해 결제가 취소 되었습니다.\n관리자에게 문의해주세요.";
    }
 }

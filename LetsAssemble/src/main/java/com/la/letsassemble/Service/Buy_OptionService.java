@@ -51,7 +51,7 @@ public class Buy_OptionService {
         List<Map<String, Object>> result = new ArrayList<>();
         try {
             for (Map<String, Object> n : reqdata) {
-                if (priceUtil.getPrice(n.get("price").toString()) == null) {
+                if (priceUtil.getPrice(n.get("name").toString()) == null) {
                     msg= "Price Err";
                     throw new Exception();
                 }
@@ -61,6 +61,7 @@ public class Buy_OptionService {
                 String even_date = n.get("even_day").toString();
                 if (repo.searchEven_day(even_date) >= 4) {
                     msg= even_date + "is Full";
+                    throw new Exception();
                 }
                 Optional<Party> party = partyRepository.findById(partyId);
                 Optional<Users> user = usersRepository.findByEmail(userEmail);
@@ -98,7 +99,7 @@ public class Buy_OptionService {
             return msg;
         }
         response.setStatus(HttpServletResponse.SC_OK);
-        return result.toString();
+        return "ok";
     }
     public List<String> getDisabledDates(Boolean isOnline){
         return repo.searchFullDate(isOnline);
