@@ -2,6 +2,7 @@ package com.la.letsassemble.Security_Custom;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Role.UsersRole;
 import com.la.letsassemble.Security_Custom.Auth_Info.GoogleUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.KakaoUserInfo;
 import com.la.letsassemble.Security_Custom.Auth_Info.NaverUserInfo;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,8 +83,7 @@ public class PrincipalOauthUserService extends DefaultOAuth2UserService {
             user.setProvider(provider);
             user.setProviderId(providerId);
         }
-
-
-        return new PricipalDetails(user , oAuth2User.getAttributes());
+        user.setRole(UsersRole.ROLE_USER);
+        return new PricipalDetails(user);
     }
 }

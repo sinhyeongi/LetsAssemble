@@ -52,6 +52,7 @@ public class OptionCotroller {
             return "redirect:/";
         }
         Party p = party.get();
+
         if(!p.getUser().getEmail().equals(u.getEmail())){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
