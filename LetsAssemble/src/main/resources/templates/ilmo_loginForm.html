@@ -14,12 +14,12 @@
         <!--<div class="logo_ilmo">-->
         <h1 class="title_ilmo">ILDANASSEMBLE</h1>
         <div class="content">
-            <form class="loginForm" action="/user/login" method="POST">
+            <form class="loginForm" action="/user/login" method="POST" onsubmit="return validateForm()">
                 <div class="input-box">
                     <div class="input-box-title">아이디</div>
                     <div class="input-box-content">
                         <div class="input-box-body">
-                            <input class="input-box-input" name="username" type="email" placeholder="이메일을 입력해주세요">
+                            <input class="input-box-input" id="idInput" name="username" type="email" placeholder="이메일을 입력해주세요">
                         </div>
                     </div>
                 </div>
@@ -27,11 +27,11 @@
                     <div class="input-box-title">비밀번호</div>
                     <div class="input-box-content">
                         <div class="input-box-body">
-                            <input class="input-box-input" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+                            <input class="input-box-input" id="passwordInput" name="password" type="password" placeholder="비밀번호를 입력해주세요" onkeyup="checkPassword()">
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="로그인" class="input-box-button disabled"></input>
+                <input type="submit" value="로그인" class="input-box-button disabled"  id="loginButton"></input>
             </form>
         </div>
         <!--content-->
@@ -41,3 +41,34 @@
 <!-- container-->
 </body>
 </html>
+<script>
+    function checkPassword() {
+        var inInput = document.getElementById('idInput');
+        var passwordInput = document.getElementById('passwordInput');
+        var loginButton = document.getElementById('loginButton');
+
+        if (idInput.value.trim() === '' || passwordInput.value.trim() === '') {
+            loginButton.classList.add('disabled');
+            loginButton.disabled = true;
+        } else {
+            loginButton.classList.remove('disabled');
+            loginButton.disabled = false;
+        }
+    }
+
+    function validateForm() {
+        var idInput = document.getElementById('idInput');
+        var passwordInput = document.getElementById('passwordInput');
+
+        if(idInput.value.trim() === ''){
+            alert('아이디를 입력해주세요.');
+            return false;
+        }
+        if (passwordInput.value.trim() === '') {
+            alert('비밀번호를 입력해주세요.');
+            return false; // 폼 제출을 중지합니다.
+        }
+
+        return true; // 폼을 제출합니다.
+    }
+</script>
