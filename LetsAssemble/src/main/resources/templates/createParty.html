@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+    <meta charset="UTF-8">
+    <title>파티 만들기 | 일단모여</title>
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=941c4efaea9d3d9df8d9449d52c75cb8&libraries=services"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/createParty.css}">
+    <script type="text/javascript" defer th:src="@{/js/createParty.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: Xheader}"></header>
+<form action="/your-action-url" id="form" method="post">
+    <div id="step1" class="container">
+        <section class="category_section action">
+            <div class="content_title">
+                <h1> 어떤 파티를 만드시겠어요? </h1>
+            </div>
+            <div class="category_wrap">
+                <div class="category_items items">
+                        <div class="category_item">
+                            <input type="radio" id="sports" name="category" value="sport" hidden>
+                            <label for="sports" class="category-label">스포츠</label>
+                        </div>
+                        <div class="category_item">
+                            <input type="radio" id="study" name="category" value="study" hidden>
+                            <label for="study" class="category-label">스터디</label>
+                        </div>
+                        <div class="category_item">
+                            <input type="radio" id="game" name="category" value="game" hidden>
+                            <label for="game" class="category-label">게임</label>
+                        </div>
+                        <div class="category_item">
+                            <input type="radio" id="travel" name="category" value="travel" hidden>
+                            <label for="travel" class="category-label">여행</label>
+                        </div>
+                        <div class="category_item">
+                            <input type="radio" id="boardGame" name="category" value="boardGame" hidden>
+                            <label for="boardGame" class="category-label">보드게임</label>
+                        </div>
+                </div>
+                <!--//category_content-->
+            </div>
+            <!--//category_wrap-->
+        </section>
+        <!--//category_section-->
+        <section class="isOnline_section">
+            <div class="content_title">
+                <h1> 온라인에서 활동하시나요? </h1>
+            </div>
+            <div class="isOnline_wrap">
+                <div class="isOnline_items items">
+                    <div class="category_item">
+                        <input type="radio" id="online" name="isOnline" value="online" hidden>
+                        <label for="online" class="category-label">온라인</label>
+                    </div>
+                    <div class="category_item">
+                        <input type="radio" id="offline" name="isOnline" value="offline" hidden>
+                        <label for="offline" class="category-label">오프라인</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="capacity_section">
+            <div class="content_title">
+                <h1> 파티원은 몇명으로 하시나요? </h1>
+            </div>
+            <div class="isOnline_wrap">
+                <div class="capacity_items items">
+                    <div class="capacity_item">
+                        <input type="range" id="capacity" name="capacity" min="1" max="50">
+                        <output id="output" for="capacity">1 명</output>
+                    </div>
+                </div>
+            </div>
+            <div class="step1_btn" id="step1_btn" onclick="step1Btn()">파티생성</div>
+        </section>
+        <!--//capacity_section-->
+    </div>
+    <!--//step1 container-->
+    <div class="container" id="step2" style="display: none">
+        <div class="content_title">
+            <h1> 파티 이름과 활동지역을 선택해주세요. </h1>
+        </div>
+        <div class="partyName_wrap">
+            <div class="partyName_items items">
+                <label>파티이름</label>
+                <div class="partyName_item">
+                    <input type="text" name="name" />
+                </div>
+            </div>
+        </div>
+        <div class="location_wrap">
+            <div class="location_items items">
+                <label>활동지역</label>
+                <div class="location_item">
+                    <input type="button" class="addressBtn" onclick="DaumPostcode()" value="주소 검색"><br>
+                    <input type="text" id="address" name="address" placeholder="주소">
+                    <div id="map" style="width:500px;height:500px;margin-top:10px;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="commitBtn" onclick="commit(form)">파티 만들기</div>
+    </div>
+    <!--//step2 container-->
+</form>
+<!--//form-->
+</body>
+</html>

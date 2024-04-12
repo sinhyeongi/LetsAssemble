@@ -49,6 +49,17 @@ public class PartyController {
         return "find_party";
     }
 
+    @GetMapping("/create")
+    public String createPartyForm(){
+        return "createParty";
+    }
+
+    @PostMapping("/create")
+    public String createParty(){
+
+        return "";
+    }
+
     private void addTest(Model model) {
         List<party> bigList = new ArrayList<>();
         List<party> smallList = new ArrayList<>();

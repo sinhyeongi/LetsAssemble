@@ -31,7 +31,6 @@ public class Party {
     @Column(nullable = false)
     private String interest; // 관심사 ex) 공부,게임 등
     private String area; // 지역
-    @Column(nullable = false)
     private String content; // 모집글 내용
     @Column(nullable = false)
     private String riterDay; // 생성일

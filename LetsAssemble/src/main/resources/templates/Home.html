@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="/fragment/header :: common_header(~{::title},~{::link},~{::script})">
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>LetsAssemble!</title>
     <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}" >
