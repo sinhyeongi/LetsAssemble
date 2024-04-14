@@ -1,0 +1,32 @@
+.container{
+    width: 100%;
+}
+
+.wrap{
+    width: 600px;
+    margin: auto;
+}
+section{
+    margin-top: 10px;
+}
+.radio_wrap{
+    display: flex;
+}
+input[type="radio"]{
+    margin-left: 10px;
+}
+textarea{
+    font-size: large;
+}
+.commitBtn{
+    font-size: x-large;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    background-color: #7abaff;
+    width: 300px;
+    margin: auto;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 3px;
+}
