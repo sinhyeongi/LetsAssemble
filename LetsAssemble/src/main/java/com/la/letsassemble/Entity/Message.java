@@ -29,7 +29,7 @@ public class Message {
     private Users user; // 메시지 작성자
     @Column(name = "T_date",nullable = false)
     private String TDate; // 메시지 보낸 시간
-    @Column(name = "content",nullable = false)
+    @Column(name = "content",nullable = false,length = 3000)
     private String content; //메시지 내용
 
     @PrePersist
