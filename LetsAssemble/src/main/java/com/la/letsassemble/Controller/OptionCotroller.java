@@ -78,6 +78,7 @@ public class OptionCotroller {
             return "Not Login";
         }
         String msg = service.add(reqdata,response);
+        System.out.println("msg = " + msg);
         return msg;
     }
 

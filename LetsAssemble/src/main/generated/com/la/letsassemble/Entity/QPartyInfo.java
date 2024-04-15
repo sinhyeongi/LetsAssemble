@@ -28,7 +28,7 @@ public class QPartyInfo extends EntityPathBase<PartyInfo> {
 
     public final BooleanPath isBlack = createBoolean("isBlack");
 
-    public final QParty party_id;
+    public final QParty party;
 
     public final StringPath state = createString("state");
 
@@ -52,7 +52,7 @@ public class QPartyInfo extends EntityPathBase<PartyInfo> {
 
     public QPartyInfo(Class<? extends PartyInfo> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.party_id = inits.isInitialized("party_id") ? new QParty(forProperty("party_id"), inits.get("party_id")) : null;
+        this.party = inits.isInitialized("party") ? new QParty(forProperty("party"), inits.get("party")) : null;
         this.user = inits.isInitialized("user") ? new QUsers(forProperty("user")) : null;
     }
 

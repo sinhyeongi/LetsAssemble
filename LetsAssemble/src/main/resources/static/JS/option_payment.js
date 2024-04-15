@@ -7,7 +7,7 @@ const datepickr =$(".option_payment_flatpickr");
 const flatinstance = flatpickr(datepickr,{
    dateFormat: 'Y-m-d',
    enabledTime: false,
-   minDate: 'today',
+   minDate: Nextday(),
    locale: 'ko',
    disable : disabledDates
 });
@@ -193,6 +193,10 @@ function Today(){
    const today = new Date();
    return today.getFullYear()+'-'+("0"+(today.getMonth()+1)).slice(-2)+ '-'+("0"+today.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
 }
+function Nextday(){
+   const today = new Date();
+   return today.getFullYear()+'-'+("0"+(today.getMonth()+2)).slice(-2)+ '-'+("0"+today.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
+}
 function ErrMsg(msg){
    if(msg === 'Not match price'|| msg === "Err price"){
       return '결제 필요 금액과 결제 금액이 일치하지 않습니다.\n결제를 취소합니다.'
@@ -204,6 +208,12 @@ function ErrMsg(msg){
       return "유저 정보를 불러오는 중 오류가 발생했습니다.";
    }else if(msg === "Err" || msg === "Price Err"){
       return "서버 문제로 인해 결제가 취소 되었습니다.\n관리자에게 문의해주세요.";
+   }else if(msg === "No information found for the provided uid."){
+      return "결제 정보의 문제로 인해 결제가 취소 되었습니다.";
+   }else if(msg === "evenDay is Before" || msg === "evenDay is toDay"){
+      return "파티 모집 상단 게시 가능 날은 오늘 이후 부터 가능합니다.";
+   }else if(msg === "Number of times exceeded"){
+      return "너무 많은 요청으로 인하여 데이터 추가에 실패하였습니다.\n잠시 후 다시 이용해주세요.";
    }
 }
 //createoption_view("파티글 상단에 고정하기","선택날짜",'2024-04-04',1000);

@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 public class InicisUtil {
 
     private final InicisConfig config;
+
     //결제 금액 가져오기
     public String getPrice(String uid){
         String token = getToken();

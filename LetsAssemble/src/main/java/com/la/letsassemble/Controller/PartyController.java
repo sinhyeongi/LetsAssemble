@@ -1,7 +1,12 @@
 package com.la.letsassemble.Controller;
 
 
+import com.la.letsassemble.Entity.PartyInfo;
+import com.la.letsassemble.Entity.Users;
+import com.la.letsassemble.Repository.PartyInfoRepository;
+import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Security_Custom.PricipalDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -14,11 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +33,10 @@ public class PartyController {
 
     private final UsersRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    /// test
+    private final PartyRepository partyRepository;
+    private final PartyInfoRepository partyInfoRepository;
 
     @Data
     @AllArgsConstructor
@@ -47,6 +54,22 @@ public class PartyController {
     public String find_party(Model model){
         addTest(model);
         return "find_party";
+    }
+    @GetMapping("/add/{paryId}")
+    @ResponseBody
+    public String addParty(@AuthenticationPrincipal PricipalDetails auth, @PathVariable Long paryId){
+        Users u = null;
+        if(auth instanceof  PricipalDetails){
+            u = auth.getUser();
+        }
+        PartyInfo partyInfo = PartyInfo.builder()
+                .party(partyRepository.findById(paryId).orElse(null))
+                .applicant_id(u)
+                .state("Y")
+                .isBlack(false)
+                .build();
+        partyInfo = partyInfoRepository.save(partyInfo);
+        return partyInfo == null ? "err":"ok";
     }
 
     @GetMapping("/create")

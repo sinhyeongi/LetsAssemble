@@ -24,8 +24,8 @@ public class MessageRead {
     private Users users;
 
     @Builder
-    public MessageRead(Long message_id,String email){
-        this.message.setId(message_id);
-        this.users.setEmail(email);
+    public MessageRead(Message message_id,Users email){
+        this.message = message_id;
+        this.users = email;
     }
 }
