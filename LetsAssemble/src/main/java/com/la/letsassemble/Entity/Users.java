@@ -72,6 +72,10 @@ public class Users {
         this.gender = gender;
         this.age = age;
     }
+    public Users changePassword(Users user,String password){
+        user.password = password;
+        return user;
+    }
 
     public static Users createUser(UserForm form , BCryptPasswordEncoder encoder ){
         Users users = new Users();

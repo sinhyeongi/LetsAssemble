@@ -23,7 +23,7 @@ slider.oninput = function() {
 
 //커밋
 
-function commit(form){
+function submit(form){
     const formData = new FormData(form);
     fetch("/party/update",{
         method: "POST",

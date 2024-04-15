@@ -35,7 +35,7 @@ function step1Btn(){
     step2.style.display = "block";
 }
 
-function commit(form){
+function submit(form){
     const formData = new FormData(form);
     fetch("/party/create",{
         method : "POST",

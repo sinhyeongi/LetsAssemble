@@ -31,14 +31,16 @@ public class PartyInfo {
     @Column(nullable = false,columnDefinition = "TINYINT(1)")
     @ColumnDefault("false")
     private boolean isBlack; //블랙 여부
+
+
     @PrePersist
     private void prepersiste(){
         this.aplicant_day = LocalDate.now().toString();
     }
     @Builder
-    public PartyInfo(Long party_id,String applicant_id,String state,Boolean isBlack){
-        this.party_id.setId(party_id);
-        this.user.setEmail(applicant_id);
+    public PartyInfo(Party party,Long party_id,Users applicant_id,String state,Boolean isBlack){
+        this.party_id = party;
+        this.user = applicant_id;
         this.state = state;
         this.isBlack = isBlack;
     }

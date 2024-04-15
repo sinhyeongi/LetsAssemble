@@ -37,7 +37,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 @RequestMapping("/party")
 public class PartyController {
-    private boolean buttonEnabled = true;
+    private boolean createButtonEnabled = true;
+    private boolean updateButtonEnabled = true;
     private final UsersRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PartyService partyService;
@@ -82,7 +83,7 @@ public class PartyController {
             return "redirect:/user";
         }
         //버튼 동시성 방지
-        if(!buttonEnabled){
+        if(!createButtonEnabled){
             return "button is disabled";
         }
         //관심사가 없을 시
@@ -105,17 +106,16 @@ public class PartyController {
         if(party.getAddress()==""){
             return "no address";
         }
-        buttonEnabled = false;
+        createButtonEnabled = false;
         log.info("create party = {}",party);
         Party createParty = partyService.createParty(party, user);
+        createButtonEnabled = true;
+        // 작업이 완료되면 버튼을 다시 활성화합니다.
         if(createParty != null){
-            buttonEnabled = true;
             return createParty.getId().toString();
         }else{
-            buttonEnabled = true;
             return "error";
         }
-        // 작업이 완료되면 버튼을 다시 활성화합니다.
     }
     @GetMapping("/update/{partyId}")
     public String updatePartyForm(Model model,@PathVariable String partyId,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, HttpServletResponse response) throws IOException {
@@ -137,8 +137,11 @@ public class PartyController {
     }
     @PostMapping("/update")
     public @ResponseBody String updateParty(@RequestBody PartyForm partyForm,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, HttpServletResponse response) {
+        if(!updateButtonEnabled)return "already work";
+        updateButtonEnabled=false;
         log.info("update party = {}",partyForm );
         partyService.updateParty(partyForm);
+        updateButtonEnabled = true;
         return "ok";
     }
 

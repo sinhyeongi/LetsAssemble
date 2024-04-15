@@ -1,5 +1,7 @@
 package com.la.letsassemble.Service;
 
+import com.la.letsassemble.Entity.Users;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,11 +12,11 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class MailSendService {
-    @Autowired
-    private JavaMailSender mailSender;
-    @Autowired
-    private  RedisUtil redisUtil;
+    private final JavaMailSender mailSender;
+    private final RedisUtil redisUtil;
+    private final UsersService usersService;
     private String authNumber;
 
     public boolean CheckAuthNum(String email,String authNum){
@@ -42,7 +44,7 @@ public class MailSendService {
         makeRandomNumber();
         String setFrom = "firstkjy1123@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력
         String toMail = email;
-        String title = "일단모여 회원 가입 인증 이메일 입니다."; // 이메일 제목
+        String title = "일단모여 회원가입 인증번호 이메일입니다."; // 이메일 제목
         String content =
                 " 일단모여를 이용해주셔서 감사합니다." + 	//html 형식으로 작성 !
                         "<br><br>" +
@@ -56,9 +58,33 @@ public class MailSendService {
             return "fail";
         }
     }
+    //랜덤비밀번호 생성 url 보내기
+    public String findEmail(String email){
+        if(!usersService.findByEmail(email).isPresent()){
+            return "emailError";
+        };
+        makeRandomNumber();
+        String setFrom = "firstkjy1123@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력
+        String toMail = email;
+        String title = "일단모여 비밀번호 찾기 이메일입니다."; // 이메일 제목
+        String content =
+                " 일단모여를 이용해주셔서 감사합니다." + 	//html 형식으로 작성 !
+                        "<br><br>" +
+                        "임시 비밀번호 발급 링크입니다." +
+                        "<br>"+
+                        "http://localhost:8080/user/resetPassword?email="+email+"&authNumber="+ authNumber +
+                        "<br>" +
+                        "메일 발송 후 3분 안에 링크를 눌러주세요."; //이메일 내용 삽입
+        mailSend(setFrom, toMail, title, content);
+        if(authNumber.length() == 6){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
 
     //이메일을 전송합니다.
-    public void mailSend(String setFrom, String toMail, String title, String content) {
+    private void mailSend(String setFrom, String toMail, String title, String content) {
         MimeMessage message = mailSender.createMimeMessage();//JavaMailSender 객체를 사용하여 MimeMessage 객체를 생성
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");//이메일 메시지와 관련된 설정을 수행합니다.
