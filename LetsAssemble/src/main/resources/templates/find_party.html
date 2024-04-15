@@ -52,24 +52,24 @@
     <div th:each="small : ${small_items}" class="small_content" onclick="go_partyInfo(this)">
         <input type="hidden" name="party_id" th:value="${small.id}">
         <div class="small_content_sub" th:text="${small.title}"></div>
-        <div class="small_content_category">
-            카테고리 : <span th:text="${small.interest}"></span>
-        </div>
+<!--        <div class="small_content_category">-->
+<!--            카테고리 : <span th:text="${small.interest}"></span>-->
+<!--        </div>-->
         <div class="small_content_intro">
             파티 소개 : <span th:text="${small.intro}"></span>
         </div>
         <div class="small_content_loc">
         <span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
-            <path
-                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
-          </svg>
+<!--          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">-->
+<!--            <path-->
+<!--                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />-->
+<!--          </svg>-->
         </span>
-            <span class="small_loc_name" th:text="${small.area}"></span>
+<!--            <span class="small_loc_name" th:text="${small.area}"></span>-->
         </div>
-        <div class="small_content_personnel">
-            모집 인원 : (<span th:text="${small.personnel}"></span> / 11) 명
-        </div>
+<!--        <div class="small_content_personnel">-->
+<!--            모집 인원 : (<span th:text="${small.personnel}"></span> / 11) 명-->
+<!--        </div>-->
     </div> <!-- small_content -->
 
 </div>  <!-- find_main -->

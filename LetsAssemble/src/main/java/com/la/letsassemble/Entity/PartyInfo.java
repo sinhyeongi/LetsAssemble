@@ -25,12 +25,14 @@ public class PartyInfo {
     @JoinColumn(name = "aplicant_id",referencedColumnName = "email")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Users user; // 신청자 / 유저 이메일
-    private String state; //신청 상태
+    private String state; //신청 상태 Y N W
     @Column(nullable = false)
     private String aplicant_day; //신청일
     @Column(nullable = false,columnDefinition = "TINYINT(1)")
     @ColumnDefault("false")
     private boolean isBlack; //블랙 여부
+
+    private String nickname; // 파티장이 정하는 별칭
 
 
     @PrePersist
