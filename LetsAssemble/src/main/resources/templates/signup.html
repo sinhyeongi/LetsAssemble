@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="/fragment/header :: common_header(~{::title},~{::link},~{::script})">
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>Sign up</title>
     <link rel="stylesheet" type="text/css" th:href="@{CSS/signup.css}">
@@ -17,7 +17,9 @@
 <div class="container">
     <div class="inner">
         <!--<div class="logo_ilmo">-->
-        <h1 class="title">회원가입</h1>
+        <h1 th:if="${#authorization.expression('isAuthenticated()')}">추가 정보 입력</h1>
+        <h1 th:if="${#authorization.expression('isAnonymous()')}">회원가입</h1>
+
         <div class="content">
             <form class="signupForm">
                 <!--<input type="hidden" th:value="${#authentication.principal.email()}" readonly>-->

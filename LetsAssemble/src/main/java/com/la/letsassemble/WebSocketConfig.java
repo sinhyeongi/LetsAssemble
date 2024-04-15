@@ -1,4 +1,4 @@
-package com.la.letsassemble.config;
+package com.la.letsassemble;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Role.UsersRole;
@@ -21,13 +21,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
 
+
 @Configuration
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final PartyInfoService partyInfoService;
-
-
+    
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic"); // 구독을 위한 브로커 설정

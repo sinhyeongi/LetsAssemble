@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
-    <title>로그인하기</title>
+    <title>로그인 | 일단모여</title>
     <link rel="stylesheet" href="/CSS/login.css">
     <script defer src="/Js/login.js"></script>
 </head>
 <body>
+<header th:replace="~{fragment/header :: Xheader}"></header>
 <div class="login-container">
     <h1 class="lg_h1">환영합니다! 일단모여를 시작하고 다양한 모임에 참여해 보세요.</h1>
 
@@ -43,7 +44,7 @@
         </div>
         <div class="signup">
             <h1>아직 회원이 아니신가요?</h1>
-            <a th:href="@{/user}">회원가입하러가기</a>
+            <a th:href="@{/user}">회원가입</a>
         </div>
     </div>
 </div>

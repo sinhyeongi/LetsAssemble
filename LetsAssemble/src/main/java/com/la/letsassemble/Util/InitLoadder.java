@@ -66,6 +66,18 @@ public class InitLoadder implements CommandLineRunner {
                 .age(33)
                 .build();
         repo.saveAndFlush(u2);
+
+        Users u3 = new Users().builder()
+                .email("jkcoco123123@naver.com")
+                .password(encoder.encode("test3"))
+                .phone("010-1234-1234")
+                .name("test3")
+                .nickname("test3")
+                .gender("M")
+                .age(33)
+                .build();
+        repo.saveAndFlush(u3);
+
         Party party = new Party().builder()
                 .isOnline(false)
                 .personnel(100)
@@ -131,6 +143,5 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         partyInfoRepository.save(partyInfo);
         partyInfoRepository.save(partyInfo2);
-
-    }
+        }
 }

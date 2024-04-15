@@ -1,5 +1,6 @@
 package com.la.letsassemble.Entity;
 
+import com.la.letsassemble.dto.PartyForm;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,6 @@ public class Party {
     @Column(nullable = false)
     private String interest; // 관심사 ex) 공부,게임 등
     private String area; // 지역
-    @Column(nullable = false)
     private String content; // 모집글 내용
     @Column(nullable = false)
     private String riterDay; // 생성일
@@ -55,4 +55,13 @@ public class Party {
         this.notification = notification;
     }
 
+    public static Party updateParty(Party party, PartyForm form){
+        party.interest = form.getCategory();
+        party.isOnline = form.getIsOnline() == "online";
+        party.area = form.getAddress();
+        party.personnel = Integer.parseInt(form.getCapacity());
+        party.notification = form.getNotification();
+        party.content = form.getContent();
+        return party;
+    }
 }

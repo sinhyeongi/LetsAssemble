@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+    <meta charset="UTF-8">
+    <title>파티정보 | 일단모여</title>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=941c4efaea9d3d9df8d9449d52c75cb8&libraries=services"></script>
+    <link rel="stylesheet" href="/CSS/updateParty.css">
+    <script defer src="/JS/updateParty.js"></script>
+</head>
+<body>
+<header th:replace="~{fragment/header :: Xheader}"></header>
+
+<div class="container">
+    <form id="form">
+        <input type="hidden" name="partyId" th:value="${party.getId}">
+        <div class="wrap">
+            <section>
+                <h3>파티이름</h3>
+                <div class="data" th:text="${party.title}">파티 이름</div>
+            </section>
+            <section>
+                <h3>파티장</h3>
+                <div class="data" th:text="${party.user.name}">파티장 닉네임</div>
+            </section>
+            <section>
+                <h3>온/오프라인</h3>
+                <div class="radio_wrap data">
+                    <div>
+                        <input type="radio" id="online" name="isOnline" value="online" th:checked="${party.isOnline}">
+                        <label for="online">온라인</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="offline" name="isOnline" value="offline" th:checked="${!party.isOnline}">
+                        <label for="offline">오프라인</label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>관심사</h3>
+                <div class="radio_wrap data">
+                    <div>
+                        <input type="radio" id="sports" name="category" value="sports" th:checked="${party.interest == 'sports'}">
+                        <label for="sports">스포츠</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="study" name="category" value="study" th:checked="${party.interest == 'study'}">
+                        <label for="study">스터디</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="game" name="category" value="game" th:checked="${party.interest == 'game'}">
+                        <label for="game">게임</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="travel" name="category" value="travel" th:checked="${party.interest == 'travel'}">
+                        <label for="travel">여행</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="boardGame" name="category" value="boardGame" th:checked="${party.interest == 'boardGame'}">
+                        <label for="boardGame">보드게임</label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h3>활동 지역</h3>
+                <div class="find data">
+                    <input type="text" id="address" name="address" placeholder="주소" th:value="${party.getArea}" readonly>
+                    <input type="button" class="addressBtn" onclick="DaumPostcode()" value="주소 검색"><br>
+                </div>
+            </section>
+            <section>
+                <h3>파티원 수</h3>
+                <div class="find data">
+                    <input type="range" id="capacity" name="capacity" min="1" max="100" th:value="${party.getPersonnel}">
+                    <output id="output" for="capacity" th:text="${party.getPersonnel} + 명">1 명</output>
+                </div>
+            </section>
+
+            <section>
+                <h3>공지 사항</h3>
+                <textarea rows="8" name="notification" th:text="${party.getNotification}" style="width:600px; resize: none;"></textarea>
+            </section>
+            <section>
+                <h3>모집글</h3>
+                <textarea rows="15" name="content" th:text="${party.content}" style="width:600px; resize: none;"></textarea>
+            </section>
+            <div class="commitBtn" onclick="submit(form)">수정</div>
+        </div>
+        <!--//wrap-->
+    </form>
+    <!--//form-->
+</div>
+<!--//container-->
+
+</body>
+</html>

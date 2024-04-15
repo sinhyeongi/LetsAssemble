@@ -5,7 +5,7 @@ body {
 .login-container {
     width: 100%;
     min-height: 100vh;
-    padding: 80px 20px 20px;
+    /*padding: 80px 20px 20px;*/
     display: flex;
     flex-direction: column;
     -webkit-box-align: center;
@@ -64,4 +64,17 @@ body {
     color: rgba(34, 34, 34, 0.785);
     -webkit-box-flex: 2;
     flex-grow: 2;
+}
+.signup{
+    display: flex;
+    align-items: center;
+}
+.signup>a{
+    margin-left: 14px;
+}
+.signup>a:visited{
+    color : blue;
+}
+.signup>h1{
+    font-size: 1.5em;
 }

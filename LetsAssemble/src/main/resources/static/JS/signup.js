@@ -28,7 +28,6 @@ window.onload = function() {
 
 }
 function init(){
-
     createInputBox("이메일","이메일을 입력해주세요","email",user !== null?cheackEmail():'',"email","email",false,"이메일 인증",onEmailChangeHandler,undefined,undefined,onEmailButtonClickHandler,"이메일을 입력해주세요",'emailInputBox');
     createInputBox("인증번호", "인증번호를 입력해주세요", "text", "", "certify", "certify", false, "번호인증", onCertificationChangeHandler, undefined, undefined, onCertificationButtonClickHandler, "인증번호를 확인해주세요", 'certificationInputBox');
     createInputBox("이름","이름을 입력해주세요","text",user?.name,"name","name",false,undefined,onNameChangeHandler,undefined,undefined,undefined,"이름을 입력해주세요",'nameInputBox');
