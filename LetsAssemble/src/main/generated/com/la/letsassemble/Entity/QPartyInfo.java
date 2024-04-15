@@ -28,6 +28,8 @@ public class QPartyInfo extends EntityPathBase<PartyInfo> {
 
     public final BooleanPath isBlack = createBoolean("isBlack");
 
+    public final StringPath nickname = createString("nickname");
+
     public final QParty party;
 
     public final StringPath state = createString("state");
