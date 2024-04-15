@@ -1,6 +1,7 @@
 package com.la.letsassemble.config;
 
 import com.la.letsassemble.Entity.Users;
+import com.la.letsassemble.Role.UsersRole;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
 import com.la.letsassemble.Service.PartyInfoService;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
                 MultiValueMap<String,String> queryParams = UriComponentsBuilder.fromUri(request.getURI()).build().getQueryParams();
                 Long partyId = Long.parseLong(queryParams.getFirst("partyId"));
-                if(u.getRole().toString().equals("ROLE_ADMIN")|| partyInfoService.findByPartIdAndUser(partyId,u.getEmail()).isPresent()){
+                if(u.getRole().toString().equals(UsersRole.ROLE_ADMIN.toString())|| partyInfoService.findByPartIdAndUser(partyId,u.getEmail()).isPresent()){
                     attributes.put("partyId",partyId);
                     return true;
                 }

@@ -1,5 +1,6 @@
 var socket = new SockJS('/ws?partyId=' + partyId);
 var stompClient = Stomp.over(socket);
+var email = document.getElementById("email").value;
 window.onload = function(){
     if(!messages){
         alert("Empty")
@@ -35,6 +36,10 @@ stompClient.connect({}, function (frame) {
 function sendMessage() {
     var messageInput = document.getElementById('messageInput');
     var messageContent = messageInput.value.trim();
+    if(messageContent.length > 1000){
+        alert('1000글자 까지만 가능합니다!');
+        return;
+    }
     if (messageContent) {
         stompClient.send("/app/send/"+partyId, {}, messageContent);
         messageInput.value = '';
@@ -43,7 +48,44 @@ function sendMessage() {
 
 function showMessage(message) {
     var messageArea = document.getElementById('messageArea');
-    var messageElement = document.createElement('p');
-    messageElement.textContent = message.writer + ': ' + message.content+'\t'+(message.date.substring(message.date.indexOf(" ")));
+    var messageElement = document.createElement('div');
+
+    if(email === message.writer){
+        messageElement.classList.add("chat_content_box_right")
+    }else{
+        messageElement.classList.add("chat_content_box")
+        const messageTitle = document.createElement("div");
+        messageTitle.classList.add("chat_writer");
+        messageTitle.textContent = message.writer;
+        messageElement.appendChild(messageTitle);
+    }
+    const div = document.createElement('div');
+
+
+    const messageContent = document.createElement("div");
+    messageContent.classList.add("chat_content");
+    messageContent.textContent = message.content;
+    messageElement.appendChild(messageContent);
+
+    const messageContent_date = document.createElement("div");
+    messageContent_date.classList.add("chat_content_date");
+
+    messageContent_date.textContent = getViewDate(message.date);
+    messageElement.appendChild(messageContent_date);
+
     messageArea.appendChild(messageElement);
+    const mainElement = document.getElementById("Chat_main");
+    mainElement.scrollTop = mainElement.scrollHeight;
+}
+function getViewDate(date){
+    const today = Today();
+    let datearray = date.split(" ");
+    if(datearray[0] === today){
+        return datearray[1];
+    }
+    return date;
+}
+function Today(){
+    const date = new Date();
+    return date.getFullYear() + '-' + ('0'+(date.getMonth()+1)).slice(-2) + '-' + ('0'+(date.getDate())).slice(-2);
 }

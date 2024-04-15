@@ -22,12 +22,11 @@ public class RedisMessageSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         String channel = new String(message.getChannel());
-
         String content = new String(message.getBody());
         simpMessagingTemplate.convertAndSend(channel,content);
     }
-    public void sendMessageToRedis(String channel, MessageDTO messageDTO){
 
+    public void sendMessageToRedis(String channel, MessageDTO messageDTO){
         String messageJson = new Gson().toJson(messageDTO);
         redisTemplate.convertAndSend(channel,messageJson);
     }
