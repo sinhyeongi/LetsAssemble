@@ -1,13 +1,20 @@
 package com.la.letsassemble.Controller;
 
-
 import com.la.letsassemble.Entity.PartyInfo;
-import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.PartyInfoRepository;
 import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Entity.Party;
+import com.la.letsassemble.Entity.Users;
+import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Service.PartyService;
+import com.la.letsassemble.Service.UsersService;
+import com.la.letsassemble.dto.PartyForm;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,17 +29,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/party")
 public class PartyController {
-
+    private boolean createButtonEnabled = true;
+    private boolean updateButtonEnabled = true;
     private final UsersRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PartyService partyService;
 
     /// test
     private final PartyRepository partyRepository;
@@ -73,17 +87,90 @@ public class PartyController {
     }
 
     @GetMapping("/create")
-    public String createPartyForm(){
+    public String createPartyForm(HttpServletResponse response, @Nullable @AuthenticationPrincipal PricipalDetails userDetails) throws IOException {
+        if(userDetails == null){
+            return "redirect:/user/loginForm";
+        }
+        Users user = userDetails.getUser();
+        if(user.getPhone() == null){
+            return "redirect:/user";
+        }
         return "createParty";
     }
 
     @PostMapping("/create")
-    public String createParty(){
+    public @ResponseBody String createParty(HttpServletResponse response, @Nullable @AuthenticationPrincipal PricipalDetails userDetails, @RequestBody PartyForm party) throws IOException {
+        if(userDetails == null){
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+        Users user = userDetails.getUser();
+        if(user.getPhone() == null){
+            return "redirect:/user";
+        }
+        //버튼 동시성 방지
+        if(!createButtonEnabled){
+            return "button is disabled";
+        }
+        //관심사가 없을 시
+        if(party.getCategory()==""){
+            return "no category";
+        }
+        //온라인 여부 없을 시
+        if(party.getIsOnline()==""){
+            return "no isOnline";
+        }
+        //모집인원 없을 시
+        if(party.getCapacity()==""){
+            return "no capacity";
+        }
+        //파티이름 없을 시
+        if(party.getName()=="" || party.getName().trim().length() < 2){
+            return "no name";
+        }
+        //주소 입력 없을 시
+        if(party.getAddress()==""){
+            return "no address";
+        }
+        createButtonEnabled = false;
+        log.info("create party = {}",party);
+        Party createParty = partyService.createParty(party, user);
+        createButtonEnabled = true;
+        // 작업이 완료되면 버튼을 다시 활성화합니다.
+        if(createParty != null){
+            return createParty.getId().toString();
+        }else{
+            return "error";
+        }
+    }
+    @GetMapping("/update/{partyId}")
+    public String updatePartyForm(Model model,@PathVariable String partyId,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, HttpServletResponse response) throws IOException {
+        Long id = Long.parseLong(partyId);
+        Optional<Party> party = partyService.findByPartyId(id);
+        if(!party.isPresent()){
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+        log.info("로그인중인 유저 = {}" , userDetails.getUser());
+        log.info("파티 파티장 = {}" , party.get().getUser());
 
-        return "";
+        if(party.get().getUser().getId() != userDetails.getUser().getId()){
+            log.error("파티장 과 로그인 아이디가 같지않음.");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+
+        model.addAttribute("party",party.get());
+        return "updateParty";
+    }
+    @PostMapping("/update")
+    public @ResponseBody String updateParty(@RequestBody PartyForm partyForm,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, HttpServletResponse response) {
+        if(!updateButtonEnabled)return "already work";
+        updateButtonEnabled=false;
+        log.info("update party = {}",partyForm );
+        partyService.updateParty(partyForm);
+        updateButtonEnabled = true;
+        return "ok";
     }
 
-    private void addTest(Model model) {
+        private void addTest(Model model) {
         List<party> bigList = new ArrayList<>();
         List<party> smallList = new ArrayList<>();
 

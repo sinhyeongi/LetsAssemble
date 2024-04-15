@@ -4,7 +4,6 @@ const capacitySection = document.querySelector('.capacity_section');
 const isonlineList = [...document.getElementsByName('isOnline')];
 let is1step = false;
 let isAddress = false;
-let isPartyName = false;
 
 /* 카테고리 선택 시 하위 선택사항 생성*/
 categoryList.forEach(category =>{
@@ -36,19 +35,47 @@ function step1Btn(){
     step2.style.display = "block";
 }
 
-function commit(form){
-    fetch("")
-
-
-
+function submit(form){
+    const formData = new FormData(form);
+    fetch("/party/create",{
+        method : "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+    })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            const msgBox = document.querySelector(".msgBox");
+            msgBox.style.display="block"
+            if(data === 'no category'){
+                msgBox.innerHTML="관심사를 설정해주세요."
+                return;
+            }
+            if(data === 'no isOnline'){
+                msgBox.innerHTML="온라인여부를 설정해주세요."
+                return;
+            }
+            if(data === 'no capacity'){
+                msgBox.innerHTML="파티원 수를 설정해주세요."
+                return;
+            }
+            if(data === 'no name'){
+                msgBox.innerHTML="파티 이름을 설정해주세요."
+                return;
+            }
+            if(data === 'no address'){
+                msgBox.innerHTML="활동지역을 설정해주세요."
+                return;
+            }
+            if( data === 'error') {
+                location.href="/error";
+                return;
+            }
+            location.href = "/party/update/"+data;
+        });
 }
-
-
-
-
-
-
-
 
 
 
@@ -76,18 +103,18 @@ function DaumPostcode() {
             var addr = data.address; // 최종 주소 변수
 
             // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("address").readOnly=true;
             document.getElementById("address").value = addr;
+            mapContainer.style.display = "block";
             // 주소로 상세 정보를 검색
             geocoder.addressSearch(data.address, function(results, status) {
                 // 정상적으로 검색이 완료됐으면
+            console.log(status)
                 if (status === daum.maps.services.Status.OK) {
 
                     var result = results[0]; //첫번째 결과의 값을 활용
-
                     // 해당 주소에 대한 좌표를 받아서
                     var coords = new daum.maps.LatLng(result.y, result.x);
-                    console.log("x = " + result.x)
-                    console.log("y = " + result.y)
                     // 지도를 보여준다.
                     map.relayout();
                     // 지도 중심을 변경한다.
@@ -95,6 +122,7 @@ function DaumPostcode() {
                     // 마커를 결과값으로 받은 위치로 옮긴다.
                     marker.setPosition(coords);
                     isAddress= true;
+                    document.getElementById("commitBtn").classList.add("action")
                 }
             });
         }

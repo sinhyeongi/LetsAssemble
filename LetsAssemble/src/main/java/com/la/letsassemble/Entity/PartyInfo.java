@@ -31,6 +31,8 @@ public class PartyInfo {
     @Column(nullable = false,columnDefinition = "TINYINT(1)")
     @ColumnDefault("false")
     private boolean isBlack; //블랙 여부
+
+
     @PrePersist
     private void prepersiste(){
         this.aplicant_day = LocalDate.now().toString();

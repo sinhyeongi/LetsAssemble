@@ -3,7 +3,6 @@
 <head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>파티 만들기 | 일단모여</title>
-    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=941c4efaea9d3d9df8d9449d52c75cb8&libraries=services"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/createParty.css}">
@@ -12,7 +11,7 @@
 </head>
 <body>
 <header th:replace="~{fragment/header :: Xheader}"></header>
-<form action="/your-action-url" id="form" method="post">
+<form id="form" method="post">
     <div id="step1" class="container">
         <section class="category_section action">
             <div class="content_title">
@@ -70,12 +69,12 @@
             <div class="isOnline_wrap">
                 <div class="capacity_items items">
                     <div class="capacity_item">
-                        <input type="range" id="capacity" name="capacity" min="1" max="50">
+                        <input type="range" id="capacity" name="capacity" min="1" max="100">
                         <output id="output" for="capacity">1 명</output>
                     </div>
                 </div>
             </div>
-            <div class="step1_btn" id="step1_btn" onclick="step1Btn()">파티생성</div>
+            <div class="step1_btn step_btn" id="step1_btn" onclick="step1Btn()">파티생성</div>
         </section>
         <!--//capacity_section-->
     </div>
@@ -96,13 +95,16 @@
             <div class="location_items items">
                 <label>활동지역</label>
                 <div class="location_item">
-                    <input type="button" class="addressBtn" onclick="DaumPostcode()" value="주소 검색"><br>
-                    <input type="text" id="address" name="address" placeholder="주소">
-                    <div id="map" style="width:500px;height:500px;margin-top:10px;"></div>
+                    <div class="find">
+                        <input type="text" id="address" name="address" placeholder="주소">
+                        <input type="button" class="addressBtn" onclick="DaumPostcode()" value="주소 검색"><br>
+                    </div>
+                    <div id="map" style="display:none;width:500px;height:500px;margin-top:10px;"></div>
                 </div>
             </div>
         </div>
-        <div id="commitBtn" onclick="commit(form)">파티 만들기</div>
+        <div class="msgBox" style="display: none;">이것은 메세지 입니다.</div>
+        <div id="commitBtn" class="step_btn" onclick="submit(form)">파티 만들기</div>
     </div>
     <!--//step2 container-->
 </form>

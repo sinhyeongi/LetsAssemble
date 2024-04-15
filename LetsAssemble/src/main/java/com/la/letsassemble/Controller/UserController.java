@@ -2,14 +2,18 @@ package com.la.letsassemble.Controller;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Service.MailSendService;
 import com.la.letsassemble.Service.UsersService;
 
 import com.la.letsassemble.dto.EmailRequestDto;
+import com.la.letsassemble.dto.PasswordForm;
 import com.la.letsassemble.dto.UserForm;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,13 +26,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UsersService usersService;
-//403에러 response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    private final MailSendService mailSendService;
+    
     @GetMapping("")
     public String signupForm(@Nullable @AuthenticationPrincipal PricipalDetails details, Model model,HttpServletResponse response) throws IOException {
         if(details != null){//소셜로그인이 존재시
@@ -72,4 +79,27 @@ public class UserController {
         return "ilmo_loginForm";
     }
 
+    @GetMapping("/forgot")
+    public String forgotPasswordForm(){
+        return "forgotPassword";
+    }
+
+    @GetMapping("/resetPassword")
+    public String resetPassword(HttpServletResponse response,String email,String authNumber,Model model) throws IOException {
+        log.error("email = {}", email);
+        log.error("authNumber = {}", authNumber);
+        if (mailSendService.CheckAuthNum(email, authNumber)) {
+            model.addAttribute("email",email);
+            return "resetPassword";
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return "error";
+        }
+    }
+    @PostMapping("/resetPassword")
+    public @ResponseBody String reset(@RequestBody PasswordForm form){
+        Optional<Users> u =usersService.findByEmail(form.getEmail());
+        Users user = u.orElse(null);
+        return usersService.changePassword(user,form);
+    }
 }
