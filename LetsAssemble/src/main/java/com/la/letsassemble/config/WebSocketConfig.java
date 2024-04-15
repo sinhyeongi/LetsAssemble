@@ -1,4 +1,4 @@
-package com.la.letsassemble;
+package com.la.letsassemble.config;
 
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Role.UsersRole;
