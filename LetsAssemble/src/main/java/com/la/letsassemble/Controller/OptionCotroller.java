@@ -61,7 +61,7 @@ public class OptionCotroller {
 
 
         String imp = "imp62080161";
-        model.addAttribute("disabledDates",service.getDisabledDates(p.isOnline()));
+        model.addAttribute("disabledDates",service.getDisabledDates(p.isOnline(),u.getEmail()));
         model.addAttribute("imp_data",imp);
         model.addAttribute("party",p);
         model.addAttribute("user",u);

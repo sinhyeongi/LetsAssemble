@@ -22,6 +22,8 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
             max_count = 4;
             builder.and(buy_Option.isOnline.eq(isOnline));
         }
+
+
         return factory.select(buy_Option.even_day)
                 .from(buy_Option)
                 .where(builder)
@@ -29,6 +31,14 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
                 .having(buy_Option.even_day.count().goe(max_count).and(buy_Option.even_day.gt(LocalDate.now().toString())))
                 .fetch();
 
+    }
+
+    @Override
+    public List<String> getUserSelectDay(String email) {
+        return factory.select(buy_Option.even_day)
+                .from(buy_Option)
+                .where(buy_Option.user.email.eq(email))
+                .fetch();
     }
 
     @Override

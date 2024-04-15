@@ -13,9 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -145,8 +143,17 @@ public class Buy_OptionService {
         response.setStatus(HttpServletResponse.SC_OK);
         return "ok";
     }
-    public List<String> getDisabledDates(Boolean isOnline){
-        return repo.searchFullDate(isOnline);
+    public List<String> getDisabledDates(Boolean isOnline,String email){
+        List<String> list =repo.searchFullDate(isOnline);
+        List<String> list2 = repo.getUserSelectDay(email);
+        if(!list.isEmpty() && !list2.isEmpty()){
+            list.addAll(list2);
+            return list2;
+        }else if(list.isEmpty()&& !list2.isEmpty()){
+            return list2;
+        }
+
+        return list;
     }
     private String CheckJsonData(List<Map<String,Object>> reqdata){
         String Numreg ="^[0-9]*$";

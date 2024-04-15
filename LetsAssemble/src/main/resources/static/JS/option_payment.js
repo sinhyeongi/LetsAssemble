@@ -195,7 +195,9 @@ function Today(){
 }
 function Nextday(){
    const today = new Date();
-   return today.getFullYear()+'-'+("0"+(today.getMonth()+2)).slice(-2)+ '-'+("0"+today.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
+   let tomorrow = new Date(today);
+   tomorrow.setDate(today.getDate()+1);
+   return today.getFullYear()+'-'+("0"+(today.getMonth()+1)).slice(-2)+ '-'+("0"+tomorrow.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
 }
 function ErrMsg(msg){
    if(msg === 'Not match price'|| msg === "Err price"){
