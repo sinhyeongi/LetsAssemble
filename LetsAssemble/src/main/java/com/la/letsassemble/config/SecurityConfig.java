@@ -1,5 +1,6 @@
 package com.la.letsassemble.config;
 
+import com.la.letsassemble.Role.UsersRole;
 import com.la.letsassemble.Security_Custom.CustomAuthenticationFailure;
 import com.la.letsassemble.Security_Custom.PrincipalOauthUserService;
 import jakarta.servlet.ServletException;
@@ -8,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -16,8 +20,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.io.IOException;
@@ -25,7 +31,7 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig  {
     private final PrincipalOauthUserService principalOauthUserService;
 
     @Bean
@@ -46,10 +52,11 @@ public class SecurityConfig {
         security.csrf(AbstractHttpConfigurer :: disable);
         security.authorizeHttpRequests(auth ->{
                 auth
-                        .requestMatchers("/error/**").denyAll() // 전체 접근 허용
+                        .requestMatchers("/error/**").denyAll() // 전체 접근 불허용
+                        .requestMatchers(HttpMethod.GET,"/chat/**").authenticated()
                         .requestMatchers("/oauth2/login").authenticated() // 인증된 사용자만 접근 허용
-                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","ADMIN") // 매니저,어드민 역할만 허용
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // 어드민만 허용
+                        .requestMatchers("/manager/**").hasAnyRole(UsersRole.ROLE_MANAGER.getRole(),UsersRole.ROLE_ADMIN.getRole()) // 매니저,어드민 역할만 허용
+                        .requestMatchers("/admin/**").hasRole(UsersRole.ROLE_USER.getRole()) // 어드민만 허용
                         .anyRequest().permitAll();
         }).formLogin(
                 form ->{
@@ -89,6 +96,8 @@ public class SecurityConfig {
                 .invalidateHttpSession(true));
 
 
+
         return security.build();
     }
+
 }

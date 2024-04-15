@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Entity
@@ -34,12 +35,12 @@ public class Message {
     @PrePersist
     private void prepersist(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.TDate = formatter.format(LocalDate.now());
+        this.TDate = formatter.format(LocalDateTime .now());
     }
     @Builder
-    public Message(Long party_id,String email,String content){
-        this.party_id.setId(party_id);
-        this.user.setEmail(email);
+    public Message(Party party_id,Users user,String content){
+        this.party_id = party_id;
+        this.user = user;
         this.content = content;
     }
 }

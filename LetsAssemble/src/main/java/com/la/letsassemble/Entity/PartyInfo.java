@@ -20,7 +20,7 @@ public class PartyInfo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "party_id",referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Party party_id; // 파티 번호
+    private Party party; // 파티 번호
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aplicant_id",referencedColumnName = "email")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,10 +36,12 @@ public class PartyInfo {
         this.aplicant_day = LocalDate.now().toString();
     }
     @Builder
-    public PartyInfo(Long party_id,String applicant_id,String state,Boolean isBlack){
-        this.party_id.setId(party_id);
-        this.user.setEmail(applicant_id);
+    public PartyInfo(Party party,Users applicant_id,String state,Boolean isBlack){
+        this.party = party;
+        this.user = applicant_id;
         this.state = state;
         this.isBlack = isBlack;
     }
+
+
 }

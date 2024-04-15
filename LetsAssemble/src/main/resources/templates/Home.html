@@ -6,8 +6,10 @@
     <title>LetsAssemble!</title>
     <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}" >
     <script></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
 <header th:replace="~{/fragment/header :: header}"></header>
     <main>
         <div class="main_image">
@@ -16,7 +18,9 @@
         <div class="Main_content_box">
 
         </div>
+        <button id="test_btn" class="test_btn">test</button>
     </main>
 <footer th:replace="~{/fragment/footer :: footer}"></footer>
 </body>
+
 </html>

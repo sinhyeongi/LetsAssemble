@@ -2,10 +2,13 @@ package com.la.letsassemble.Util;
 
 import com.la.letsassemble.Entity.Buy_Option;
 import com.la.letsassemble.Entity.Party;
+import com.la.letsassemble.Entity.PartyInfo;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.Buy_OptionRepository;
+import com.la.letsassemble.Repository.PartyInfoRepository;
 import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
+import com.la.letsassemble.Role.UsersRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,14 +23,29 @@ public class InitLoadder implements CommandLineRunner {
     private final PartyRepository partyRepository;
     private final Buy_OptionRepository buy_repo;
     private final BCryptPasswordEncoder encoder;
-    public InitLoadder(UsersRepository repository, BCryptPasswordEncoder encoder, PartyRepository partyRepository, Buy_OptionRepository buyRepo){
+    private final PartyInfoRepository partyInfoRepository;
+    public InitLoadder(UsersRepository repository, BCryptPasswordEncoder encoder, PartyRepository partyRepository, Buy_OptionRepository buyRepo,
+                       PartyInfoRepository partyInfoRepository){
         repo = repository;
         this.encoder = encoder;
         this.partyRepository = partyRepository;
         this.buy_repo = buyRepo;
+        this.partyInfoRepository = partyInfoRepository;
     }
     @Override
     public void run(String... args) throws Exception {
+        Users admin = new Users().builder()
+                .email("admin@LA.LA")
+                .password(encoder.encode("admin"))
+                .phone("010-1234-1234")
+                .name("admin")
+                .nickname("admin")
+                .gender("M")
+                .age(22)
+                .build();
+        repo.saveAndFlush(admin);
+        admin.setRole(UsersRole.ROLE_ADMIN);
+        repo.saveAndFlush(admin);
         Users u = new Users().builder()
                 .email("test@test.tes")
                 .password(encoder.encode("test"))
@@ -38,6 +56,16 @@ public class InitLoadder implements CommandLineRunner {
                 .age(22)
                 .build();
         repo.saveAndFlush(u);
+        Users u2 = new Users().builder()
+                .email("test2@test.tes")
+                .password(encoder.encode("test2"))
+                .phone("010-1234-1234")
+                .name("test2")
+                .nickname("test2")
+                .gender("M")
+                .age(33)
+                .build();
+        repo.saveAndFlush(u2);
         Party party = new Party().builder()
                 .isOnline(false)
                 .personnel(100)
@@ -48,11 +76,21 @@ public class InitLoadder implements CommandLineRunner {
                 .notification("test")
                 .title("test")
                 .build();
-
+        Party party2 = new Party().builder()
+                .isOnline(false)
+                .personnel(100)
+                .area("test2")
+                .content("test2")
+                .user(u2)
+                .interest("test2")
+                .notification("test2")
+                .title("test2")
+                .build();
         Optional<Users> user = repo.findByEmail(u.getEmail());
 
         if(user.isPresent()){
             System.out.println("party = "+partyRepository.save(party));
+            System.out.println("party2 = "+partyRepository.save(party2));
             System.out.println("user = " + user.get());
         }
         for(int i = 0 ; i < 10; i++) {
@@ -79,5 +117,20 @@ public class InitLoadder implements CommandLineRunner {
                     .build();
             buy_repo.save(option);
         }
+        PartyInfo partyInfo = PartyInfo.builder()
+                .party(party)
+                .applicant_id(user.get())
+                .state("Y")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo2 = PartyInfo.builder()
+                .party(party)
+                .applicant_id(u2)
+                .state("Y")
+                .isBlack(false)
+                .build();
+        partyInfoRepository.save(partyInfo);
+        partyInfoRepository.save(partyInfo2);
+
     }
 }
