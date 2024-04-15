@@ -14,7 +14,7 @@ input.addEventListener('keydown', function(event) {
 
 function submitForm(form){
     const email = form.email.value.trim();
-    changeDisabledBtn(form.btn,"전송중");
+    changeDisabledBtn(form.btn,"전송");
     fetch("/forgotEmail",{
         method : "POST",
         headers:{

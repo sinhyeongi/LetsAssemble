@@ -141,7 +141,14 @@ public class InitLoadder implements CommandLineRunner {
                 .state("Y")
                 .isBlack(false)
                 .build();
+        PartyInfo partyInfo3 = PartyInfo.builder()
+                .party(party)
+                .applicant_id(u3)
+                .state("Y")
+                .isBlack(false)
+                .build();
         partyInfoRepository.save(partyInfo);
         partyInfoRepository.save(partyInfo2);
+        partyInfoRepository.save(partyInfo3);
         }
 }

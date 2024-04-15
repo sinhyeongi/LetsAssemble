@@ -3,7 +3,7 @@
 <head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
 
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인 | 일단모여</title>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/ilmo_login.css}">
 <!--    <script type="text/javascript" th:src="@{JS/ilmo_login.js}"></script>-->
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
@@ -34,6 +34,12 @@
                     </div>
                 </div>
                 <input type="submit" value="로그인" class="input-box-button disabled"  id="loginButton"></input>
+                <div class="forgot_link">
+                    비밀번호가 기억나지 않으세요?
+                    <a class="link" th:href="@{/user/forgot}">
+                        <div>비밀번호 찾기</div>
+                    </a>
+                </div>
             </form>
         </div>
         <!--content-->
