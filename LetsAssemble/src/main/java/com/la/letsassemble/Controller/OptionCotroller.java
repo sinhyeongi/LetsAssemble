@@ -17,13 +17,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 
-
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -78,9 +79,24 @@ public class OptionCotroller {
             return "Not Login";
         }
         String msg = service.add(reqdata,response);
-        System.out.println("msg = " + msg);
         return msg;
     }
-
-
+    @GetMapping("/view")
+    public String OptionViewForm(Model model,@Nullable @AuthenticationPrincipal PricipalDetails details){
+        if(details == null){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        if(details.getUser().getPhone() == null || details.getUser().getEmail() == null){
+            return "redirect:/user/";
+        }
+        model.addAttribute("list",service.findByUserEmail(details.getUser().getEmail()));
+        return "option_view";
+    }
+    @DeleteMapping("/cancel/{no}")
+    public @ResponseBody String Cancel(@PathVariable Long no,@AuthenticationPrincipal PricipalDetails details){
+        if(details == null || details.getUser().getEmail() == null || details.getUser().getPhone() == null){
+            return "NFU";
+        }
+        return service.Cancel_Event(no,details.getUser().getEmail());
+    }
 }

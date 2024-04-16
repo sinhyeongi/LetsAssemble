@@ -95,11 +95,13 @@ $(".option_payment_add_btn").click(function(){
    t.find($('.option_payment_flatpickr')).val("");
 })
 $('#option_payment_btn').hover(function(){
+
    if($('.option_payment_content_section').css('display') !=='flex'){
       return;
    }
    $('.option_payment_content_section').css('display','none');
-   $('.option_payment_aside').stop().animate({right : "25%",width : "50%",height: "80%"},1300);
+
+   $('.option_payment_aside').stop().animate({right : "32%",width : "50%",height: "80%"},700);
    $(this).focus();
    },
     function(){
@@ -113,7 +115,7 @@ $('html').click(function(e){
        $('.option_payment_content_section').css("display") !== "flex"&&
        !(e.target.id === 'option_payment_btn')){
       $('.option_payment_content_section').css('display','flex');
-      $('.option_payment_aside').stop().animate({width:"24%",right : "3%",height: "auto"},700);
+      $('.option_payment_aside').stop().animate({right:"3%",width:"24%",height: "auto"},700);
    }
 })
 $('#option_payment_btn').click(function(){
@@ -122,6 +124,7 @@ $('#option_payment_btn').click(function(){
 
 });
 function requestPay(){
+
    const date = Today();
    const item_count = $('.option_payment_aside_div_info').length;
    if(item_count == 0){
@@ -130,13 +133,19 @@ function requestPay(){
       $('#option_payment_btn').removeAttr("disabled");
       return;
    }
-   const uid = date + (item_count > 1 ? (' 외'+(item_count-1)):'');
+   if(!confirm('결제 취소시 모든 신청이 취소 됩니다.\n계속 진행하시겠습니까?')){
+      $('#option_payment_btn').removeAttr('disabled');
+      return;
+   }
+   let uid = date + (item_count > 1 ? (' 외'+(item_count-1)):'');
    const _name = $('.option_payment_aside_div_info:eq(0)').find('span:eq(0)').text()+(item_count > 1 ? ' 외'+(item_count-1):'');
    const price = $('#option_payment_total_price_text').text().replace("원","").replaceAll(" ","");
    const buy_name = $('input[name=username]').val();
    const buy_tel = $('input[name=tel]').val();
    const partyId = $('input[name=partyId]').val();
    const isOnline = $('input[name=online]').val();
+   const email = $('input[name=email]').val();
+   uid += '_'+email;
    IMP.request_pay({
       pg : 'html5_inicis.INIpayTest',
       pay_method : 'card',

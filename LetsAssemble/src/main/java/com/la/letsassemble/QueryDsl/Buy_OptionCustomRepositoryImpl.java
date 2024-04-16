@@ -1,5 +1,6 @@
 package com.la.letsassemble.QueryDsl;
 
+import com.la.letsassemble.Entity.Buy_Option;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,14 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
                 .from(buy_Option)
                 .where(buy_Option.even_day.eq(even_day))
                 .fetchOne();
+    }
+
+    @Override
+    public List<Buy_Option> findByEmailOrderByEven_day(String email) {
+        return factory.select(buy_Option)
+                .from(buy_Option)
+                .where(buy_Option.user.email.eq(email))
+                .orderBy(buy_Option.even_day.desc())
+                .fetch();
     }
 }

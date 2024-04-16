@@ -1,0 +1,110 @@
+body{
+    min-height: 100vh;
+    background-color: rgb(249,249,249);
+}
+#option_view_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    width: 100%;
+    margin-bottom: 22px;
+    border-bottom: 2px solid rgba(87, 137, 197, 0.76);
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    position: relative;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.option_view_cancel{
+    position: absolute;
+    top: 7%;
+    left: 2%;
+    border: none;
+    background: transparent;
+}
+#option_view_main{
+    width: 60%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+    background-color: rgb(249,249,249);
+}
+
+.view_card{
+    position: relative;
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(87, 137, 197, 0.76);
+    border-radius: 12px;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    text-align: center;
+    min-height: 200px;
+    font-size: 18px;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    background-color: #ffffff;
+}
+.view_card >input[type=radio]{
+    position: absolute;
+    right: -5%;
+    top: 50%;
+}
+.view_card > div:first-child{
+    border-bottom: 2px solid rgba(54, 52, 52, 0.13);
+}
+.view_card > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+.view_card > div > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex:1;
+}
+.view_card > div > div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+}
+.view_card > div > div > span{
+    flex:1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.view_card > div > div > span > button{
+    width: 80%;
+    height: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    background-color: rgba(46, 89, 217, 0.6);
+    color: white;
+}
+.option_view_after_h2{
+    color: rgba(66, 68, 78, 0.32);
+
+}
