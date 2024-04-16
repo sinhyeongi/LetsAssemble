@@ -13,9 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -51,6 +49,7 @@ public class Buy_OptionService {
         String uid = reqdata.get(0).get("imp_uid").toString();
         if(!lock&& count >= 20){
             inicisUtil.Cancel(uid,inicisUtil.RefundableAmount(uid));
+            redisLockRepository.unlock("pay","pay");
             return "Number of times exceeded";
         }
         int oprice = getTotalPrice(reqdata);
@@ -145,8 +144,17 @@ public class Buy_OptionService {
         response.setStatus(HttpServletResponse.SC_OK);
         return "ok";
     }
-    public List<String> getDisabledDates(Boolean isOnline){
-        return repo.searchFullDate(isOnline);
+    public List<String> getDisabledDates(Boolean isOnline,String email){
+        List<String> list =repo.searchFullDate(isOnline);
+        List<String> list2 = repo.getUserSelectDay(email);
+        if(!list.isEmpty() && !list2.isEmpty()){
+            list.addAll(list2);
+            return list2;
+        }else if(list.isEmpty()&& !list2.isEmpty()){
+            return list2;
+        }
+
+        return list;
     }
     private String CheckJsonData(List<Map<String,Object>> reqdata){
         String Numreg ="^[0-9]*$";
@@ -185,6 +193,7 @@ public class Buy_OptionService {
         }
         return "ok";
     }
+    //옵션 이름 별 총 가격
     private int getTotalPrice(List<Map<String,Object>>list){
         int totalprice = 0;
         for(Map<String,Object>n : list){
@@ -194,5 +203,39 @@ public class Buy_OptionService {
             }
         }
         return totalprice;
+    }
+    public List<Buy_Option> findByUserEmail(String email){
+        return repo.findByEmailOrderByEven_day(email);
+    }
+    @Transactional
+    public String Cancel_Event(Long id,String email){
+        int count = 0;
+        String respon = "?";
+        try {
+            while ((!redisLockRepository.lock("pay_del", "del")) && count < 20) {
+                Thread.sleep(1000L);
+                count++;
+                System.out.println("count = " + count);
+            }
+            if(count >= 20){
+                respon = "Time Over";
+                throw new Exception();
+            }
+            Buy_Option buyOption = repo.findById(id).orElse(null);
+            if (buyOption == null) {
+                return "No search Id";
+            } else if (!buyOption.getUser().getEmail().equals(email)) {
+                return "Not Match Email";
+            }
+            respon = inicisUtil.Cancel(buyOption.getImpUid(), inicisUtil.RefundableAmount(buyOption.getImpUid()));
+            if (respon.equals("ok")) {
+                respon = repo.deleteByImpUidAndUserEmail(buyOption.getImpUid(),email)+"개의 결제가 취소되었습니다.";
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            redisLockRepository.unlock("pay_del","del");
+        }
+        return respon;
     }
 }

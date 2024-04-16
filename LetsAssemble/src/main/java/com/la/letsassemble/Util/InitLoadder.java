@@ -108,7 +108,7 @@ public class InitLoadder implements CommandLineRunner {
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
-                    .even_day("2024-04-22")
+                    .even_day("2024-04-11")
                     .price(1000)
                     .name("test")
                     .user(user.get())
@@ -129,6 +129,16 @@ public class InitLoadder implements CommandLineRunner {
                     .build();
             buy_repo.save(option);
         }
+        Buy_Option option = new Buy_Option().builder()
+                .party(party)
+                .even_day("2024-04-16")
+                .price(1000)
+                .name("test")
+                .user(user.get())
+                .imp_uid("test")
+                .isOnline(false)
+                .build();
+        buy_repo.save(option);
         PartyInfo partyInfo = PartyInfo.builder()
                 .party(party)
                 .applicant_id(user.get())

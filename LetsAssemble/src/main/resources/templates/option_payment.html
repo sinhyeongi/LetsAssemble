@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>옵션 선택하기</title>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -20,6 +20,7 @@
 
 </head>
 <body>
+<header th:replace="~{/fragment/header :: header}"></header>
     <main>
         <input type="hidden" th:value="${user.email}" name="email" readonly>
         <input type="hidden" th:value="${user.phone}" name="tel" readonly>
@@ -32,7 +33,7 @@
             <div class="option_payment_content">
                 <div class="option_payment_content_title">파티글 상단에 고정하기</div>
                 <div class="option_payment_content_box">
-                    <div class="option_payment_view_name">선택 날짜</div><div><input type="text" class="option_payment_flatpickr"></div>
+                    <div class="option_payment_view_name">선택 날짜</div><div><input type="text" class="option_payment_flatpickr" placeholder="날짜 선택하기" style="color: black;font-size: 20px;"></div>
                     <div><button class="option_payment_add_btn">추가하기</button></div>
                 </div>
                 <input type="hidden" class="option_price" value="1000">
@@ -53,5 +54,6 @@
             </div>
         </div>
     </main>
+<footer th:replace="~{/fragment/footer :: footer}"></footer>
 </body>
 </html>

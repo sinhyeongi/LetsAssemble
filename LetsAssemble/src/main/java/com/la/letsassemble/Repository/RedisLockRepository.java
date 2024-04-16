@@ -20,7 +20,7 @@ public class RedisLockRepository {
     }
     public void unlock(String key,String value){
         String currrentValue =  redisTemplate.opsForValue().get(key);
-        if(value.equals(currrentValue)){
+        if(currrentValue != null && value.equals(currrentValue)){
             redisTemplate.delete(key);
         }
     }
