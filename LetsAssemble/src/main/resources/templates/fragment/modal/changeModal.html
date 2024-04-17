@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="nicknameChangeModal">
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="sections">
+                <section class="x-section">
+                    <i class="fa-solid fa-xmark close"></i>
+                </section>
+                <section class="content-section">
+                    <h1>닉네임을 변경하시겠습니까?</h1>
+                    <p>변경하시고 싶은 닉네임을 입력해주세요.</p>
+                    <div class="input">
+                        <input type="text" placeholder="닉네임을 입력해주세요." th:value="${user.nickname}" id="nickname">
+                    </div>
+                </section>
+                <section class="msg-section" style = "display:none;">
+                    <div class="msg"></div>
+                </section>
+                <section class="btn-section">
+                    <div class="changeBtn" onclick="changeNickname(nickname)">변경하기</div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

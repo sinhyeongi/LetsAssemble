@@ -37,6 +37,7 @@ main{
 }
 
 .top-nav-wrap{
+    min-width: 760px;
     position: absolute;
     max-width: 1180px;
     width: 100%;

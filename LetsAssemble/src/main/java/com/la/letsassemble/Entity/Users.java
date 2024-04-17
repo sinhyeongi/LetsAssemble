@@ -76,6 +76,10 @@ public class Users {
         user.password = password;
         return user;
     }
+    public Users changeNickname(Users user,String nickname){
+        user.nickname = nickname;
+        return user;
+    }
 
     public static Users createUser(UserForm form , BCryptPasswordEncoder encoder ){
         Users users = new Users();

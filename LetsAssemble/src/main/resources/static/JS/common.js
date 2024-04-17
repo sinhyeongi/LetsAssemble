@@ -1,3 +1,5 @@
 const xBtn = document.querySelector(".x_btn");
 
-xBtn.addEventListener("click", ()=>{location.href="/"});
+if(xBtn !== null){
+    xBtn.addEventListener("click", ()=>{location.href="/"});
+}

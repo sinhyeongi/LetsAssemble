@@ -3,10 +3,12 @@ package com.la.letsassemble.Service;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Security_Custom.PrincipalDetailsService;
 import com.la.letsassemble.dto.PasswordForm;
 import com.la.letsassemble.dto.UserForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,6 +80,28 @@ public class UsersService {
         log.error("change user = {}",user);
         usersRepository.saveAndFlush(user);
         return "ok";
+    }
+    @Transactional
+    public ResponseEntity<String> changeNickname(PricipalDetails userDetails, UserForm form){
+        Users user = userDetails.getUser();
+        log.error("기존 닉네임 = {}", user.getNickname());
+        log.error("변경 닉네임 = {}", form.getNickname());
+        if(form.getNickname().length() < 3){
+            return ResponseEntity.badRequest().body("not length");
+        }
+        if(!user.getEmail().equals(form.getEmail())){
+            return ResponseEntity.badRequest().body("badRequest");
+        }
+        if(user.getNickname().equals(form.getNickname())){
+            return ResponseEntity.badRequest().body("same");
+        }
+        if(usersRepository.findByNickname(form.getNickname()).isPresent()){
+            return ResponseEntity.badRequest().body("not valid");
+        }
+        user.changeNickname(user,form.getNickname());
+        usersRepository.saveAndFlush(user);
+        userDetails.setUser(user);
+        return ResponseEntity.ok().body("ok");
     }
 
 }
