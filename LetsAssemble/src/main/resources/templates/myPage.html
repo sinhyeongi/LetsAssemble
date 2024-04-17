@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragment/header.html :: common_header(title,links,scripts)}">
-    <meta charset="UTF-8">
-    <title>내 정보 | 일단모여</title>
-</head>
-<body>
-
-</body>
+<html th:replace="~{fragment/myPage :: myPage(~{::section})}"
+      xmlns:th="http://www.thymeleaf.org" >
+    <section class="content-box">
+        <div class="top-bar"></div>
+        <div class="img"><i class="fa-solid fa-user-pen fa-4x"></i></div>
+        <div class="nickname">
+            <p th:if="${user.nickname}" th:text="${user.nickname}"></p>
+            <p th:unless="${user.nickname}">설정된 닉네임이 없습니다.</p>
+        </div>
+        <div class="edit-btn" id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></div>
+    </section>
 </html>

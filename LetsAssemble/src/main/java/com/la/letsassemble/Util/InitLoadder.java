@@ -98,11 +98,22 @@ public class InitLoadder implements CommandLineRunner {
                 .notification("test2")
                 .title("test2")
                 .build();
+        Party party3 = new Party().builder()
+                .isOnline(false)
+                .personnel(100)
+                .area("test2")
+                .content("test2")
+                .user(u3)
+                .interest("test2")
+                .notification("test2")
+                .title("test2")
+                .build();
         Optional<Users> user = repo.findByEmail(u.getEmail());
 
         if(user.isPresent()){
             System.out.println("party = "+partyRepository.save(party));
             System.out.println("party2 = "+partyRepository.save(party2));
+            System.out.println("party3 = "+partyRepository.save(party3));
             System.out.println("user = " + user.get());
         }
         for(int i = 0 ; i < 10; i++) {

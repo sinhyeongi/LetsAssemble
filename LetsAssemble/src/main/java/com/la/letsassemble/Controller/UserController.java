@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -101,5 +102,10 @@ public class UserController {
         Optional<Users> u =usersService.findByEmail(form.getEmail());
         Users user = u.orElse(null);
         return usersService.changePassword(user,form);
+    }
+
+    @PostMapping("/changeNickname")
+    public @ResponseBody ResponseEntity<String> changeNickname(@Nullable @AuthenticationPrincipal PricipalDetails userDetails,@RequestBody UserForm userForm){
+        return usersService.changeNickname(userDetails,userForm);
     }
 }

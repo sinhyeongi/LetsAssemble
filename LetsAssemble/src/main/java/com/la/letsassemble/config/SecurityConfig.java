@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Remove;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -37,9 +38,8 @@ public class SecurityConfig  {
     @Bean
     WebSecurityCustomizer webSecurityCustomizer(){
         return (web -> {
-            web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error","/js/**"});
+            web.ignoring().requestMatchers(new String[]{"/favicon.ico","/resources/**","/error"});
         });
-
     }
 
     @Bean

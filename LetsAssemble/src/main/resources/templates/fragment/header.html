@@ -18,7 +18,7 @@
         <i class="fa-solid fa-x fa-2x" style="width: 36px; height: 36px;"></i>
     </div>
 </header>
-<header th:fragment="header">
+<header th:fragment="navheader">
     <nav class="topNav">
         <div class="top-nav-wrap">
             <div class="nav-item">
@@ -26,11 +26,12 @@
             </div>
             <div class="nav-item">
                 <div class="nav-list">
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/manage/myParty}">나의 파티</a>
                     <a class="nav-data" th:href="@{/party/create}">파티 만들기</a>
                     <a class="nav-data" th:href="@{/party/find_party}">파티 찾기</a>
                     <a class="nav-data" th:href="@{/qna}">자주 묻는 질문</a>
                     <a sec:authorize="!isAuthenticated()" class="nav-data" th:href="@{/user/loginForm}">로그인</a>
-                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/user/mypage}">마이페이지</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/manage}">마이페이지</a>
                     <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/logout}">로그아웃</a>
                 </div>
             </div>
