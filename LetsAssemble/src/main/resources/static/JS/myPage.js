@@ -4,16 +4,6 @@ const close = document.querySelector('.close');
 const msg = document.querySelector('.msg');
 const msgSection = document.querySelector('.msg-section');
 const nicknameInput = document.getElementById('nickname');
-const links = document.querySelectorAll('.link');
-links.forEach(element=>{
-    element.onclick = function () {
-        const name = element.getAttribute('data-target');
-        const wrap = document.querySelector('.content-wrap');
-    }
-})
-
-
-
 
 // 버튼을 클릭하면 모달을 열어줍니다
 btn.onclick = function(){

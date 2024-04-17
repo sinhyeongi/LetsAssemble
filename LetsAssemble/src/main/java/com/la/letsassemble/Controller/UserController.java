@@ -104,16 +104,6 @@ public class UserController {
         return usersService.changePassword(user,form);
     }
 
-    @GetMapping("/myPage")
-    public String myPage(@Nullable @AuthenticationPrincipal PricipalDetails userDetails,Model model){
-        if(userDetails == null){
-            return "redirect:/user/loginForm";
-        }
-        Users user = userDetails.getUser();
-        model.addAttribute("user",user);
-        return "myPage";
-    }
-
     @PostMapping("/changeNickname")
     public @ResponseBody ResponseEntity<String> changeNickname(@Nullable @AuthenticationPrincipal PricipalDetails userDetails,@RequestBody UserForm userForm){
         return usersService.changeNickname(userDetails,userForm);

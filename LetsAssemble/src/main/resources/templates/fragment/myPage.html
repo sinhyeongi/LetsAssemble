@@ -1,5 +1,38 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<div class="content-box" th:fragment="myParty">
-    <h1>myParty test</h1>
+<html th:fragment="myPage(content)" lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragment/header.html :: common_header(~{::title},~{::link},~{::script})}">
+    <meta charset="UTF-8">
+    <title>내 정보 | 일단모여</title>
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" defer th:src="@{/js/myPage.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myPage.css}">
+    <script th:inline="javascript" defer>
+        const user = /*[[${user}]]*/ '';
+    </script>
+</head>
+<body>
+<header th:replace="~{fragment/header :: navheader}"></header>
+<div class="container">
+    <div class="wrap">
+        <div class="left_nav">
+            <div class="top-nav nav">
+                <label><i class="fa-solid fa-users" style="width: 24px; height: 24px;margin: 5px;"></i>정보 관리</label>
+                <a class="link" th:href="@{/manage/info}">회원 정보</a>
+<!--                <a class="link" th:href="@{/manage/}">1</a>-->
+<!--                <a class="link" th:href="@{/manage/}">2</a>-->
+<!--                <a class="link" th:href="@{/manage/}">3</a>-->
+            </div>
+            <div class="bottom-nav nav">
+                <label>일단모여 관리</label>
+                <a class="link" th:href="@{/manage/myParty}">나의 파티</a>
+            </div>
+        </div>
+        <div class="content-wrap">
+            <th:block th:replace="${content}"/>
+        </div>
+    </div>
 </div>
+<div th:replace="~{fragment/modal/changeModal :: nicknameChangeModal}"></div>
+</body>
+</html>

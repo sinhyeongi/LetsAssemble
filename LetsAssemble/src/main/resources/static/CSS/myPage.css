@@ -24,6 +24,7 @@
     margin-right: 20px;
 }
 .link{
+    display: block;
     cursor: pointer;
     font-weight: 700;
     font-size: medium;
@@ -97,7 +98,54 @@ label{
     top: -40px;
     color: darkgray;
 }
-/* 모달의 기본 스타일 */
+
+/******************* userInfo *************/
+.info-wrap{
+    width: calc(100% - 40px);
+    padding: 20px;
+    height: auto;
+}
+.content-title{
+    margin: 10px 0;
+}
+.line{
+    width: 100%;
+    background-color: #d6d8db;
+    height: 1px;
+}
+.item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 5px 0;
+}
+.small-name{
+    color: #75777a;
+}
+.small-content-box{
+    display: flex;
+    align-items: center;
+}
+.small-content{
+    margin-right: 10px;
+    font-weight: bold;
+}
+.small-btn{
+    cursor: pointer;
+    background-color: rgba(253, 117, 20, 0.08);
+    padding: 10px;
+    border-radius: 5px;
+    color: rgba(22, 48, 73, 0.64);
+    font-weight: bolder;
+}
+.disabled{
+    cursor: none;
+    visibility: hidden;
+}
+
+
+
+/******************* 모달 *****************/
 .modal {
     display: none;
     position: fixed;

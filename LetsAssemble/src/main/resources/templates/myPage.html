@@ -1,47 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragment/header.html :: common_header(~{::title},~{::link},~{::script})}">
-    <meta charset="UTF-8">
-    <title>내 정보 | 일단모여</title>
-    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" defer th:src="@{/js/myPage.js}"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/myPage.css}">
-    <script th:inline="javascript" defer>
-        const user = /*[[${user}]]*/ '';
-    </script>
-</head>
-<body>
-<header th:replace="~{fragment/header :: navheader}"></header>
-<div class="container">
-    <div class="wrap">
-        <div class="left_nav">
-            <div class="top-nav nav">
-                <label><i class="fa-solid fa-users" style="width: 24px; height: 24px;margin: 5px;"></i>파티 관리</label>
-                <div class="link" data-target="myParty">정보 관리</div>
-                <div class="link">회원 정보 수정</div>
-                <div class="link">1</div>
-                <div class="link">2</div>
-                <div class="link">3</div>
-            </div>
-            <div class="bottom-nav nav">
-                <label>일단모여 관리</label>
-                <div class="link">나의 파티</div>
-            </div>
+<html th:replace="~{fragment/myPage :: myPage(~{::section})}"
+      xmlns:th="http://www.thymeleaf.org" >
+    <section class="content-box">
+        <div class="top-bar"></div>
+        <div class="img"><i class="fa-solid fa-user-pen fa-4x"></i></div>
+        <div class="nickname">
+            <p th:if="${user.nickname}" th:text="${user.nickname}"></p>
+            <p th:unless="${user.nickname}">설정된 닉네임이 없습니다.</p>
         </div>
-        <div class="content-wrap">
-            <div class="content-box">
-                <div class="top-bar"></div>
-                <div class="img"><i class="fa-solid fa-user-pen fa-4x"></i></div>
-                <div class="nickname">
-                    <p th:if="${user.nickname}" th:text="${user.nickname}"></p>
-                    <p th:unless="${user.nickname}">설정된 닉네임이 없습니다.</p>
-                </div>
-                <div class="edit-btn" id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:replace="~{fragment/modal/changeModal :: nicknameChangeModal}"></div>
-</body>
+        <div class="edit-btn" id="edit-btn"><i class="fa-solid fa-pen-to-square"></i></div>
+    </section>
 </html>

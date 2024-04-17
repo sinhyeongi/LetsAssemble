@@ -1,0 +1,38 @@
+body{
+    background-color: #f2f2f8;
+}
+.container{
+    margin-top: 80px;
+}
+.big-wrap{
+    margin: 20px auto;
+    max-width: 1000px;
+}
+.parties{
+    display: grid;
+    grid-template-columns: repeat(5,200px);
+}
+.party-wrap{
+    margin-right: 20px;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: solid 1px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 300ms;
+}
+.party-wrap:hover{
+    transform: translateY(-5px);
+}
+
+.party-title{
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+}
+.party-notice{
+    height: 60px;
+}

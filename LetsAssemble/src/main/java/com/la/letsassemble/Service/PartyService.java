@@ -8,11 +8,13 @@ import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.dto.PartyForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -50,4 +52,11 @@ public class PartyService {
             repo.save(updateparty);
         }
     }
+    public List<Party> findAllByUser(Users user) {
+        return repo.findAllByUser(user);
+    }
+    public List<Party> findAllByUserAndState(Users user,String state){
+        return repo.findAllByUserAndState(user,state);
+    }
+
 }

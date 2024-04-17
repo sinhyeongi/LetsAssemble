@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html th:replace="~{fragment/myPage :: myPage(~{::section})}"
+      xmlns:th="http://www.thymeleaf.org" >
+    <section class="content-box">
+        <div class="info-wrap">
+            <div class="content-title">
+                <h1>회원 정보</h1>
+            </div>
+            <div class="line"></div>
+            <div class="content-item item">
+                <div class="small-name">연결된 소셜 로그인 정보</div>
+                <div class="small-content-box">
+                    <div class="small-content" th:if="${user.provider}=='naver'">네이버</div>
+                    <div class="small-content" th:if="${user.provider}=='kakao'">카카오</div>
+                    <div class="small-content" th:if="${user.provider}=='google'">구글</div>
+                    <div class="small-btn disabled">변경하기</div>
+                </div>
+            </div>
+            <div class="content-item item">
+                <div class="small-name">휴대폰 번호</div>
+                <div class="small-content-box">
+                    <div class="small-content" th:text="${user.phone}"></div>
+                    <div class="small-btn">변경하기</div>
+                </div>
+            </div>
+            <div class="content-item item">
+                <div class="small-name">내 이메일</div>
+                <div class="small-content-box">
+                    <div class="small-content" th:text="${user.email}"></div>
+                    <div class="small-btn disabled">변경하기</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</html>
