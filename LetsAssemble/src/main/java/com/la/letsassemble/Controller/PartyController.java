@@ -1,5 +1,6 @@
 package com.la.letsassemble.Controller;
 
+
 import com.la.letsassemble.Entity.PartyInfo;
 import com.la.letsassemble.Repository.PartyInfoRepository;
 import com.la.letsassemble.Repository.PartyRepository;
@@ -13,13 +14,16 @@ import com.la.letsassemble.Service.PartyService;
 import com.la.letsassemble.Service.UsersService;
 import com.la.letsassemble.dto.PartyForm;
 import jakarta.annotation.Nullable;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,9 +37,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 
 @Slf4j
 @Controller
@@ -52,6 +58,7 @@ public class PartyController {
     private final PartyRepository partyRepository;
     private final PartyInfoRepository partyInfoRepository;
 
+
     @Data
     @AllArgsConstructor
     static class party {
@@ -62,6 +69,7 @@ public class PartyController {
         private String interest;
         private String area;
         private int personnel;
+        private int isOnline;
     }
 
     @GetMapping("/find_party")
@@ -174,24 +182,136 @@ public class PartyController {
         List<party> bigList = new ArrayList<>();
         List<party> smallList = new ArrayList<>();
 
-        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3));
-        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4));
-        smallList.add(new party(1,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
-        smallList.add(new party(2,"코딩 스터디 구합니다" , "asdf" , "열정적으로 공부하실 분들 구해요" , "스터디" , "말레이시아" , 2));
-        smallList.add(new party(5,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
-        smallList.add(new party(4,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
-        smallList.add(new party(6,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
-        smallList.add(new party(8,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
-        smallList.add(new party(9,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4));
+        // 더미 없어서 임의로 만든 리스트
+        // 더미 있을시 유료 리스트 , 일반 리스트 넘겨주면 됨
+        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
+        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+
+        smallList.add(new party(1,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4, 0));
+        smallList.add(new party(2,"코딩 스터디 구합니다" , "asdf" , "열정적으로 공부하실 분들 구해요" , "스터디" , "말레이시아" , 2 , 0));
+        smallList.add(new party(5,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4 , 1));
+        smallList.add(new party(4,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4, 1));
+        smallList.add(new party(6,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4,1));
+        smallList.add(new party(8,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4,0));
+        smallList.add(new party(9,"같이 축구하실 실력 좋은 사람 구함" , "asdf" , "내 파티 안 들어오면 지상렬" , "스포츠" , "경기도" , 4,1));
 
         model.addAttribute("big_items", bigList);
+
         model.addAttribute("small_items", smallList);
     }
+
+    @GetMapping("/getParties")
+    @ResponseBody
+    public List<party> getPartiesByType(@RequestParam(value = "type", required = false) String type) {
+//        if ("온라인".equals(type)) {
+//            return partyService.getOnlineParties();
+//        } else if ("오프라인".equals(type)) {
+//            return partyService.getOfflineParties();
+//        } else {
+//            // type이 지정되지 않은 경우 모든 파티 목록 반환
+//            return partyService.getAllParties();
+//        }
+
+        // 더미 없어서 임의로 만든 리스트
+        // 더미 있을시 online 리스트 , offline 리스트 출력 후 넘겨주면 됨
+
+        List<party> onlineList = new ArrayList<>();
+        List<party> offlineList = new ArrayList<>();
+
+        List<party> bigList = new ArrayList<>();
+        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
+        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+        for (party pt : bigList) {
+            if (pt.getIsOnline() == 1) {
+                onlineList.add(pt);
+            }
+        }
+
+        for (party pt : bigList) {
+            if (pt.getIsOnline() == 0) {
+                offlineList.add(pt);
+            }
+        }
+
+         if ("online".equals(type)) {
+            return onlineList;
+        } else if ("offline".equals(type)) {
+            return offlineList;
+        } else {
+             return null;
+         }
+    }
+
+//    @GetMapping("/getOnlineParties")
+//    @ResponseBody
+//    public List<party> getOnlineParties() {
+//        List<party> onlineList = new ArrayList<>();
+//
+//        List<party> bigList = new ArrayList<>();
+//        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
+//        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+//        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+//        for (party pt : bigList) {
+//            if (pt.getIsOnline() == 1) {
+//                onlineList.add(pt);
+//            }
+//        }
+//        return onlineList;
+//    }
+//
+//    @GetMapping("/getOfflineParties")
+//    @ResponseBody
+//    public List<party> getOfflineParties() {
+//        List<party> offlineList = new ArrayList<>();
+//
+//        List<party> bigList = new ArrayList<>();
+//        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
+//        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+//        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
+//        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
+//        for (party pt : bigList) {
+//            if (pt.getIsOnline() == 0) {
+//                offlineList.add(pt);
+//            }
+//        }
+//        return offlineList;
+//    }
+
 
     @GetMapping({"","/"})
     public String home(){
         return "index";
     }
+
+    @GetMapping("party_info")
+    public String partyInfo(@RequestParam Long id, Model model){
+
+        Optional<Party> optionalParty  = partyService.findByPartyId(id);
+
+       Party party = optionalParty.orElse(null); // Optional이 비어있을 경우 null 반환
+        if(party == null){
+            return "/";
+        }
+            model.addAttribute("party", party);
+            return "party_info";
+
+
+
+    }
+
     /*
     @GetMapping({"","/"})
     public String home(OAuth2AuthenticationToken authentication , Model model) {
