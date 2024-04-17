@@ -1,5 +1,6 @@
 body{
     font-family: 'Arial', sans-serif;
+    background-color: rgb(244, 246, 251);
 }
 
 #subWrap{
@@ -13,6 +14,7 @@ body{
 
 #subContents{
     /* border : 1px solid lightgray; */
+    background-color: white;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
