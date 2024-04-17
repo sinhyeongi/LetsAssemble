@@ -1,0 +1,127 @@
+body{
+    font-family: 'Arial', sans-serif;
+}
+
+#subWrap{
+    /* padding-top: 200px; */
+    position: relative;
+    top:150px;
+    /* border : 2px solid yellow; */
+    width:1070px;
+    margin: 0 auto;
+}
+
+#subContents{
+    /* border : 1px solid lightgray; */
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 1070px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3); /* 그림자 설정 */
+}
+
+#detailView {
+
+}
+.detail-writerDay {
+    padding-bottom: 7px;
+    border-bottom: 2px solid black;
+    font-size: 14px;
+}
+.detail-content_header{
+    padding-top: 30px;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+}
+.detail-content_main{
+    padding-top: 50px;
+    /* border : 1px solid blue; */
+    /* border-bottom: 1px solid lightgray; */
+    display: flex;
+}
+.detail-content_main_first{
+    flex : 5;
+    padding-left: 50px;
+    width:72px;
+}
+.detail-content_main-list {
+    padding-bottom: 30px;
+}
+.detail-content_main-list dl{
+    display: table;
+    margin-top: 10px;
+}
+.detail-content_main-list dt{
+    display: table-cell;
+    width: 72px;
+    padding-right: 14px;
+    color: #999;
+    vertical-align: top;
+}
+.detail-content_main-list dd{
+    display: table-cell;
+    position: relative;
+    width: auto;
+    line-height: 22px;
+    color: #222;
+    word-break: break-all;
+}
+
+.detail-content_main_second{
+    flex: 5;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.go_party{
+    margin-top: 50px;
+    margin-left: 200px;
+}
+.go_party a{
+    /* border : 1px solid gray; */
+    padding: 30px;
+    text-decoration: none;
+    color : rgb(119, 116, 116);
+    font-weight: bold;
+    background-color: rgb(230, 229, 229);
+}
+.go_party a:hover{
+    background-color: rgb(225, 224, 224);
+    color : rgb(63, 62, 62);
+}
+.party_cont{
+    font-size: 18px;
+    font-weight: bold;
+    color : gray;
+}
+
+.period{
+    margin-top: 50px;
+    margin-left: 200px;
+}
+.period_day{
+    font-weight: bold;
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+.period_day span{
+    margin-left: 10px;
+}
+
+.detail-content_main-content{
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+dd span{
+    display: flex;
+    align-items: center;
+}

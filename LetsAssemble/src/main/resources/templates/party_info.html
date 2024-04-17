@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/party_info.css}">
+</head>
+<body>
+<div id="subWrap">
+    <div class="detail-writerDay">
+        등록일 : <span class="writerDay" th:text="${party.riterDay}"></span>
+    </div>
+    <div id="subContents">
+        <div id="detailView">
+            <div class="detail-content">
+                <div class="detail-content_header" th:text="${party.title}"></div>
+                <hr>
+                <div class="detail-content_main">
+                    <div class="detail-content_main_first">
+                        <div class="detail-content_main-list">
+                            <h2>파티 정보</h2>
+                            <dl>
+                                <dt>카테고리</dt>
+                                <dd th:text="${party.interest}"></dd>
+                            </dl>
+                            <dl>
+                                <dt>모임방식</dt>
+                                <dd>
+                                 <span th:if="${party.isOnline() == 0}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor">
+                                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line>
+                                     <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                    온라인
+                                </span>
+                                <span th:if="${party.isOnline() != 0}">
+                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
+                                    <path d="M17 11V7a5 5 0 0 0-10 0v4"></path>
+                                    <circle cx="9" cy="12" r="2"></circle>
+                                     <circle cx="17" cy="12" r="2"></circle>
+                                    <path d="M12 17a5 5 0 0 0-5-5h10a5 5 0 0 0-5 5z"></path>
+                                 </svg>
+                                    오프라인
+                                    </span>
+                                </dd>
+<!--                                <dd th:text="${party.isOnline() == 0 ? '온라인' : '오프라인'}"></dd>-->
+                            </dl>
+                            <dl>
+                                <dt>모집인원</dt>
+                                <dd th:text="${party.personnel}"></dd>
+                            </dl>
+                            <dl>
+                                <dt>지역</dt>
+                                <dd th:text="${party.area}"></dd>
+                            </dl>
+                        </div> <!-- _main-list -->
+                    </div>
+                    <!-- 왼쪽 부분 -->
+                    <div class="detail-content_main_second">
+                        <div class="go_party">
+                            <a href="#">파티 참가하기</a>
+                        </div>
+                        <div class="period">
+                            <h2>모집 마감일</h2>
+                            <div class="period_day">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span th:text="${party.riterDay}"></span> ~ 상시 모집
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 오른쪽 부분  -->
+                </div>
+                <hr>
+                <div class="detail-content_main-content">
+                    <h2>모집 내용</h2>
+                    <div class="party_cont" th:text="${party.content}">
+<!--                        참여율 높고, 성실히 임하실 분들만 모집합니다!! 매너있는 분들도 환영해요-->
+                    </div>
+                </div> <!-- _main-content -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
