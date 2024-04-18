@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/admin.css}">
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" defer th:src="@{/JS/admin.js}"></script>
+<!--    <script type="text/javascript" defer th:src="@{/JS/manage_user.js}"></script>-->
+</head>
+<body>
+<header th:replace="~{fragment/header :: Xheader}"></header>
+<div id="subWrap">
+    <div id="subContents">
+        <div id="detailView">
+            <div class="detail-content">
+                <div class="manage_header">
+                    <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/user-shield.png" alt="user-shield" />
+                    <div class="manage_name">관리자</div>
+                </div>
+                <hr>
+                <div class="detail-content_main">
+                    <div class="detail-content_main_first">
+                        <div class="detail-content_main-list">
+                            <div class="manage_tap">
+                                <h2 class="manage_siren">신고 관리 <img width="35" height="35"
+                                                                    src="https://img.icons8.com/color/48/siren.png" alt="siren" />
+                                </h2>
+                            </div>
+                            <div class="manage_tap">
+                                <h2 class="manage_party">파티 관리 <img width="50" height="50"
+                                                                    src="https://img.icons8.com/bubbles/50/meeting.png" alt="meeting" /></h2>
+                            </div>
+                            <div class="manage_tap">
+                                <h2 class="manage_user">회원 관리
+                                    <img width="50" height="50" src="https://img.icons8.com/bubbles/50/user.png" alt="user" />
+                                </h2>
+                            </div>
+                        </div> <!-- _main-list -->
+                    </div>
+                    <!-- 왼쪽 부분 -->
+                    <div class="detail-content_main_second">
+                        <!-- <div class="go_party">
+                          <a href="#">파티 참가하기</a>
+                        </div>
+                        <div class="period">
+                          <h2>모집 마감일</h2>
+                          <div class="period_day">
+                            2024-04-13 ~ 상시 모집
+                          </div>
+                        </div> -->
+                    </div>
+                    <!-- 오른쪽 부분  -->
+                </div>
+                <hr>
+                <div class="manage_footer">
+                    <div>
+                        일단모여 관리자님 환영합니다 ! <br><br>
+                        오늘도 좋은 하루 보내세요
+                        <img width="48" height="48" src="https://img.icons8.com/color/48/clover.png" alt="clover" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

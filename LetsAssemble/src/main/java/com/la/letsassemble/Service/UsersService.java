@@ -104,4 +104,16 @@ public class UsersService {
         return ResponseEntity.ok().body("ok");
     }
 
+    // 모든 유저 목록 출력
+    public List<Users> findAllUsers(){
+        List<Users> list = usersRepository.findAll();
+        return list;
+    }
+
+    @Transactional
+    public String deleteUser(Long id) {
+        usersRepository.deleteById(id);
+
+        return "ok";
+    }
 }

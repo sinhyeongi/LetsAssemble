@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -108,4 +110,5 @@ public class UserController {
     public @ResponseBody ResponseEntity<String> changeNickname(@Nullable @AuthenticationPrincipal PricipalDetails userDetails,@RequestBody UserForm userForm){
         return usersService.changeNickname(userDetails,userForm);
     }
+
 }

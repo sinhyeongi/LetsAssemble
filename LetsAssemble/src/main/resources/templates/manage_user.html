@@ -1,0 +1,30 @@
+
+<link rel="stylesheet" th:href="@{/CSS/manage_user.css}">
+<script type="text/javascript" defer th:src="@{/JS/manage_user.js}"></script>
+<h2 class="show_users"> 회원 목록 </h2>
+
+    <div class="user_container">
+        <div th:each="user : ${list}" class="user_content">
+            <input type="hidden" name="user_id" th:value="${user.id}">
+            <div class="user_info_name">
+                이름 : <span th:text="${user.name}"></span>
+            </div>
+            <div class="user_info">
+                아이디 : <span th:text="${user.email}"></span>
+            </div>
+            <div class="user_info">
+                연락처 : <span th:text="${user.phone}"></span>
+            </div>
+            <div class="user_info">
+                닉네임 : <span th:text="${user.nickname}"></span>
+            </div>
+            <div class="user_info">
+                나이 : <span th:text="${user.age}"></span>
+            </div>
+            <div class="user_info">
+                성별 : <span th:text="${user.gender == 'M' ? '남성' : '여성'}"></span>
+            </div>
+        </div> <!-- user_content -->
+    </div>
+
+

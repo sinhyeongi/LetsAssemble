@@ -1,0 +1,164 @@
+body{
+    font-family: 'Arial', sans-serif;
+    background-color: rgb(244, 246, 251);
+    /*overflow: hidden;*/
+}
+
+#subWrap{
+    position: relative;
+    top:50px;
+    width:1070px;
+    margin: 0 auto;
+}
+
+#subContents{
+    /* border : 1px solid lightgray; */
+    border-top: 2px solid black;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    width: 1070px;
+    background-color: white;
+
+}
+
+.manage_header{
+    padding-top: 30px;
+    font-weight: bold;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.manage_header img{
+    margin-right: 10px;
+}
+
+.detail-content_main{
+    padding-top: 50px;
+    /* border : 1px solid blue; */
+    /* border-bottom: 1px solid lightgray; */
+    display: flex;
+}
+.detail-content_main_first{
+    flex : 5;
+    padding-left: 50px;
+    width:72px;
+}
+.detail-content_main-list {
+    padding-bottom: 30px;
+}
+
+.detail-content_main_second{
+    flex: 5;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.manage_footer{
+    margin: 20px 0;
+    font-size: 25px;
+    font-weight: bold;
+    color : rgb(59, 59, 59);
+    text-align: center;
+}
+
+hr {
+    margin-top: 30px;
+}
+
+.manage_tap{
+    display: flex;
+    margin: 30px 0;
+}
+
+.manage_siren , .manage_party , .manage_user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:200px;
+    height: 80px;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.manage_siren{
+    background-color: rgb(250, 181, 181);
+}
+
+.manage_party{
+    background-color: rgb(190, 228, 240);
+}
+
+.manage_user{
+    background-color: rgb(190, 244, 190);
+}
+
+.manage_siren:hover , .manage_party:hover, .manage_user:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.manage_footer {
+}
+.manage_footer div{
+    display: flex;
+    align-items:flex-end;
+    justify-content: center;
+}
+
+/* 유저 관리 css */
+.show_users{
+    text-align: center;
+}
+.user_container{
+    margin-top: 40px;
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.user_content {
+    border: 1px solid #ffe000;
+    border-radius: 10px;
+    padding: 0 29.5px;
+    width: calc(25% - 84px);
+    margin: 10px;
+    height: 260px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    background-color: white;
+}
+.user_content:hover{
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+}
+
+.user_info_name {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    /*margin-bottom: 25px;*/
+    height: 30px;
+    /*max-height: 75px;*/
+    border-bottom: 2px solid rgb(227, 226, 226);
+    margin-bottom: 10px;
+}
+.user_info{
+    margin: 15px 0;
+    font-weight: bold;
+    color: rgb(91, 90, 90);
+}
+
+/* 유저 관리 css 끝 */
+
+/* 신고 관리 css*/
+.sorry{
+    margin-left : 20px;
+    color:lightgray;
+}
+/* 신고 관리 css 끝*/
