@@ -37,7 +37,8 @@ public class ChatController {
         List<MessageDTO> messages = service.findByPartyIdLimit30(partyId);
         model.addAttribute("messages",messages);
         model.addAttribute("partyId",partyId);
-        return "/chat/Chat";
+        model.addAttribute("email",u.getEmail());
+        return "chat/Chat";
     }
     @MessageMapping("/send/{partyId}")
     public void sendMessage(@Payload String content, @DestinationVariable Long partyId, @AuthenticationPrincipal Authentication auth){

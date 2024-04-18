@@ -39,3 +39,5 @@ out/
 
 ### secret ###
 application-secret.yml
+application-secret2.yml
+docker-compose.yml

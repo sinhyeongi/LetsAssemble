@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/fragment/header :: common_header(~{::title},~{::link},~{::script})">
+<head th:replace="fragment/header :: common_header(~{::title},~{::link},~{::script})">
 
     <title>고객센터</title>
 
@@ -10,7 +10,7 @@
     <script type="text/javascript" defer th:src="@{/js/qna.js}"></script>-->
 </head>
 <body>
-<div th:replace="~{/fragment/header :: navheader}"></div>
+<div th:replace="~{fragment/header :: header}"></div>
 <div class="main">
     <div class="container">
     <!--search-->
@@ -141,6 +141,6 @@
     <!--/container-->
 </div>
 
-<div th:replace="~{/fragment/footer :: footer}"></div>
+<div th:replace="~{fragment/footer :: footer}"></div>
 </body>
 </html>

@@ -4,7 +4,10 @@ import com.la.letsassemble.Service.RedisMessageSubscriber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -19,10 +22,14 @@ public class RedisConfig {
     private String host;
     @Value("${spring.data.redis.port}")
     private int port;
+    @Value("${spring.data.redis.password}")
+    private String password;
 
     @Bean
-    public LettuceConnectionFactory redisConnectionFactory(){
-        return new LettuceConnectionFactory();
+    public RedisConnectionFactory redisConnectionFactory(){
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host,port);
+        config.setPassword(password);
+        return new LettuceConnectionFactory(config);
     }
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory connectionFactory){
@@ -39,5 +46,6 @@ public class RedisConfig {
         container.addMessageListener(redisMessageSubscriber,new PatternTopic("/topic/party-*"));
         return container;
     }
+
 
 }

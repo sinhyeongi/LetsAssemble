@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
-    <title>Sign up | 일단모여</title>
-    <link rel="stylesheet" type="text/css" th:href="@{CSS/signup.css}">
-    <script type="text/javascript" th:src="@{JS/signup.js}"></script>
+
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/signup.css}">
+    <script type="text/javascript" th:src="@{/JS/signup.js}"></script>
+
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
     <script defer th:inline="javascript">
         var user = /*[[${user}]]*/ '';
     </script>
 </head>
 <body>
-
-<div th:replace="~{/fragment/header :: navheader}"></div>
+<div th:replace="~{fragment/header :: header}"></div>
 <div class="container">
     <div class="inner">
         <!--<div class="logo_ilmo">-->
@@ -31,6 +32,6 @@
     <!--inner-->
 </div>
 <!-- container-->
-<div th:replace="~{/fragment/footer :: footer}"></div>
+<div th:replace="~{fragment/footer :: footer}"></div>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Chat Application</title>
@@ -8,20 +7,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script defer th:src="@{/JS/chat.js}"></script>
+    <script defer th:src="@{/JS/chat.js}" ></script>
 
 </head>
 <body>
-<script th:inline="javascript">
+<script defer th:inline="javascript">
     var partyId=/*[[${partyId}]]*/ null;
     var messages = /*[[${messages}]]*/ '';
 </script>
 <input type="hidden" th:value="${#authentication.getPrincipal().getUser().getEmail()}" id="email">
 <main id="Chat_main">
-<div id="chatContainer">
-    <div id="messageArea">
+    <div id="chatContainer">
+        <div id="messageArea">
+        </div>
     </div>
-</div>
 </main>
 <div id="messageBtn_div">
     <div><input type="text" id="messageInput"></div>
