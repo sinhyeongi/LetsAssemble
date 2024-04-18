@@ -4,6 +4,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 
@@ -20,8 +22,11 @@ public class MessegeFilter {
         ReadXls();
     }
     private void ReadXls(){
-        try(FileInputStream fis = new FileInputStream("LetsAssemble_Filter.xlsx");
-            XSSFWorkbook workbook = new XSSFWorkbook(fis)){
+
+        try{
+            Resource resource = new ClassPathResource("LetsAssemble_Filter.xlsx");
+            InputStream inputStream = resource.getInputStream();
+            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);
             for(int i = 0 ; i <= sheet.getLastRowNum(); i++){
                 XSSFRow row = sheet.getRow(i);

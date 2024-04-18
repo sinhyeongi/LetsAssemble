@@ -11,6 +11,7 @@ import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Role.UsersRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -66,7 +67,17 @@ public class InitLoadder implements CommandLineRunner {
                 .age(33)
                 .build();
         repo.saveAndFlush(u2);
-
+        Users u4 = new Users().builder()
+                .email("test0@test.tes")
+                .password(encoder.encode("test"))
+                .phone("010-1234-1234")
+                .name("test0")
+                .nickname("test0")
+                .gender("M")
+                .age(33)
+                .build();
+        u4.setSuspensionPeriod("2024-04-22");
+        repo.saveAndFlush(u4);
         Users u3 = new Users().builder()
                 .email("jkcoco123123@naver.com")
                 .password(encoder.encode("test3"))

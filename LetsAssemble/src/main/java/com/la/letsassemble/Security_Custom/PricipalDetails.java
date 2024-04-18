@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -64,7 +65,13 @@ public class PricipalDetails implements UserDetails, OAuth2User {
 
     @Override //계정 잠김 여부
     public boolean isAccountNonLocked() {
-        return true;
+        if(user.getSuspensionPeriod()==null){
+            return true;
+        }
+
+        LocalDate today = LocalDate.now();
+        LocalDate udate = LocalDate.parse(user.getSuspensionPeriod());
+        return today.isBefore(udate);
     }
 
     @Override // 비밀번호 만료 여부
@@ -74,6 +81,7 @@ public class PricipalDetails implements UserDetails, OAuth2User {
 
     @Override //계정 활성화 여부
     public boolean isEnabled() {
+
         return true;
     }
     

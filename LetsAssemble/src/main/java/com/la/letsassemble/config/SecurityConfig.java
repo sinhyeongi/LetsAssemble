@@ -50,15 +50,14 @@ public class SecurityConfig  {
     SecurityFilterChain filterChain(HttpSecurity security) throws Exception{
 
         security.csrf(AbstractHttpConfigurer :: disable);
-        security.authorizeHttpRequests(auth ->{
-                auth
+        security.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/error/**").denyAll() // 전체 접근 불허용
                         .requestMatchers(HttpMethod.GET,"/chat/**").authenticated()
                         .requestMatchers("/oauth2/login").authenticated() // 인증된 사용자만 접근 허용
-                        .requestMatchers("/manager/**").hasAnyRole(UsersRole.ROLE_MANAGER.getRole(),UsersRole.ROLE_ADMIN.getRole()) // 매니저,어드민 역할만 허용
-                        .requestMatchers("/admin/**").hasRole(UsersRole.ROLE_USER.getRole()) // 어드민만 허용
-                        .anyRequest().permitAll();
-        }).formLogin(
+                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","USER") // 매니저,어드민 역할만 허용
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 어드민만 허용
+                        .anyRequest().permitAll()
+        ).formLogin(
                 form ->{
                    form.loginPage("/user/loginForm")
                            .loginProcessingUrl("/user/login")

@@ -7,6 +7,14 @@
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/ilmo_login.css}">
 <!--    <script type="text/javascript" th:src="@{JS/ilmo_login.js}"></script>-->
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
+    <script defer th:inline="javascript">
+        var err = [[${error}]];
+        var msg = /*[[${exception}]]*/ "";
+        if(err){
+            alert(msg);
+            location.href="/user/ilmo_login";
+        }
+    </script>
 </head>
 <body>
 <header th:replace="~{fragment/header :: Xheader}"></header>

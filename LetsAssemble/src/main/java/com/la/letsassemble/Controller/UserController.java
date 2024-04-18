@@ -11,6 +11,7 @@ import com.la.letsassemble.dto.UserForm;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cglib.core.Local;
@@ -74,7 +75,12 @@ public class UserController {
     public String Loginform(){
         return "loginForm";
     }
-    
+    @GetMapping("/loginFail")
+    public String LoginFail(@RequestParam boolean error,@RequestParam String exception,Model model){
+        model.addAttribute("error",error);
+        model.addAttribute("exception",exception);
+        return "ilmo_loginForm";
+    }
     @GetMapping("/ilmo_login")
     public String ilmo_login(){
         return "ilmo_loginForm";
