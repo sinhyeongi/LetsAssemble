@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/party_info.css}">
 </head>
 <body>
+<header th:replace="~{fragment/header :: Xheader}"></header>
 <div id="subWrap">
     <div class="detail-writerDay">
         등록일 : <span class="writerDay" th:text="${party.riterDay}"></span>
