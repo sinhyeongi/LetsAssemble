@@ -5,11 +5,11 @@
     <title>파티정보 | 일단모여</title>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=941c4efaea9d3d9df8d9449d52c75cb8&libraries=services"></script>
-    <link rel="stylesheet" href="/CSS/updateParty.css">
-    <script defer src="/JS/updateParty.js"></script>
+    <link rel="stylesheet" th:href="@{/CSS/updateParty.css}">
+    <script type="text/javascript" defer th:src="@{/JS/updateParty.js}"></script>
 </head>
 <body>
-<header th:replace="~{fragment/header :: Xheader}"></header>
+<header th:replace="~{fragment/header :: navheader}"></header>
 
 <div class="container">
     <form id="form">
@@ -21,7 +21,7 @@
             </section>
             <section>
                 <h3>파티장</h3>
-                <div class="data" th:text="${party.user.name}">파티장 닉네임</div>
+                <div class="data" th:text="${party.user.nickname}">파티장 닉네임</div>
             </section>
             <section>
                 <h3>온/오프라인</h3>

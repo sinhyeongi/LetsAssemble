@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragment/header :: common_header(~{::title},~{::link},~{::script})">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
 
     <title>고객센터</title>
 
@@ -10,55 +10,10 @@
     <script type="text/javascript" defer th:src="@{/js/qna.js}"></script>-->
 </head>
 <body>
-<div th:replace="~{fragment/header :: header}"></div>
+
+<div th:replace="~{fragment/header :: navheader}"></div>
 <div class="main">
     <div class="container">
-    <!--search-->
-        <!--<div class="search-wrap">
-            <div class="search-section section">
-                <h1 class="word">무엇을 도와드릴까요?</h1>
-                <div class="search-input-wrap">
-                    <div class="search-input-box">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="궁금한 것을 검색해 보세요." class="search-input-input" value="">
-                    </div>
-                </div>
-                &lt;!&ndash;/search-input-wrap&ndash;&gt;
-                <div class="quickButton">
-                    <div class="button-items">
-                        <div id="item-0" class="item" data-id="top" >질문 TOP</div>
-                        <div id="item-1" class="item" data-id="party">파티</div>
-                        <div id="item-2" class="item" data-id="partyManager">파티장</div>
-                        <div id="item-3" class="item" data-id="partyMember">파티원</div>
-                        <div id="item-4" class="item" data-id="pay">옵션/결제</div>
-                        <div id="item-5" class="item" data-id="chat">채팅</div>
-                        <div id="item-6" class="item" data-id="service">일단모여 이용</div>
-                    </div>
-                    &lt;!&ndash;/button-items&ndash;&gt;
-                </div>
-                &lt;!&ndash;/quickButton&ndash;&gt;
-            </div>
-            &lt;!&ndash;/search-section&ndash;&gt;
-        </div>
-       &lt;!&ndash;/search&ndash;&gt;
-    &lt;!&ndash;qna&ndash;&gt;
-        <div class="qna-wrap">
-            <div class="qna-section section">
-                <div class="qna-title">질문 TOP</div>
-                <div class="qna-items-wrap">
-                    <div class="qna-items">
-                        <div class="qna-item">
-                            <i class="fa-duotone fa-q"></i>
-                            <span class="boarder-title">파티장의 파티 요금은 어떻게 산정되나요?</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-    <!--ask -->
-
-
-
         <div class="ask-wrap">
             <div class="ask-section">
                 <div class="ask-box">

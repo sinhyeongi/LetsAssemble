@@ -4,20 +4,18 @@
 <head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>LetsAssemble!</title>
-    <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Home.css}" >
     <script></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<header th:replace="~{fragment/header :: header}"></header>
+
+<header th:replace="~{fragment/header :: navheader}"></header>
     <main>
         <div class="main_image">
             <img th:src="@{IMG/Main.jpeg}" alt="메인이미지">
         </div>
-        <div class="Main_content_box">
-
-        </div>
-        <button id="test_btn" class="test_btn">test</button>
+        <div class="Main_content_box"></div>
     </main>
 <footer th:replace="~{fragment/footer :: footer}"></footer>
 </body>

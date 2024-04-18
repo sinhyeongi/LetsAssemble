@@ -26,12 +26,12 @@
             </div>
             <div class="nav-item">
                 <div class="nav-list">
-                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/manage/myParty}">나의 파티</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/info/myParty}">나의 파티</a>
                     <a class="nav-data" th:href="@{/party/create}">파티 만들기</a>
                     <a class="nav-data" th:href="@{/party/find_party}">파티 찾기</a>
                     <a class="nav-data" th:href="@{/qna}">자주 묻는 질문</a>
                     <a sec:authorize="!isAuthenticated()" class="nav-data" th:href="@{/user/loginForm}">로그인</a>
-                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/manage}">마이페이지</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/info}">마이페이지</a>
                     <a sec:authorize="isAuthenticated()" class="nav-data" th:href="@{/logout}">로그아웃</a>
                 </div>
             </div>

@@ -1,51 +1,33 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
-    <meta charset="UTF-8">
-    <title>일단모여 | 나의 파티</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/myParty.css}">
-    <script type="text/javascript" defer th:src="@{/js/myParty.jss}"></script>
-</head>
-<body>
-<header th:replace="~{fragment/header ::navheader}"></header>
-<div class="container">
-    <div class="madeParty">
-        <div class="madeParty-wrap big-wrap">
-            <h1>내가 만든 파티</h1>
-            <div class="parties">
-                <div class="party-wrap" th:each="party : ${myPartyList}">
-                    <div class="party-title" th:text="${party.title}"></div>
-                    <div class="party-notice" th:text="${party.notification}"></div>
-                </div>
+<html th:replace="~{fragment/myParty :: myParty(~{::section})}" lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<section class="chat-container">
+    <div class="chat-wrap" th:each="party : ${myPartyList}">
+        <div class="chat-content">
+            <div class="chat-title"><h3 th:text="${party.title}"></h3></div>
+            <div class="chat-host">
+                <p>파티장</p>
+                <div th:text="${party.user.nickname}"></div>
             </div>
+            <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
+                <span>채팅</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </a>
         </div>
     </div>
-    <div class="joinedParty">
-        <div class="joinedParty-wrap big-wrap">
-            <h1>가입한 파티</h1>
-            <div class="parties">
-                <div class="party-wrap" th:each="party : ${joinedPartyList}">
-                    <div class="party-title" th:text="${party.title}"></div>
-                    <div class="party-notice" th:text="${party.notification}"></div>
-                </div>
+    <div class="chat-wrap" th:each="party : ${joinedPartyList}">
+        <div class="chat-content">
+            <div class="chat-title"><h2 th:text="${party.title}"></h2></div>
+            <div class="chat-host">
+                <p>파티장</p>
+                <div th:text="${party.user.nickname}"></div>
             </div>
+            <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
+                <span>채팅</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </a>
         </div>
     </div>
-    <div class="requestParty">
-        <div class="requestParty-wrap big-wrap">
-            <h1>가입 대기중인 파티</h1>
-            <div class="parties">
-                <div class="party-wrap" th:each="party : ${requestParty}">
-                    <div class="party-title" th:text="${party.title}"></div>
-                    <div class="party-notice" th:text="${party.notification}"></div>
-                </div>
-                <div class="no party" th:unless="${requestParty}">해당하는 파티가 없습니다</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-</body>
+</section>
 </html>

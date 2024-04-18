@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html th:fragment="myParty(content)" lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+    <meta charset="UTF-8">
+    <title>일단모여 | 나의 파티</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myParty.css}">
+    <script type="text/javascript" defer th:src="@{/js/myParty.js}"></script>
+</head>
+<body>
+<header th:replace="~{fragment/header ::navheader}"></header>
+<div class="container">
+    <div class="container-wrap">
+        <div class="left">
+            <div class="madeParty">
+                <div class="madeParty-wrap big-wrap">
+                    <h2>내가 만든 파티</h2>
+                    <div class="parties">
+                        <div th:each="party : ${myPartyList}">
+                            <div th:attr="onclick='memberList(' + ${party.id} + ')'">
+                                <div class="party-wrap myParty">
+                                    <div class="party-title" th:text="${party.title}"></div>
+                                    <div class="party-notice">
+                                        <span><strong>공지사항</strong></span><p th:text="${party.notification}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="no party" th:if="${myPartyList.isEmpty()}">해당하는 파티가 없습니다</div>
+                    </div>
+                </div>
+            </div>
+            <div class="joinedParty">
+                <div class="joinedParty-wrap big-wrap">
+                    <h2>가입한 파티</h2>
+                    <div class="parties">
+                        <a th:href="@{'/party/party_info?id=' + ${party.id}}" th:each="party : ${joinedPartyList}">
+                            <div class="party-wrap joinParty">
+                                <div class="party-title" th:text="${party.title}"></div>
+                                <div class="party-notice" th:text="${party.notification}"></div>
+                            </div>
+                        </a>
+                        <div class="no party" th:if="${joinedPartyList.isEmpty()}">해당하는 파티가 없습니다</div>
+                    </div>
+                </div>
+            </div>
+            <div class="requestParty">
+                <div class="requestParty-wrap big-wrap">
+                    <h2>가입 대기중인 파티</h2>
+                    <div class="parties">
+                        <a th:href="@{'/party/party_info?id=' + ${party.id}}" th:each="party : ${requestParty}">
+                            <div class="party-wrap waitParty">
+                                <div class="party-title" th:text="${party.title}"></div>
+                                <div class="party-notice" th:text="${party.notification}"></div>
+                            </div>
+                        </a>
+                        <div class="no party" th:if="${requestParty.isEmpty()}">해당하는 파티가 없습니다</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- left-->
+        <div class="content">
+            <th:block th:replace="${content}">
+            </th:block>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>
