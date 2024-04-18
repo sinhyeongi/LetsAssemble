@@ -16,4 +16,7 @@ public interface PartyInfoRepository extends JpaRepository<PartyInfo,Long> {
     public List<PartyInfo> findByParty(Party party);
     Optional<PartyInfo> findByParty_IdAndUserEmailAndState(Long party_Id,String email,String state);
     Optional<PartyInfo> findByPartyAndUser(Party party, Users user);
+    Optional<PartyInfo> findByParty_IdAndUserEmail(Long party_Id,String email);
+    List<PartyInfo> findAll();
+    List<PartyInfo> findAllByParty(Party party);
 }

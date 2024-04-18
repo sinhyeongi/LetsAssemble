@@ -1,6 +1,7 @@
 package com.la.letsassemble.Controller;
 
 import com.la.letsassemble.Entity.Party;
+import com.la.letsassemble.Entity.PartyInfo;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.PartyInfoRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
@@ -14,12 +15,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/manage")
+@RequestMapping("/info")
 @RequiredArgsConstructor
 @Slf4j
 public class UserManagerController {
@@ -36,7 +39,7 @@ public class UserManagerController {
         return "myPage";
     }
 
-    @GetMapping("/info")
+    @GetMapping("/userinfo")
     public String userInfo(@Nullable @AuthenticationPrincipal PricipalDetails userDetails, Model model){
         if(userDetails == null){
             return "redirect:/user/loginForm";
@@ -70,5 +73,23 @@ public class UserManagerController {
         model.addAttribute("user",user);
         return "myParty";
     }
+
+    @GetMapping("/status/{partyId}")
+    public @ResponseBody List<PartyInfo> status(@PathVariable Long partyId, @Nullable @AuthenticationPrincipal PricipalDetails userDetails, Model model){
+        if(userDetails == null){
+            return null;
+        }
+        Party party = partyService.findByPartyId(partyId).orElse(null);
+        if(party ==null){
+            return null;
+        }
+        if(!party.getUser().getEmail().equals(userDetails.getUser().getEmail())){
+            return null;
+        }
+        List<PartyInfo> partyInfoList = partyInfoService.findAllByPartyId(party);
+        return partyInfoList;
+    }
+
+
 
 }

@@ -10,9 +10,11 @@ import com.la.letsassemble.Entity.Party;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
+import com.la.letsassemble.Service.PartyInfoService;
 import com.la.letsassemble.Service.PartyService;
 import com.la.letsassemble.Service.UsersService;
 import com.la.letsassemble.dto.PartyForm;
+import com.la.letsassemble.dto.PartyInfoForm;
 import jakarta.annotation.Nullable;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,9 +52,11 @@ import java.util.concurrent.TimeUnit;
 public class PartyController {
     private boolean createButtonEnabled = true;
     private boolean updateButtonEnabled = true;
+    private boolean applyButtonEnabled = true;
     private final UsersRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PartyService partyService;
+    private final PartyInfoService partyInfoService;
 
     /// test
     private final PartyRepository partyRepository;
@@ -70,6 +74,59 @@ public class PartyController {
         private String area;
         private int personnel;
         private int isOnline;
+    }
+
+    @GetMapping("/memberStatus/{partyId}")
+    public String memberStatus(HttpServletResponse response,@PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userDetails) throws IOException {
+        Long id = (partyId);
+        Optional<Party> party = partyService.findByPartyId(id);
+        if (!party.isPresent()) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+        log.info("로그인중인 유저 = {}", userDetails.getUser());
+        log.info("파티 파티장 = {}", party.get().getUser());
+
+        if (party.get().getUser().getId() != userDetails.getUser().getId()) {
+            log.error("파티장 과 로그인 아이디가 같지않음.");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+
+        return "memberStatus";
+    }
+
+    @PutMapping("/changeStatus/{partyInfoId}")
+    public @ResponseBody String changeStatus(@PathVariable Long partyInfoId, @Nullable @AuthenticationPrincipal PricipalDetails userDetails,@RequestBody PartyInfoForm form){
+        if(userDetails == null) return "no login";
+        Users user = userDetails.getUser();
+        return partyInfoService.changeStatus(user,partyInfoId,form);
+    }
+
+    @PutMapping("/applyJoinParty/{partyId}")
+    public @ResponseBody String applyjoinParty(@PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userDetails,HttpServletResponse response,@RequestBody PartyInfoForm form) throws IOException {
+        if(!applyButtonEnabled){
+            return "button";
+        }
+        applyButtonEnabled = false;
+        //로그인상태가 아닐경우
+        if(userDetails == null){
+            log.error("로그인상태가 아님");
+            applyButtonEnabled = true;
+            return "login";
+        }
+        //파티가 존재하지 않을 경우
+        Optional<Party> optionalParty = partyService.findByPartyId(partyId);
+        if(!optionalParty.isPresent()){
+            log.error("파티가 존재하지않음");
+            applyButtonEnabled = true;
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+        log.error("파티가 존재함");
+
+        Party party = optionalParty.get();
+        Users user = userDetails.getUser();
+        String result = partyService.applyJoinParty(party,user,form);
+        applyButtonEnabled = true;
+        return result;
     }
 
     @GetMapping("/find_party")
@@ -111,41 +168,17 @@ public class PartyController {
         if(userDetails == null){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        Users user = userDetails.getUser();
-        if(user.getPhone() == null){
-            return "redirect:/user";
-        }
-        //버튼 동시성 방지
         if(!createButtonEnabled){
             return "button is disabled";
         }
-        //관심사가 없을 시
-        if(party.getCategory()==""){
-            return "no category";
-        }
-        //온라인 여부 없을 시
-        if(party.getIsOnline()==""){
-            return "no isOnline";
-        }
-        //모집인원 없을 시
-        if(party.getCapacity()==""){
-            return "no capacity";
-        }
-        //파티이름 없을 시
-        if(party.getName()=="" || party.getName().trim().length() < 2){
-            return "no name";
-        }
-        //주소 입력 없을 시
-        if(party.getAddress()==""){
-            return "no address";
-        }
+        Users user = userDetails.getUser();
         createButtonEnabled = false;
         log.info("create party = {}",party);
-        Party createParty = partyService.createParty(party, user);
+        String createPartyId = partyService.createParty(party, user);
         createButtonEnabled = true;
         // 작업이 완료되면 버튼을 다시 활성화합니다.
-        if(createParty != null){
-            return createParty.getId().toString();
+        if(createPartyId != null){
+            return createPartyId;
         }else{
             return "error";
         }
@@ -297,7 +330,7 @@ public class PartyController {
     }
 
     @GetMapping("party_info")
-    public String partyInfo(@RequestParam Long id, Model model){
+    public String partyInfo(@RequestParam Long id,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, Model model){
 
         Optional<Party> optionalParty  = partyService.findByPartyId(id);
 
@@ -305,11 +338,19 @@ public class PartyController {
         if(party == null){
             return "/";
         }
+        if(userDetails != null){
+            Optional<PartyInfo> optionalPartyInfo = partyInfoService.findByPartyAndUser(party, userDetails.getUser());
+            log.error("party 정보 = {}",party);
+            log.error("info 정보 = {}",optionalPartyInfo.orElse(null));
+            if(optionalPartyInfo.isPresent()){
+                PartyInfo partyInfo = optionalPartyInfo.get();
+                String state = partyInfo.getState();
+                log.error("가입 상태 = {}",state);
+                model.addAttribute("state", state);
+            }
+        }
             model.addAttribute("party", party);
             return "party_info";
-
-
-
     }
 
     /*

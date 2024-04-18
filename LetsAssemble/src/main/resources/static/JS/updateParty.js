@@ -35,7 +35,7 @@ function submit(form){
         .then(response => response.text())
         .then(data => {
             if(data === 'ok'){
-                location.href="/"
+                location.href="/manage/myParty"
             }else{
                 location.href="/error";
             }

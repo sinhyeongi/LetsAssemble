@@ -1,8 +1,10 @@
-.container{
-    width: 100%;
+body{
     background-color: rgb(244, 244, 250);
 }
-
+.container{
+    margin-top: 120px;
+    width: 100%;
+}
 .wrap{
     width: 600px;
     margin: auto;

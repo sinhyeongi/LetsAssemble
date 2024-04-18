@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/party_info.css}">
+    <script type="text/javascript" defer th:src="@{/js/party_info.js}"></script>
 </head>
 <body>
 <header th:replace="~{fragment/header :: Xheader}"></header>
@@ -20,6 +21,7 @@
                 <div class="detail-content_main">
                     <div class="detail-content_main_first">
                         <div class="detail-content_main-list">
+                            <input type="hidden" id="partyId" th:value="${party.id}">
                             <h2>파티 정보</h2>
                             <dl>
                                 <dt>카테고리</dt>
@@ -60,7 +62,10 @@
                     <!-- 왼쪽 부분 -->
                     <div class="detail-content_main_second">
                         <div class="go_party">
-                            <a href="#">파티 참가하기</a>
+                            <!--<a th:href="@{'/party/applyJoinParty}">파티 참가하기</a>-->
+                            <div th:if="${state == null || state == 'N'}" data-text="join" class="joinParty">파티 참가하기</div>
+                            <div th:if="${state == 'Y'}" data-text="exit" class="joinParty">탈퇴하기</div>
+                            <div th:if="${state == 'W'}" data-text="cancel" class="joinParty">취소하기</div>
                         </div>
                         <div class="period">
                             <h2>모집 마감일</h2>

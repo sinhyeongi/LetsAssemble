@@ -57,7 +57,7 @@ public class Party {
 
     public static Party updateParty(Party party, PartyForm form){
         party.interest = form.getCategory();
-        party.isOnline = form.getIsOnline() == "online";
+        party.isOnline = form.getIsOnline().equals("online");
         party.area = form.getAddress();
         party.personnel = Integer.parseInt(form.getCapacity());
         party.notification = form.getNotification();

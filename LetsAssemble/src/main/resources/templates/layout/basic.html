@@ -11,14 +11,14 @@
         <title>Simple Sidebar - Start Bootstrap Template</title>
 
         <!-- Bootstrap core CSS -->
-        <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+        <link th:href="@{css/simple-sidebar.css}" rel="stylesheet">
 
         <!-- Bootstrap core JavaScript -->
-        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <!--<script th:src="@{https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js}"></script>-->
     </head>
 
@@ -30,13 +30,13 @@
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">My Community </div>
             <div class="list-group list-group-flush">
-                <a th:href="@{/index}" class="list-group-item list-group-item-action bg-light">Home</a>
-                <a th:href="@{/board/list}" class="list-group-item list-group-item-action bg-light">Board</a>
+                <a th:href="@{index}" class="list-group-item list-group-item-action bg-light">Home</a>
+                <a th:href="@{board/list}" class="list-group-item list-group-item-action bg-light">Board</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-                <a th:if="${#authentication.isAuthenticated()}" th:href="@{/member/modify(account=${#authentication.principal.username})}" class="list-group-item list-group-item-action bg-light">Private Info</a>
-                <a th:href="@{/admin/member/manage}" sec:authorize="hasRole('ADMIN')" class="list-group-item list-group-item-action bg-light">Admin</a>
-                <a th:href="@{/chat/rooms}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-light">Chat</a>
+                <a th:if="${#authentication.isAuthenticated()}" th:href="@{member/modify(account=${#authentication.principal.username})}" class="list-group-item list-group-item-action bg-light">Private Info</a>
+                <a th:href="@{admin/member/manage}" sec:authorize="hasRole('ADMIN')" class="list-group-item list-group-item-action bg-light">Admin</a>
+                <a th:href="@{chat/rooms}" sec:authorize="isAuthenticated()" class="list-group-item list-group-item-action bg-light">Chat</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -56,7 +56,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/index}">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" th:href="@{index}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
@@ -66,8 +66,8 @@
                                 Dropdown
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
-                                <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                                <a class="dropdown-item" sec:authorize="!isAuthenticated()" th:href="@{login}">Login</a>
+                                <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{logout}">Logout</a>
                                 <a class="dropdown-item" href="#">Action</a>
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <div class="dropdown-divider"></div>
