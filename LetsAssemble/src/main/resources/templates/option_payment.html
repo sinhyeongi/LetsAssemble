@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>옵션 선택하기</title>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<header th:replace="~{/fragment/header :: header}"></header>
+<header th:replace="~{fragment/header :: header}"></header>
     <main>
         <input type="hidden" th:value="${user.email}" name="email" readonly>
         <input type="hidden" th:value="${user.phone}" name="tel" readonly>
@@ -54,6 +54,6 @@
             </div>
         </div>
     </main>
-<footer th:replace="~{/fragment/footer :: footer}"></footer>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
 </body>
 </html>

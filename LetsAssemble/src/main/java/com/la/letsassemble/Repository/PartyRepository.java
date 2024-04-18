@@ -11,6 +11,6 @@ import java.util.Optional;
 
 public interface PartyRepository extends JpaRepository<Party,Long> {
     List<Party> findAllByUser(Users user);
-    @Query("SELECT pi.party FROM PartyInfo pi WHERE pi.user = :user AND pi.state = :state")
+    @Query("SELECT pi.party FROM PartyInfo pi WHERE pi.user = :user AND pi.state = :state AND pi.party.user.email != pi.user.email")
     List<Party> findAllByUserAndState(Users user,String state);
 }

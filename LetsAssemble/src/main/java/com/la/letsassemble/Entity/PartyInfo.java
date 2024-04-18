@@ -1,5 +1,6 @@
 package com.la.letsassemble.Entity;
 
+import com.la.letsassemble.dto.PartyInfoForm;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class PartyInfo {
     @JoinColumn(name = "party_id",referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Party party; // 파티 번호
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aplicant_id",referencedColumnName = "email")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Users user; // 신청자 / 유저 이메일
@@ -45,6 +46,17 @@ public class PartyInfo {
         this.user = applicant_id;
         this.state = state;
         this.isBlack = isBlack;
+    }
+
+    public static PartyInfo updatePartyInfo(PartyInfo partyInfo, PartyInfoForm form){
+        partyInfo.state = form.getState();
+        partyInfo.isBlack = form.getIsBlack();
+        return partyInfo;
+    }
+
+    public static PartyInfo updateNickname(PartyInfo partyInfo, PartyInfoForm form){
+        partyInfo.nickname = form.getNickname();
+        return partyInfo;
     }
 
 

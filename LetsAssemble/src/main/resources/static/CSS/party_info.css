@@ -78,11 +78,27 @@ body{
 }
 
 .go_party{
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 200px;
 }
-.go_party a{
+.go_party div{
+    cursor: pointer;
     /* border : 1px solid gray; */
+    height: 80px;
+    width: 160px;
+    text-align: center;
+    line-height: 80px;
+    text-decoration: none;
+    color : rgb(119, 116, 116);
+    font-weight: bold;
+    background-color: rgb(230, 229, 229);
+}
+.go_party div:hover{
+    background-color: rgb(225, 224, 224);
+    color : rgb(63, 62, 62);
+}
+/*.go_party a{
+    !* border : 1px solid gray; *!
     padding: 30px;
     text-decoration: none;
     color : rgb(119, 116, 116);
@@ -92,7 +108,7 @@ body{
 .go_party a:hover{
     background-color: rgb(225, 224, 224);
     color : rgb(63, 62, 62);
-}
+}*/
 .party_cont{
     font-size: 18px;
     font-weight: bold;

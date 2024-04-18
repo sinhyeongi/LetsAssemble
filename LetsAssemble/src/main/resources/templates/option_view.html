@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>추가옵션</title>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/option_view.css}">
+    <script th:src="@{/JS/option_view.js}" type="text/javascript" defer></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
-    <script th:src="@{/JS/option_view.js}" type="text/javascript" defer></script>
 </head>
 <body>
-<header th:replace="~{/fragment/header :: header}"></header>
+<header th:replace="~{fragment/header :: header}"></header>
 <div id="option_view_title">추가 옵션 구매 목록</div>
 <main id="option_view_main">
     <div th:if="${list eq null or #lists.isEmpty(list)}">

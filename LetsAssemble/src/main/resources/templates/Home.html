@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>LetsAssemble!</title>
-    <link rel="stylesheet" type="text/css" th:href="@{CSS/Home.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/Home.css}" >
     <script></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
 
-<header th:replace="~{/fragment/header :: navheader}"></header>
+<header th:replace="~{fragment/header :: navheader}"></header>
     <main>
         <div class="main_image">
             <img th:src="@{/IMG/Main.jpeg}" alt="메인이미지">
@@ -19,8 +19,12 @@
 
         </div>
         <button id="test_btn" class="test_btn">test</button>
+        <div th:each="role : ${#authentication.principal.authorities}">
+            <p th:text = "${role.getAuthority()}"></p>
+        </div>
+        <button class="test_btn" >test</button>
     </main>
-<footer th:replace="~{/fragment/footer :: footer}"></footer>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
 </body>
 
 </html>
