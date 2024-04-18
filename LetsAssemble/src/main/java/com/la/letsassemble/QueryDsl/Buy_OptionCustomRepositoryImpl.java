@@ -18,9 +18,8 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
     @Override
     public List<String> searchFullDate(Boolean isOnline) {
         BooleanBuilder builder = new BooleanBuilder();
-        int max_count = 8;
+        int max_count = 4;
         if(isOnline != null){
-            max_count = 4;
             builder.and(buy_Option.isOnline.eq(isOnline));
         }
 

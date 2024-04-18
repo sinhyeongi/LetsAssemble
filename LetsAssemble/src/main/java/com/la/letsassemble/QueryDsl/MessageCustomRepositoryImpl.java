@@ -20,20 +20,16 @@ public class MessageCustomRepositoryImpl implements MessageCustomRepository{
 
     @Override
     public List<MessageDTO> findPartyIdAndLimit30(Long partyId) {
-        List<MessageDTO> list = factory.select(new QMessageDTO(message.id,
+        return factory.select(new QMessageDTO(message.id,
                         message.user.email
                         ,message.content
                         ,message.TDate
-                ,message.party_id.id))
+                        ,message.party_id.id))
                 .from(message)
                 .where(message.party_id.id.eq(partyId))
                 .limit(30L)
-                .orderBy(message.TDate.desc())
+                .orderBy(message.TDate.asc())
                 .fetch();
-        if(list != null) {
-            Collections.reverse(list);
-        }
-        return list;
 
     }
 }
