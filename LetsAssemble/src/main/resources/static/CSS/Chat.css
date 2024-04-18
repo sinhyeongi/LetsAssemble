@@ -13,7 +13,9 @@ body{
     height: 90%;
     overflow: auto;
 }
-
+#Chat_main::-webkit-scrollbar{
+    display: none;
+}
 #chatContainer{
     height: 90%;
 }
@@ -63,6 +65,9 @@ body{
     display: flex;
     flex-direction: column;
     overflow: auto;
+}
+#messageArea::-webkit-scrollbar{
+    display: none;
 }
 .chat_content_box_right{
     justify-content: right;

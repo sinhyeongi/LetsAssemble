@@ -13,18 +13,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
   #css ,js 업데이트를 위한 설정
-  devtools:
-    livereload:
-      enabled: true
-    restart:
-      enabled: false
-  thymeleaf:
-    cache: false
 
   #  이메일 본인인증
   jackson:
