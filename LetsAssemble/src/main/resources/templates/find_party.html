@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/fragment/header :: common_header(~{::title},~{::link},~{::script})}">
+<head th:replace="~{fragment/header :: common_header(~{::title},~{::link},~{::script})}">
     <meta charset="UTF-8">
     <title>파티 찾기 | 일단모여</title>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/find_party.css}">
@@ -8,7 +8,7 @@
     <script type="text/javascript" defer th:src="@{/JS/find_party.js}"></script>
 </head>
 <body>
-<header th:replace="~{/fragment/header :: Xheader}"></header>
+<header th:replace="~{fragment/header :: Xheader}"></header>
 <h1 class="find_party_header"> 어떤 파티를 찾고 있나요? </h1>
 <div class="find_category">
     <span>전체</span> &nbsp;&nbsp; <span> 게임 </span>&nbsp;&nbsp; <span> 스포츠 </span>&nbsp;&nbsp;<span>교육 / 도서</span>
