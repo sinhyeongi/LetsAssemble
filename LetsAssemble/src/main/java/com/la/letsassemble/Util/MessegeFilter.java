@@ -16,13 +16,11 @@ import java.util.ArrayList;
 @Component
 public class MessegeFilter {
     private ArrayList<String> list;
-    private String filepath;
     public MessegeFilter(){
         list = new ArrayList<>();
         ReadXls();
     }
     private void ReadXls(){
-
         try{
             Resource resource = new ClassPathResource("LetsAssemble_Filter.xlsx");
             InputStream inputStream = resource.getInputStream();
@@ -52,11 +50,6 @@ public class MessegeFilter {
         }
         return message;
     }
-    public void print(){
-        int c = 0;
-        for(String s : list){
-            System.err.println((c++)+"번째 단어 : "+s);
-        }
-    }
+
 }
 

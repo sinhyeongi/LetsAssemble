@@ -3,21 +3,29 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <section class="chat-container">
-    <div class="chat-wrap" th:each="party : ${myPartyList}">
-        <div class="chat-content">
-            <div class="chat-title"><h3 th:text="${party.title}"></h3></div>
-            <div class="chat-host">
-                <p>파티장</p>
-                <div th:text="${party.user.nickname}"></div>
+    <th:block th:each="party: ${myPartyList}">
+        <div style="display: flex;">
+            <div class="chat-wrap" style="flex:8;">
+                <div class="chat-content">
+                    <div class="chat-title"><h3 th:text="${party.title}"></h3></div>
+                    <div class="chat-host">
+                        <p>파티장</p>
+                        <div th:text="${party.user.nickname}"></div>
+                    </div>
+                    <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
+                        <span>채팅</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </a>
+                </div>
             </div>
-            <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
-                <span>채팅</span>
-                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            </a>
+            <div style="display: flex; flex-direction: column; justify-content: space-around; flex:1.5;">
+                <a th:href="@{'/pay/'+${party.id}}" class="join-btn" style="font-size: 12px;">옵션 구매하러가기</a>
+                <a th:href="@{'/party/update/'+${party.id}}" class="join-btn" style="font-size: 12px;">파티 정보 수정하기</a>
+            </div>
         </div>
-    </div>
-    <div class="chat-wrap" th:each="party : ${joinedPartyList}">
-        <div class="chat-content">
+    </th:block>
+    <div class="chat-wrap" th:each="party : ${joinedPartyList}" style="flex:1;">
+        <div class="chat-content" >
             <div class="chat-title"><h2 th:text="${party.title}"></h2></div>
             <div class="chat-host">
                 <p>파티장</p>

@@ -15,21 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@Slf4j
 @RequiredArgsConstructor
 public class MailController {
     private final MailSendService mailService;
     private boolean findButtonEnabled = true;
     @PostMapping ("/mailSend")
     public String mailSend(@RequestBody @Valid EmailRequestDto emailDto){
-        System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
         return mailService.joinEmail(emailDto.getEmail());
     }
 
     @PostMapping("/mailAuthCheck")
     public String AuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto){
-        System.out.println("getEmail = "+  emailCheckDto.getEmail());
-        System.out.println("getAuthNum = "+  emailCheckDto.getAuthNum());
         if(mailService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum())){
             return "ok";
         }
@@ -42,7 +38,6 @@ public class MailController {
         if(!findButtonEnabled){
             return ResponseEntity.badRequest().body("buttonError");
         }
-        log.info("비밀번호 찾기 이메일 = {}",emailDto.getEmail());
         if(bindingResult.hasErrors()){
             return ResponseEntity.badRequest().body("emailError");
         }
