@@ -12,31 +12,22 @@ public class EmailConfig {
 
     @Value("${spring.mail.host}")
     private String host;
-
     @Value("${spring.mail.port}")
     private int port;
-
     @Value("${spring.mail.username}")
     private String username;
-
     @Value("${spring.mail.password}")
     private String password;
-
     @Value("${spring.mail.properties.mail.smtp.auth}")
     private boolean auth;
-
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
     private boolean starttlsEnable;
-
     @Value("${spring.mail.properties.mail.smtp.starttls.required}")
     private boolean starttlsRequired;
-
     @Value("${spring.mail.properties.mail.smtp.connection timeout}")
     private int connectionTimeout;
-
     @Value("${spring.mail.properties.mail.smtp.timeout}")
     private int timeout;
-
     @Value("${spring.mail.properties.mail.smtp.write timeout}")
     private int writeTimeout;
 
@@ -61,10 +52,10 @@ public class EmailConfig {
         properties.put("mail.smtp.auth", auth);
         properties.put("mail.transport.protocol", "smtp");//프로토콜로 smtp 사용
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");//SSL 소켓 팩토리 클래스 사용
-        properties.put("mail.smtp.starttls.enable", starttlsEnable);
         properties.put("mail.debug", "true");//디버깅 정보 출력
         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");//smtp 서버의 ssl 인증서를 신뢰
         properties.put("mail.smtp.ssl.protocols", "TLSv1.2");//사용할 ssl 프로토콜 버젼
+        properties.put("mail.smtp.starttls.enable", starttlsEnable);
         properties.put("mail.smtp.starttls.required", starttlsRequired);
         properties.put("mail.smtp.connectiontimeout", connectionTimeout);
         properties.put("mail.smtp.timeout", timeout);
