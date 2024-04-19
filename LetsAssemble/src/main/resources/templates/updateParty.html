@@ -40,23 +40,23 @@
                 <h3>관심사</h3>
                 <div class="radio_wrap data">
                     <div>
-                        <input type="radio" id="sports" name="category" value="sports" th:checked="${party.interest == 'sports'}">
+                        <input type="radio" id="sports" name="category" value="sports" th:checked="${party.interest eq 'sports'}">
                         <label for="sports">스포츠</label>
                     </div>
                     <div>
-                        <input type="radio" id="study" name="category" value="study" th:checked="${party.interest == 'study'}">
+                        <input type="radio" id="study" name="category" value="study" th:checked="${party.interest eq 'study'}">
                         <label for="study">스터디</label>
                     </div>
                     <div>
-                        <input type="radio" id="game" name="category" value="game" th:checked="${party.interest == 'game'}">
+                        <input type="radio" id="game" name="category" value="game" th:checked="${party.interest eq 'game'}">
                         <label for="game">게임</label>
                     </div>
                     <div>
-                        <input type="radio" id="travel" name="category" value="travel" th:checked="${party.interest == 'travel'}">
+                        <input type="radio" id="travel" name="category" value="travel" th:checked="${party.interest eq 'travel'}">
                         <label for="travel">여행</label>
                     </div>
                     <div>
-                        <input type="radio" id="boardGame" name="category" value="boardGame" th:checked="${party.interest == 'boardGame'}">
+                        <input type="radio" id="boardGame" name="category" value="boardGame" th:checked="${party.interest eq 'boardGame'}">
                         <label for="boardGame">보드게임</label>
                     </div>
                 </div>

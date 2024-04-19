@@ -8,59 +8,41 @@ import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
 import com.la.letsassemble.Entity.Party;
 import com.la.letsassemble.Entity.Users;
-import com.la.letsassemble.Repository.UsersRepository;
-import com.la.letsassemble.Security_Custom.PricipalDetails;
+
 import com.la.letsassemble.Service.PartyInfoService;
 import com.la.letsassemble.Service.PartyService;
-import com.la.letsassemble.Service.UsersService;
 import com.la.letsassemble.dto.PartyForm;
 import com.la.letsassemble.dto.PartyInfoForm;
 import jakarta.annotation.Nullable;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
-@Slf4j
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/party")
 public class PartyController {
-    private boolean createButtonEnabled = true;
-    private boolean updateButtonEnabled = true;
-    private boolean applyButtonEnabled = true;
-    private final UsersRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PartyService partyService;
     private final PartyInfoService partyInfoService;
 
     /// test
-    private final PartyRepository partyRepository;
-    private final PartyInfoRepository partyInfoRepository;
+
 
 
     @Data
@@ -83,11 +65,10 @@ public class PartyController {
         if (!party.isPresent()) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        log.info("로그인중인 유저 = {}", userDetails.getUser());
-        log.info("파티 파티장 = {}", party.get().getUser());
+
 
         if (party.get().getUser().getId() != userDetails.getUser().getId()) {
-            log.error("파티장 과 로그인 아이디가 같지않음.");
+
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
@@ -103,29 +84,20 @@ public class PartyController {
 
     @PutMapping("/applyJoinParty/{partyId}")
     public @ResponseBody String applyjoinParty(@PathVariable Long partyId,@Nullable @AuthenticationPrincipal PricipalDetails userDetails,HttpServletResponse response,@RequestBody PartyInfoForm form) throws IOException {
-        if(!applyButtonEnabled){
-            return "button";
-        }
-        applyButtonEnabled = false;
+
         //로그인상태가 아닐경우
-        if(userDetails == null){
-            log.error("로그인상태가 아님");
-            applyButtonEnabled = true;
+        if(userDetails == null || userDetails.getUser() == null){
             return "login";
         }
         //파티가 존재하지 않을 경우
         Optional<Party> optionalParty = partyService.findByPartyId(partyId);
         if(!optionalParty.isPresent()){
-            log.error("파티가 존재하지않음");
-            applyButtonEnabled = true;
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        log.error("파티가 존재함");
 
         Party party = optionalParty.get();
         Users user = userDetails.getUser();
         String result = partyService.applyJoinParty(party,user,form);
-        applyButtonEnabled = true;
         return result;
     }
 
@@ -134,22 +106,7 @@ public class PartyController {
         addTest(model);
         return "find_party";
     }
-    @GetMapping("/add/{paryId}")
-    @ResponseBody
-    public String addParty(@AuthenticationPrincipal PricipalDetails auth, @PathVariable Long paryId){
-        Users u = null;
-        if(auth instanceof  PricipalDetails){
-            u = auth.getUser();
-        }
-        PartyInfo partyInfo = PartyInfo.builder()
-                .party(partyRepository.findById(paryId).orElse(null))
-                .applicant_id(u)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfo = partyInfoRepository.save(partyInfo);
-        return partyInfo == null ? "err":"ok";
-    }
+
 
     @GetMapping("/create")
     public String createPartyForm(HttpServletResponse response, @Nullable @AuthenticationPrincipal PricipalDetails userDetails) throws IOException {
@@ -168,14 +125,11 @@ public class PartyController {
         if(userDetails == null){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        if(!createButtonEnabled){
-            return "button is disabled";
-        }
+
         Users user = userDetails.getUser();
-        createButtonEnabled = false;
-        log.info("create party = {}",party);
+
         String createPartyId = partyService.createParty(party, user);
-        createButtonEnabled = true;
+
         // 작업이 완료되면 버튼을 다시 활성화합니다.
         if(createPartyId != null){
             return createPartyId;
@@ -190,11 +144,10 @@ public class PartyController {
         if(!party.isPresent()){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        log.info("로그인중인 유저 = {}" , userDetails.getUser());
-        log.info("파티 파티장 = {}" , party.get().getUser());
+
 
         if(party.get().getUser().getId() != userDetails.getUser().getId()){
-            log.error("파티장 과 로그인 아이디가 같지않음.");
+
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
 
@@ -203,11 +156,12 @@ public class PartyController {
     }
     @PostMapping("/update")
     public @ResponseBody String updateParty(@RequestBody PartyForm partyForm,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, HttpServletResponse response) {
-        if(!updateButtonEnabled)return "already work";
-        updateButtonEnabled=false;
-        log.info("update party = {}",partyForm );
+        if(userDetails == null || userDetails.getUser() == null){
+            return "user Not Found";
+        }
+
+
         partyService.updateParty(partyForm);
-        updateButtonEnabled = true;
         return "ok";
     }
 
@@ -240,6 +194,7 @@ public class PartyController {
     @GetMapping("/getParties")
     @ResponseBody
     public List<party> getPartiesByType(@RequestParam(value = "type", required = false) String type) {
+
 //        if ("online".equals(type)) {
 //            return partyService.getOnlineParties();
 //        } else if ("offline".equals(type)) {
@@ -249,8 +204,6 @@ public class PartyController {
 //            return partyService.getAllParties();
 //        }
 
-        // 더미 없어서 임의로 만든 리스트
-        // 더미 있을시 online 리스트 , offline 리스트 출력 후 넘겨주면 됨
 
         List<party> onlineList = new ArrayList<>();
         List<party> offlineList = new ArrayList<>();
@@ -289,8 +242,10 @@ public class PartyController {
         } else if("all".equals(type)){
              return allList;
          }
+
          return null;
     }
+
 
     @GetMapping("party_info")
     public String partyInfo(@RequestParam Long id,@Nullable @AuthenticationPrincipal PricipalDetails userDetails, Model model){
@@ -303,12 +258,11 @@ public class PartyController {
         }
         if(userDetails != null){
             Optional<PartyInfo> optionalPartyInfo = partyInfoService.findByPartyAndUser(party, userDetails.getUser());
-            log.error("party 정보 = {}",party);
-            log.error("info 정보 = {}",optionalPartyInfo.orElse(null));
+
             if(optionalPartyInfo.isPresent()){
                 PartyInfo partyInfo = optionalPartyInfo.get();
                 String state = partyInfo.getState();
-                log.error("가입 상태 = {}",state);
+
                 model.addAttribute("state", state);
             }
         }
