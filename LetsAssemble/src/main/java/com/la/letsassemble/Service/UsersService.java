@@ -41,7 +41,7 @@ public class UsersService {
     @Transactional
     public Users signup(UserForm form){
         Users user = Users.createUser(form,encoder);
-        System.out.println("signup user = " + user.toString());
+
         if(user != null){
             return usersRepository.saveAndFlush(user);
         }
@@ -62,7 +62,7 @@ public class UsersService {
         Users user = u.get();
         //임시 비밀번호 생성
         String temporary = Users.generateRandomString(8);
-        log.info("임시 비밀번호 생성 = {}",temporary);
+
         //임시비밀번호 주입
         user.builder().password(encoder.encode(temporary));
         return temporary;
@@ -74,18 +74,16 @@ public class UsersService {
         if(form.getEmail() == "" || form.getPassword1() == "" || form.getPassword2() == "")return "empty error";
         if(!form.getPassword1().equals(form.getPassword2()))return "not equals password";
         if(form.getPassword1().length() < 8) return "not 8 characters";
-        log.info("기존 비밀번호 = {}",user.getPassword());
+
         user.changePassword(user,encoder.encode(form.getPassword1()));
-        log.info("변경 후 비밀번호 = {}",user.getPassword());
-        log.error("change user = {}",user);
+
         usersRepository.saveAndFlush(user);
         return "ok";
     }
     @Transactional
     public ResponseEntity<String> changeNickname(PricipalDetails userDetails, UserForm form){
         Users user = userDetails.getUser();
-        log.error("기존 닉네임 = {}", user.getNickname());
-        log.error("변경 닉네임 = {}", form.getNickname());
+
         if(form.getNickname().length() < 3){
             return ResponseEntity.badRequest().body("not length");
         }

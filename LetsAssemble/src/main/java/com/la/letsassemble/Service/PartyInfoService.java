@@ -51,7 +51,6 @@ public class PartyInfoService {
 
     @Transactional
     public String changeStatus(Users user , Long partyInfoId, PartyInfoForm form){
-        log.error("form = {}",form);
         Optional<PartyInfo> optionalPartyInfo = repo.findById(partyInfoId);
         if(!optionalPartyInfo.isPresent())return "no partyInfo";
         PartyInfo partyInfo = optionalPartyInfo.get();
@@ -63,7 +62,6 @@ public class PartyInfoService {
 
         partyInfo = PartyInfo.updatePartyInfo(partyInfo , form);
 
-        log.error("partyinfo = {}",partyInfo);
         repo.saveAndFlush(partyInfo);
         return "ok";
     }

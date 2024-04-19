@@ -223,8 +223,7 @@ public class InicisUtil {
             bw.close();
 
             JsonObject data = getData(con);
-            System.out.println("data = " + data);
-            System.err.println(data.get("code").toString());
+
             int code = Integer.parseInt(data.get("code").toString());
             if(code != 0){
                 return "err";

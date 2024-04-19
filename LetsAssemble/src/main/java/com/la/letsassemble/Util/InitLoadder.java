@@ -67,17 +67,7 @@ public class InitLoadder implements CommandLineRunner {
                 .age(33)
                 .build();
         repo.saveAndFlush(u2);
-        Users u4 = new Users().builder()
-                .email("test0@test.tes")
-                .password(encoder.encode("test"))
-                .phone("010-1234-1234")
-                .name("test0")
-                .nickname("test0")
-                .gender("M")
-                .age(33)
-                .build();
-        u4.setSuspensionPeriod("2024-04-22");
-        repo.saveAndFlush(u4);
+
         Users u3 = new Users().builder()
                 .email("jkcoco123123@naver.com")
                 .password(encoder.encode("test3"))
@@ -99,6 +89,7 @@ public class InitLoadder implements CommandLineRunner {
                 .notification("test")
                 .title("test")
                 .build();
+        partyRepository.saveAndFlush(party);
         Party party2 = new Party().builder()
                 .isOnline(false)
                 .personnel(100)
@@ -109,6 +100,7 @@ public class InitLoadder implements CommandLineRunner {
                 .notification("test2")
                 .title("test2")
                 .build();
+        partyRepository.saveAndFlush(party2);
         Party party3 = new Party().builder()
                 .isOnline(false)
                 .personnel(100)
@@ -120,13 +112,8 @@ public class InitLoadder implements CommandLineRunner {
                 .title("test2")
                 .build();
         Optional<Users> user = repo.findByEmail(u.getEmail());
+        partyRepository.saveAndFlush(party3);
 
-        if(user.isPresent()){
-            System.out.println("party = "+partyRepository.save(party));
-            System.out.println("party2 = "+partyRepository.save(party2));
-            System.out.println("party3 = "+partyRepository.save(party3));
-            System.out.println("user = " + user.get());
-        }
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
@@ -142,7 +129,7 @@ public class InitLoadder implements CommandLineRunner {
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
-                    .even_day("2024-04-23")
+                    .even_day("2024-05-01")
                     .price(1000)
                     .name("test")
                     .user(user.get())
@@ -153,7 +140,7 @@ public class InitLoadder implements CommandLineRunner {
         }
         Buy_Option option = new Buy_Option().builder()
                 .party(party)
-                .even_day("2024-04-16")
+                .even_day("2024-04-19")
                 .price(1000)
                 .name("test")
                 .user(user.get())

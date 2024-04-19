@@ -86,7 +86,7 @@ body{
 .chat-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /*align-items: center;*/
 }
 .chat-wrap{
     width: 500px;

@@ -17,13 +17,14 @@ $('.option_view_cancel').click(function(e){
         });
         return;
     }
-
+    viewList.forEach(n=>{
+        n.remove();
+    })
     $.ajax({
         url : "/pay/cancel/"+no,
         type : "DELETE",
         async : false,
         success : function(data){
-            alert(data);
             if(data&&data.includes('개의 결제가 취소되었습니다.')){
                 alert(data);
                 viewList.forEach(n=>{
