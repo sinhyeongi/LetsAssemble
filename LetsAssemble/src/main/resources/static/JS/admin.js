@@ -9,8 +9,6 @@ sirenTab.addEventListener('click', function () {
     manage_header.innerHTML =
         `신고 관리 <img width="40" height="40"
                       src="https://img.icons8.com/color/48/siren.png" alt="siren" /> `;
-    // goManage('/admin/manage_siren');
-    // 테스트용으로 admin 대신 user로
     goManage('신고관리');
 });
 

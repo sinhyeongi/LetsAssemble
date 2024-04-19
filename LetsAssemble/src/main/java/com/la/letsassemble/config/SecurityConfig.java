@@ -94,8 +94,6 @@ public class SecurityConfig  {
                 // 로그아웃 시 생성된 사용자 세션 삭제
                 .invalidateHttpSession(true));
 
-
-
         return security.build();
     }
 

@@ -22,7 +22,7 @@
                 나이 : <span th:text="${user.age}"></span>
             </div>
             <div class="user_info">
-                성별 : <span th:text="${user.gender == 'M' ? '남성' : '여성'}"></span>
+                성별 : <span th:text="${user.gender == 'M'|| user.gender =='male' ? '남성' : '여성'}"></span>
             </div>
         </div> <!-- user_content -->
     </div>

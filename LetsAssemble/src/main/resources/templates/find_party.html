@@ -55,7 +55,7 @@
                     모임 방식 : <span class="big_division_name" th:text="${big.isOnline == 0 ? '오프라인' : '온라인'}"></span>
                 </div>
                 <div class="big_content_intro">
-                    파티 소개 : <span th:text="${big.intro}"></span>
+                    파티 소개 : <span th:text="${big.content}"></span>
                 </div>
                 <div class="big_content_loc">
                     <span>
@@ -98,7 +98,7 @@
             모임방식 : <span class="small_division_name" th:text="${small.isOnline == 0 ? '오프라인' : '온라인'}"></span>
         </div>
         <div class="small_content_intro">
-            파티 소개 : <span th:text="${small.intro}"></span>
+            파티 소개 : <span th:text="${small.content}"></span>
         </div>
         <div class="small_content_loc">
         <span>

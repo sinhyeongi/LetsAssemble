@@ -5,12 +5,13 @@ body {
     background-color: rgb(244, 246, 251);
 }
 .find_party_header{
+    margin-top : 10px;
     text-align: center;
 }
 .find_main {
     /*border: 2px solid green;*/
     margin: auto;
-    margin-top: 100px;
+    margin-top: 50px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -24,7 +25,7 @@ body {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 }
 .big_content {
     border: 2px solid #ffe000;

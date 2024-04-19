@@ -37,8 +37,8 @@ function fetchPartiesByType(type) {
     } else if (type === '오프라인') {
         url += '?type=offline';
     } else if (type === '전체'){
-        location.href = '/party/find_party';
-        return;
+        url += '?type=all';
+        // return;
     }
 
     fetch(url)
@@ -174,11 +174,6 @@ spans.forEach(function (span) {
 
 
 // 클릭시
-
-// const spans = document.querySelectorAll('.division span');
-// const categories = document.querySelectorAll('.category-filter');
-// const locations = document.querySelectorAll('.location-filter');
-// const parties = document.querySelectorAll('.small_content');
 
 let category_name = '';
 categories.forEach(cate => {

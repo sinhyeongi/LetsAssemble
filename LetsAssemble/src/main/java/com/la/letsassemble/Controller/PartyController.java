@@ -240,12 +240,12 @@ public class PartyController {
     @GetMapping("/getParties")
     @ResponseBody
     public List<party> getPartiesByType(@RequestParam(value = "type", required = false) String type) {
-//        if ("온라인".equals(type)) {
+//        if ("online".equals(type)) {
 //            return partyService.getOnlineParties();
-//        } else if ("오프라인".equals(type)) {
+//        } else if ("offline".equals(type)) {
 //            return partyService.getOfflineParties();
 //        } else {
-//            // type이 지정되지 않은 경우 모든 파티 목록 반환
+//            // type이 all일때
 //            return partyService.getAllParties();
 //        }
 
@@ -273,60 +273,23 @@ public class PartyController {
                 offlineList.add(pt);
             }
         }
+        List<party> allList = new ArrayList<>();
+        int idx = 0;
+        for(party pt : bigList){
+            if(idx < 4 ){
+            allList.add(pt);
+            }
+            idx += 1;
+        }
 
          if ("online".equals(type)) {
             return onlineList;
         } else if ("offline".equals(type)) {
             return offlineList;
-        } else {
-             return null;
+        } else if("all".equals(type)){
+             return allList;
          }
-    }
-
-//    @GetMapping("/getOnlineParties")
-//    @ResponseBody
-//    public List<party> getOnlineParties() {
-//        List<party> onlineList = new ArrayList<>();
-//
-//        List<party> bigList = new ArrayList<>();
-//        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
-//        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
-//        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
-//        for (party pt : bigList) {
-//            if (pt.getIsOnline() == 1) {
-//                onlineList.add(pt);
-//            }
-//        }
-//        return onlineList;
-//    }
-//
-//    @GetMapping("/getOfflineParties")
-//    @ResponseBody
-//    public List<party> getOfflineParties() {
-//        List<party> offlineList = new ArrayList<>();
-//
-//        List<party> bigList = new ArrayList<>();
-//        bigList.add(new party(3,"롤 5인큐 하실 분 구합니다 !! 아무나들어와보세요", "ㅇㅇㅇ아무나 오셈","마이크 필수 , 매너있는 사람만 오세요 ~" , "게임","서울",3, 0));
-//        bigList.add(new party(7,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(10,"야구 보러 가실 한화 팬 구합니다", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(11,"테스트테스트테스트", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
-//        bigList.add(new party(12,"축구 좋아하는사람", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 1));
-//        bigList.add(new party(13,"ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴ", "ㅇㅇㅇ아무나 오셈","다른 팀 팬 오지 마세요 추방합니다" , "스포츠","충청도",4 , 0));
-//        for (party pt : bigList) {
-//            if (pt.getIsOnline() == 0) {
-//                offlineList.add(pt);
-//            }
-//        }
-//        return offlineList;
-//    }
-
-
-    @GetMapping({"","/"})
-    public String home(){
-        return "index";
+         return null;
     }
 
     @GetMapping("party_info")
@@ -352,81 +315,6 @@ public class PartyController {
             model.addAttribute("party", party);
             return "party_info";
     }
-
-    /*
-    @GetMapping({"","/"})
-    public String home(OAuth2AuthenticationToken authentication , Model model) {
-        String providerId = null;
-        if (authentication != null && authentication.isAuthenticated()) {
-            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-           // User u = oauth2User.getAttribute("user");
-           // System.out.println("User = " + (PrincipalDetails)authentication.getPrincipal());
-            //String providerId = (String) oauth2User.getAttribute("providerId");
-            Map<String, Object> attributes = oauth2User.getAttributes();
-            System.out.println(oauth2User);
-
-//            providerId = (Long) attributes.get("id");
-//            if (attributes.containsKey("id")) {
-//                providerId = (Long) attributes.get("id");
-//            }
-            // 상황 1 : attributes에 "sub" 키가 있는 경우 -> google 로그인
-            if (attributes.containsKey("sub")) {
-                providerId = (String) attributes.get("sub");
-            }
-
-// 상황 2: attributes에 "response" 키가 있는 경우 -> naver 로그인
-            if (providerId == null && attributes.containsKey("response")) {
-                Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-                if (response.containsKey("id")) {
-                    providerId = (String) response.get("id");
-                }
-            }
-
-// 상황 3: attributes에 "id" 키가 있는 경우 -> kakao 로그인
-            if (providerId == null && attributes.containsKey("id")) {
-                Object idValue = attributes.get("id");
-                if (idValue instanceof String) {
-                    providerId = (String) idValue;
-                } else if (idValue instanceof Long) {
-                    providerId = String.valueOf(idValue);
-                }
-            }
-            //System.out.println("여기서는 받는지 ? providerId = " + providerId);
-            if (providerId != null) {
-                // providerId가 존재하는 경우
-                // 여기서 원하는 작업 수행
-                System.out.println("providerId = " + providerId);
-            } else {
-                // providerId가 존재하지 않는 경우
-                System.out.println("null입니다..ㅜㅜ");
-            }
-        }
-        User user = userRepository.findByProviderId(providerId);
-        //User user = userRepository.findByNickname(nickname);
-        System.out.println("user = " + user);
-        if (user.getNickname() == null) {
-            // 해당 providerId를 가진 사용자가 존재하지 않는 경우, 새로운 사용자로 데이터베이스에 저장합니다.
-            //user = new User();
-            //user.setProviderId(providerId);
-            // userRepository.save(user);
-
-            System.out.println("email = " + user.getEmail());
-            // 만약 이메일이 있으면 넘겨주기
-            if(user.getEmail() != null){
-                model.addAttribute("email" , user.getEmail());
-            }
-
-            System.out.println("신규 회원입니다");
-            return "joinForm";
-        } else {
-            // 해당 providerId를 가진 사용자가 이미 존재하는 경우
-            System.out.println("이미 등록된 사용자입니다");
-            return "index";
-        }
-       // model.addAttribute("pvID", providerId);
-        return "index";
-    }
-*/
 
 
 }

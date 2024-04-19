@@ -108,9 +108,6 @@ spring:
     redis:
       host: localhost
       port: 6379
-      ssl:
-        enabled: true
-      password: zaqplm@kakao.com
 
 
   mvc:
