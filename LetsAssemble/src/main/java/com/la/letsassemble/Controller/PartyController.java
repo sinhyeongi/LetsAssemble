@@ -143,6 +143,9 @@ public class PartyController {
 
         List<Party> bigList = partyService.findFourMoneyAllList(4); // 유료 리스트 중 4개
         List<Long> bigListCount = partyService.findUserCounter(bigList); // 파티 마다 들어가있는 사람 queryDsl
+            if(bigListCount != null && bigListCount.size() > 1){
+                Collections.reverse(bigListCount);
+            }
         List<Party> smallList = partyService.findAllList();  // 무료 리스트 전체
 
         // 지역 리스트들 보내줘야함
@@ -151,7 +154,7 @@ public class PartyController {
         List<PartyInfo> allPartyInfo = partyInfoService.findAllPartyInfo();
 
         List<Long> allpartyCount = partyService.findUserCounter(smallList);  // 파티 마다 들어가있는 사람 queryDsl
-        if(allpartyCount != null){
+        if(allpartyCount != null && allpartyCount.size() > 1){
             Collections.reverse(allpartyCount);
         }
         model.addAttribute("big_items", bigList);
