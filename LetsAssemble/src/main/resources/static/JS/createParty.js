@@ -120,7 +120,6 @@ function DaumPostcode() {
             // 주소로 상세 정보를 검색
             geocoder.addressSearch(data.address, function(results, status) {
                 // 정상적으로 검색이 완료됐으면
-            console.log(status)
                 if (status === daum.maps.services.Status.OK) {
 
                     var result = results[0]; //첫번째 결과의 값을 활용

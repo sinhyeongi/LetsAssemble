@@ -13,7 +13,6 @@ atag.forEach(tag => {
     tag.addEventListener("click",event => {
         if(event.target.tagName ==='button'){
             event.preventDefault();
-            console.log(event.target);
         }
     })
 })
@@ -58,7 +57,6 @@ function makelist(data){
         return 0;
     })
     data.forEach(obj=>{
-        console.log(obj)
         if(obj.state === 'N')return;
         //연락처
         const nickname = obj.user.nickname;
@@ -274,7 +272,6 @@ function delegate() {
         .then(response => response.text())
         .then(result=>{
             isDelegateBtn = false;
-            console.log(result);
             if(result==='no party'){
                 alert("파티가 존재하지 않습니다.");
                 location.reload();

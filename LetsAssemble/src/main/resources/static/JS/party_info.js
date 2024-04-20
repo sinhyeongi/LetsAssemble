@@ -20,7 +20,6 @@ btn.onclick = function (event){
         .then(response => response.text())
         .then(result =>{
             isJoinBtn = false;
-            console.log(result)
             //비로그인
             if(result === 'login'){
                 alert("로그인 후 이용해주세요.");

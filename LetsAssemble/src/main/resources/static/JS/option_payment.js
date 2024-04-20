@@ -133,7 +133,7 @@ function requestPay(){
       $('#option_payment_btn').removeAttr("disabled");
       return;
    }
-   if(!confirm('결제 취소시 모든 신청이 취소 됩니다.\n계속 진행하시겠습니까?')){
+   if(!confirm('한개의 옵션이라도 사용이 되면 환불이 불가능합니다.\n계속 진행하시겠습니까?')){
       $('#option_payment_btn').removeAttr('disabled');
       return;
    }

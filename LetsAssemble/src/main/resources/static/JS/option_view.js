@@ -1,3 +1,5 @@
+const today = Today();
+let check = false;
 $('.option_view_cancel').click(function(e){
     $(this).attr('disabled',true);
     const view = $(this).closest(".view_card");
@@ -9,8 +11,20 @@ $('.option_view_cancel').click(function(e){
     uidlist.forEach((n,idx)=>{
         viewList.push($(n).closest('.view_card'));
         viewList[idx].find('.option_view_cancel').attr('disabled',true);
+        if($(n).closest('.view_card').find('.option_even_day').text() <= today){
+            b = true;
+        }
         dateString += $(n).closest('.view_card').find('.option_even_day').text()+'\n';
     })
+    if(b){
+        alert('사용한 옵션이 있어 환불이 불가능합니다.');
+        b = false;
+        $(this).removeAttr('disabled');
+        uidlist.forEach((n,idx)=>{
+            viewList[idx].find('.option_view_cancel').removeAttr('disabled');
+        })
+        return;
+    }
     if(!confirm(dateString+'에 대한 이벤트 요청이 취소 됩니다.\n결제를 취소하시겠습니까?')){
         uidlist.forEach((n,idx)=>{
             viewList[idx].find('.option_view_cancel').removeAttr('disabled');
@@ -52,3 +66,7 @@ $('.option_view_cancel').click(function(e){
     })
 
 });
+function Today(){
+    const today = new Date();
+    return today.getFullYear()+'-'+("0"+(today.getMonth()+1)).slice(-2)+ '-'+("0"+today.getDate()).slice(-2) + " "+today.getHours()+':'+('0'+today.getMinutes()).slice(-2)+":"+('0'+today.getSeconds()).slice(-2);
+}

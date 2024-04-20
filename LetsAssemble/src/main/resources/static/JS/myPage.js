@@ -40,7 +40,6 @@ function changeNickname(nickname){
         .then(response=>response.text())
         .then(result=>{
             isChangeBtn = false;
-            console.log(result);
             if(result === 'badRequest') {
                 location.href = "/error"
                 return;
