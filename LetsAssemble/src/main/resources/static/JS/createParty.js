@@ -4,6 +4,7 @@ const capacitySection = document.querySelector('.capacity_section');
 const isonlineList = [...document.getElementsByName('isOnline')];
 let is1step = false;
 let isAddress = false;
+let isCreateBtn = false;
 
 /* 카테고리 선택 시 하위 선택사항 생성*/
 categoryList.forEach(category =>{
@@ -33,9 +34,13 @@ function step1Btn(){
     const step1 = document.getElementById("step1");
     step1.style.display = "none";
     step2.style.display = "block";
+    document.getElementById("submitBtn").classList.add("action")
+
 }
 
 function submit(form){
+    if(isCreateBtn)return;
+    isCreateBtn = true;
     const formData = new FormData(form);
     fetch("/party/create",{
         method : "POST",
@@ -46,9 +51,15 @@ function submit(form){
     })
         .then(response => response.text())
         .then(data => {
-            console.log(data);
+            isCreateBtn = false;
             const msgBox = document.querySelector(".msgBox");
-            msgBox.style.display="block"
+            if(isNaN(data)){
+                msgBox.style.display="block";
+            }
+            if(data === 'no phone'){
+                location.href='/user/loginForm'
+                return;
+            }
             if(data === 'no category'){
                 msgBox.innerHTML="관심사를 설정해주세요."
                 return;
@@ -122,7 +133,7 @@ function DaumPostcode() {
                     // 마커를 결과값으로 받은 위치로 옮긴다.
                     marker.setPosition(coords);
                     isAddress= true;
-                    document.getElementById("commitBtn").classList.add("action")
+                    document.getElementById("submitBtn").classList.add("action")
                 }
             });
         }

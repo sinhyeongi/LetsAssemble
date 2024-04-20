@@ -1,3 +1,5 @@
+let isUpdateBtn = false;
+
 function DaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -24,6 +26,8 @@ slider.oninput = function() {
 //커밋
 
 function submit(form){
+    if(isUpdateBtn)return
+    isUpdateBtn = true;
     const formData = new FormData(form);
     fetch("/party/update",{
         method: "POST",
@@ -34,6 +38,7 @@ function submit(form){
     })
         .then(response => response.text())
         .then(data => {
+            isUpdateBtn = false;
             if(data === 'ok'){
                 location.href="/info/myParty"
             }else{

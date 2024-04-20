@@ -47,9 +47,9 @@ function init(){
         '성별',
         'gender',
         [
-            { id: 'male', value: 'male', label: '남성' ,selected: true},
-            { id: 'female', value: 'female', label: '여성' },
-            { id: 'other', value: 'other', label: '기타' }
+            { id: 'male', value: 'M', label: '남성' ,selected: true},
+            { id: 'female', value: 'F', label: '여성' },
+            { id: 'other', value: 'O', label: '기타' }
         ],
         'genderInputBox',
         undefined
@@ -87,14 +87,14 @@ const onEmailButtonClickHandler = async (event) => {
     let result;
     await emailValidate(email).then(data => {result = data});
     //중복검사
+    console.log(result);
     if(result === "true"){
-        emailMessage.classList.add("error");
-        emailMessage.innerText = "이미 가입된 이메일 입니다.";
+        setErrorMessage(emailMessage,'이미 가입된 이메일 입니다.')
         return;
     }
     //발송된 메일 존재
     isSendMail = true;
-
+    emailInput.readOnly=true;
     emailButton.innerText = "이메일 발송중"
     emailButton.classList.add("disabled");
     emailButton.classList.remove("btn-active");

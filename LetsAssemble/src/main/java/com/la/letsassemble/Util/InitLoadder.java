@@ -148,26 +148,69 @@ public class InitLoadder implements CommandLineRunner {
                 .isOnline(false)
                 .build();
         buy_repo.save(option);
-        PartyInfo partyInfo = PartyInfo.builder()
+        PartyInfo partyInfo1_1 = PartyInfo.builder()
                 .party(party)
                 .applicant_id(user.get())
                 .state("Y")
                 .isBlack(false)
                 .build();
-        PartyInfo partyInfo2 = PartyInfo.builder()
+        PartyInfo partyInfo1_2 = PartyInfo.builder()
                 .party(party)
                 .applicant_id(u2)
                 .state("Y")
                 .isBlack(false)
                 .build();
-        PartyInfo partyInfo3 = PartyInfo.builder()
+        PartyInfo partyInfo1_3 = PartyInfo.builder()
                 .party(party)
                 .applicant_id(u3)
                 .state("Y")
                 .isBlack(false)
                 .build();
-        partyInfoRepository.save(partyInfo);
-        partyInfoRepository.save(partyInfo2);
-        partyInfoRepository.save(partyInfo3);
+
+        PartyInfo partyInfo2_1 = PartyInfo.builder()
+                .party(party2)
+                .applicant_id(user.get())
+                .state("Y")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo2_2 = PartyInfo.builder()
+                .party(party2)
+                .applicant_id(u2)
+                .state("Y")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo2_3 = PartyInfo.builder()
+                .party(party2)
+                .applicant_id(u3)
+                .state("W")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo3_1 = PartyInfo.builder()
+                .party(party3)
+                .applicant_id(user.get())
+                .state("Y")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo3_2 = PartyInfo.builder()
+                .party(party3)
+                .applicant_id(u2)
+                .state("W")
+                .isBlack(false)
+                .build();
+        PartyInfo partyInfo3_3 = PartyInfo.builder()
+                .party(party3)
+                .applicant_id(u3)
+                .state("Y")
+                .isBlack(false)
+                .build();
+        partyInfoRepository.save(partyInfo1_1);
+        partyInfoRepository.save(partyInfo1_2);
+        partyInfoRepository.save(partyInfo1_3);
+        partyInfoRepository.save(partyInfo2_1);
+        partyInfoRepository.save(partyInfo2_2);
+        partyInfoRepository.save(partyInfo2_3);
+        partyInfoRepository.save(partyInfo3_1);
+        partyInfoRepository.save(partyInfo3_2);
+        partyInfoRepository.save(partyInfo3_3);
         }
 }

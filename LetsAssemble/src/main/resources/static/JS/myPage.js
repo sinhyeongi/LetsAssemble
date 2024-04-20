@@ -4,6 +4,7 @@ const close = document.querySelector('.close');
 const msg = document.querySelector('.msg');
 const msgSection = document.querySelector('.msg-section');
 const nicknameInput = document.getElementById('nickname');
+let isChangeBtn = false;
 
 // 버튼을 클릭하면 모달을 열어줍니다
 btn.onclick = function(){
@@ -23,6 +24,8 @@ nicknameInput.onkeyup = function (){
     msgSection.style.display = 'none';
 }
 function changeNickname(nickname){
+    if(isChangeBtn)return;
+    isChangeBtn=true;
     const data={
         email:user.email,
         nickname:nickname.value.trim()
@@ -36,6 +39,7 @@ function changeNickname(nickname){
     })
         .then(response=>response.text())
         .then(result=>{
+            isChangeBtn = false;
             console.log(result);
             if(result === 'badRequest') {
                 location.href = "/error"
