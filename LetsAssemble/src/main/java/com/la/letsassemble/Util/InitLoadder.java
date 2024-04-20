@@ -102,12 +102,12 @@ public class InitLoadder implements CommandLineRunner {
         Party party3 = new Party().builder()
                 .isOnline(false)
                 .personnel(100)
-                .area("test2")
-                .content("test2")
+                .area("test3")
+                .content("test3")
                 .user(u3)
-                .interest("test2")
-                .notification("test2")
-                .title("test2")
+                .interest("test3")
+                .notification("test3")
+                .title("test3")
                 .build();
         Optional<Users> user = repo.findByEmail(u.getEmail());
         partyRepository.saveAndFlush(party3);

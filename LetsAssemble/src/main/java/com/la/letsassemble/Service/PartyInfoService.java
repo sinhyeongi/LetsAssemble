@@ -64,4 +64,7 @@ public class PartyInfoService {
         repo.saveAndFlush(partyInfo);
         return "ok";
     }
+    public List<Long> findUserCounter(List<PartyInfo> list){
+        return repo.findUserCounter(list);
+    }
 }

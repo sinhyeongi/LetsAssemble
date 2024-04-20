@@ -2,12 +2,13 @@ package com.la.letsassemble.Repository;
 
 import com.la.letsassemble.Entity.Party;
 import com.la.letsassemble.Entity.Users;
+import com.la.letsassemble.QueryDsl.PartyCustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PartyRepository extends JpaRepository<Party,Long> {
+public interface PartyRepository extends JpaRepository<Party,Long>, PartyCustomRepository {
     List<Party> findAllByUser(Users user);
     @Query("SELECT pi.party FROM PartyInfo pi WHERE pi.user = :user AND pi.state = :state AND pi.party.user.email != pi.user.email")
     List<Party> findAllByUserAndState(Users user,String state);

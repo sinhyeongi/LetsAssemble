@@ -30,6 +30,9 @@ public class PartyService {
         return repo.findById(id);
     }
 
+    public List<String> getArea(){
+        return repo.GetArea();
+    }
     @Transactional
     public String delegateParty(Long partyId,Users user,Long userId){
         try {
@@ -126,6 +129,9 @@ public class PartyService {
             if(count >= 10){
                 throw new Exception();
             }
+            if(from.getAddress().indexOf(" ") != -1){
+                from.setAddress(from.getAddress().substring(0,from.getAddress().indexOf(" ")+1));
+            }
             //파티 생성
             Party party = Party.builder()
                     .interest(from.getCategory()) //관심사
@@ -135,6 +141,7 @@ public class PartyService {
                     .area(from.getAddress())
                     .personnel(Integer.parseInt(from.getCapacity()))
                     .build();
+            System.out.println("party = " + party);
             repo.save(party);
             //파티정보 생성
             PartyInfo partyInfo = PartyInfo.builder()
@@ -204,6 +211,9 @@ public class PartyService {
     // 유료 전체 리스트 4개
     public List<Party> findFourMoneyAllList(int limit){
         return repo.findFourMoneyAllList(limit);
+    }
+    public List<Long> findUserCounter(List<Party> list){
+        return partyInfoRepository.findUserCounter_Party(list);
     }
     // 유료 리스트 4개
     public List<Party> findFourMoneyOnlieList(int limit){

@@ -39,14 +39,14 @@
 <!--                <td class="location-filter">부산</td>-->
 <!--                <td class="location-filter"></td>-->
                 <td th:each="party : ${allParty}" class="location-filter">
-                    <span th:text="${party.area}"></span>
+                    <span th:text="${party}"></span>
                 </td>
             </tr>
         </table>
     </div>
     <div class="find_main">
         <div class="big_container">
-            <div th:each="big : ${big_items}" class="big_content" onclick="go_partyInfo(this)">
+            <div th:each="big,status : ${big_items}" class="big_content" onclick="go_partyInfo(this)">
 
                 <input type="hidden" name="party_id" th:value="${big.id}">
                 <div class="big_content_sub">
@@ -74,7 +74,7 @@
 <!--                    모집 인원 : ( / <span th:text="${big.personnel}"></span>) 명-->
 <!--                </div>                -->
                 <div class="big_content_personnel">
-                   모집 인원 : (
+                   모집 인원 : ( <span th:text="${big_items_count.get(status.index)}">0</span>
 <!--                    <div th:each="partyInfo : ${allPartyInfo}">-->
 <!--                        <div th:if="${partyInfo.party.id == big.id}">-->
 <!--                            &lt;!&ndash; big.id와 PartyInfo의 party.id가 일치할 때 &ndash;&gt;-->
@@ -85,10 +85,11 @@
 
                     / <span th:text="${big.personnel}"></span>) 명
             </div>
+
    </div>
 
     <div class="small_container">
-    <div th:each="small : ${small_items}" class="small_content" onclick="go_partyInfo(this)">
+    <div th:each="small,status : ${small_items}" class="small_content" onclick="go_partyInfo(this)">
         <input type="hidden" name="party_id" th:value="${small.id}">
         <div class="small_content_sub" th:text="${small.title}"></div>
         <div class="small_content_category">
@@ -110,7 +111,7 @@
             <span class="small_loc_name" th:text="${small.area}"></span>
         </div>
         <div class="small_content_personnel">
-            모집 인원 : ( / <span th:text="${small.personnel}"></span>) 명
+            모집 인원 : (<span th:text="${allpartyCount.get(status.index)}">0</span> / <span th:text="${small.personnel}"></span>) 명
         </div>
     </div> <!-- small_content -->
    </div>

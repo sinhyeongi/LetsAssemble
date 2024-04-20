@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,9 +101,7 @@ public class PartyController {
         if(userDetails == null){
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-
         Users user = userDetails.getUser();
-
         String createPartyId = partyService.createParty(party, user);
 
         // 작업이 완료되면 버튼을 다시 활성화합니다.
@@ -143,19 +142,22 @@ public class PartyController {
         private void addTest(Model model) {
 
         List<Party> bigList = partyService.findFourMoneyAllList(4); // 유료 리스트 중 4개
-
+        List<Long> bigListCount = partyService.findUserCounter(bigList); // 파티 마다 들어가있는 사람 queryDsl
         List<Party> smallList = partyService.findAllList();  // 무료 리스트 전체
 
         // 지역 리스트들 보내줘야함
-        List<Party> allParty = partyService.findAllParty();
+        List<String> allParty = partyService.getArea();
 
         List<PartyInfo> allPartyInfo = partyInfoService.findAllPartyInfo();
 
-
+        List<Long> allpartyCount = partyService.findUserCounter(smallList);  // 파티 마다 들어가있는 사람 queryDsl
+        if(allpartyCount != null){
+            Collections.reverse(allpartyCount);
+        }
         model.addAttribute("big_items", bigList);
-
+        model.addAttribute("big_items_count",bigListCount);
         model.addAttribute("small_items", smallList);
-
+        model.addAttribute("allpartyCount",allpartyCount);
         model.addAttribute("allParty", allParty);
 
         model.addAttribute("allPartyInfo" , allPartyInfo);
