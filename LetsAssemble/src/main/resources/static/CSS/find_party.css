@@ -26,9 +26,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
 }
 .big_content {
-    border: 2px solid #ffe000;
+    border: 3px solid #ffe000;
     border-radius: 10px;
     padding: 0 28px; /* padding을 조정하여 border 크기만큼 요소 크기를 유지하도록 함 */
     width: calc(25% - 84px); /* border와 padding을 적절히 계산하여 요소 크기 유지 */
@@ -38,18 +39,25 @@ body {
     flex-direction: column;
     font-size: 18px;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
     background-color: white;
+
+    /* 수정 */
+    background: linear-gradient(to bottom, #fff9c4, #ffeb3b);
 }
 .big_content:hover{
     box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+
+    color: #000; /* 호버 시 글자색 변경 */
+    transform: translateY(-4px); /* 호버 시 약간 위로 이동하는 효과 */
+    transition: transform 0.3s ease; /* 호버 시 효과에 부드러운 애니메이션 적용 */
+    background: linear-gradient(to bottom, #f5f5f5, #fff9c4); /* 호버 시 그라데이션 배경색 변경 */
 }
 .big_content_sub {
     margin-top: 15px;
     /* flex: 1; */
     /* border: 1px solid red; */
     text-align: center;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: bold;
     overflow: hidden;
     margin-bottom: 25px;
@@ -59,11 +67,11 @@ body {
 }
 
 .big_content_category {
-    border-top: 2px solid rgb(227, 226, 226);
+    border-top: 1px solid rgb(227, 226, 226);
     padding-top: 20px;
     /* margin-bottom: 50px; */
     font-size: 16px;
-    color: rgb(95, 95, 95);
+    /*color: rgb(95, 95, 95);*/
     font-weight: bold;
     /* border: 1px solid green; */
 }
@@ -71,8 +79,12 @@ body {
 .big_content_intro {
     /* border: 1px solid purple; */
     margin-bottom: 50px;
+    padding-top:15px;
     font-weight: bold;
-    color: rgb(91, 90, 90);
+    /*color: rgb(91, 90, 90);*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .big_content_loc {
@@ -85,14 +97,14 @@ body {
     /* border: 1px solid skyblue; */
     font-size: 16px;
     font-weight: bold;
-    color: rgb(91, 90, 90);
+    /*color: rgb(91, 90, 90);*/
 }
 
 .big_content_division{
-    padding-top: 20px;
+    padding-top: 10px;
     margin-bottom: 50px;
     font-size: 16px;
-    color: rgb(95, 95, 95);
+    /*color: rgb(95, 95, 95);*/
     font-weight: bold;
 }
 .small_container{
@@ -102,15 +114,17 @@ body {
     justify-content: flex-start;
 }
 .small_content {
-    border: 1px solid #ffe000;
+    border: 3px solid #ffe000;
     border-radius: 10px;
-    padding: 0 29.5px;
+    padding: 0 29px;
     width: calc(25% - 84px);
     margin: 10px;
     height: 260px;
     cursor: pointer;
     transition: box-shadow 0.3s ease;
     background-color: white;
+
+
 }
 .small_content:hover{
     box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
@@ -129,24 +143,24 @@ body {
 }
 
 .small_content_category {
-
+    border-top: 2px solid rgb(227, 226, 226);
     padding-top: 10px;
     margin-bottom: 10px;
     /* font-size: 16px; */
-    color: rgb(95, 95, 95);
+    /*color: rgb(95, 95, 95);*/
     font-weight: bold;
     font-size : 14px;
 }
 
 .small_content_intro {
-    border-top: 2px solid rgb(227, 226, 226);
+    /*border-top: 2px solid rgb(227, 226, 226);*/
     margin-bottom: 7px;
     padding-top: 5px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: rgb(91, 90, 90);
+    /*color: rgb(91, 90, 90);*/
     align-self: flex-end;
 }
 
@@ -156,14 +170,14 @@ body {
 
 .small_content_personnel {
     font-weight: bold;
-    color: rgb(91, 90, 90);
+    /*color: rgb(91, 90, 90);*/
 }
 
 .small_content_division{
     /* padding-top: 10px; */
     margin-bottom: 10px;
     /* font-size: 16px; */
-    color: rgb(95, 95, 95);
+    /*color: rgb(95, 95, 95);*/
     font-weight: bold;
     font-size : 14px;
 }
@@ -251,7 +265,8 @@ td{
 }
 
 .selected {
-    background-color: rgb(184, 225, 241); /* 선택된 항목의 배경색 */
+    background-color: #fdf6b5; /* 선택된 항목의 배경색 */
+    /*background-color: rgb(184, 225, 241); !* 선택된 항목의 배경색 *!*/
 }
 
 .ad_my_party{
@@ -264,4 +279,51 @@ td{
     text-align: center;
     padding: 10px 0;
     background-color: rgb(219, 216, 216);;
+}
+
+
+/* 기본적으로 숨겨진 요소들 */
+.big_content_division,
+.big_content_loc,
+.big_content_personnel {
+    display: none;
+}
+
+/* 마우스를 올렸을 때 보여질 요소들 */
+.big_content:hover .big_content_division,
+.big_content:hover .big_content_loc,
+.big_content:hover .big_content_personnel {
+    display: block;
+}
+
+.small_content_intro,
+.small_content_loc,
+.small_content_personnel {
+    display: none;
+}
+
+.small_content:hover .small_content_intro,
+.small_content:hover .small_content_loc,
+.small_content:hover .small_content_personnel{
+    display:block;
+}
+
+
+.category-sports {
+    color: blue; /* 스포츠 카테고리일 때 글자색을 빨간색으로 설정 */
+}
+
+.category-travel {
+    color: green; /* 여행 카테고리일 때 글자색을 파란색으로 설정 */
+}
+
+.category-game {
+    color: crimson; /* 게임 카테고리일 때 글자색을 초록색으로 설정 */
+}
+
+.category-study {
+    color: hotpink;
+}
+.category-boardGame {
+    color : blueviolet;
 }

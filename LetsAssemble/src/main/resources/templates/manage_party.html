@@ -1,11 +1,29 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
 
-<!--</body>-->
-<!--</html>-->
-<h2> 파티관리 페이지 테스트 </h2>
+<link rel="stylesheet" th:href="@{/CSS/manage_user.css}">
+<script type="text/javascript" defer th:src="@{/JS/manage_party.js}"></script>
+
+<h2 class="show_users"> 파티목록 </h2>
+
+<div class="user_container">
+    <div th:each="party : ${list}" class="user_content">
+        <input type="hidden" name="party_id" th:value="${party.id}">
+        <div class="user_info_name">
+            제목 : <span th:text="${party.title}"></span>
+        </div>
+        <div class="user_info">
+            카테고리 : <span th:text="${party.interest}"></span>
+        </div>
+<!--        <div class="user_info">-->
+<!--            파티소개 : <span th:text="${party.phone}"></span>-->
+<!--        </div>-->
+        <div class="user_info">
+            모임방식 : <span th:text="${party.isOnline() == 0 ? '오프라인' : '온라인'}"></span>
+        </div>
+        <div class="user_info">
+            지역 : <span th:text="${party.area}"></span>
+        </div>
+        <div class="user_info">
+            모집인원 : <span th:text="${party.personnel}+'명'"></span>
+        </div>
+    </div> <!-- user_content -->
+</div>

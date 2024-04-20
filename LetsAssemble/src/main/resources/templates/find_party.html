@@ -24,25 +24,29 @@
             <tr>
                 <th>관심사</th>
                 <td class="category-filter selected">전체</td>
-                <td class="category-filter">스포츠</td>
-                <td class="category-filter">스터디</td>
-                <td class="category-filter">게임</td>
-                <td class="category-filter">여행</td>
+                <td class="category-filter category-sports">스포츠</td>
+                <td class="category-filter category-study">스터디</td>
+                <td class="category-filter category-game">게임</td>
+                <td class="category-filter category-boardGame">보드게임</td>
+                <td class="category-filter category-travel">여행</td>
             </tr>
             <tr>
                 <th>지역</th>
+
                 <td class="location-filter selected">전체</td>
-                <td class="location-filter">서울</td>
-                <td class="location-filter">경기도</td>
-                <td class="location-filter">부산</td>
-                <td class="location-filter">제주도</td>
+<!--                <td class="location-filter">서울</td>-->
+<!--                <td class="location-filter">경기도</td>-->
+<!--                <td class="location-filter">부산</td>-->
+<!--                <td class="location-filter"></td>-->
+                <td th:each="party : ${allParty}" class="location-filter">
+                    <span th:text="${party.area}"></span>
+                </td>
             </tr>
         </table>
     </div>
     <div class="find_main">
         <div class="big_container">
-            <div th:each="big, iterStat : ${big_items}" th:if="${iterStat.index < 4}" class="big_content"
-                onclick="adMyParty(this)">
+            <div th:each="big : ${big_items}" class="big_content" onclick="go_partyInfo(this)">
 
                 <input type="hidden" name="party_id" th:value="${big.id}">
                 <div class="big_content_sub">
@@ -51,11 +55,11 @@
                 <div class="big_content_category">
                     카테고리 : <span class="big_cate_name" th:text="${big.interest}"></span>
                 </div>
-                <div class="big_content_division">
-                    모임 방식 : <span class="big_division_name" th:text="${big.isOnline == 0 ? '오프라인' : '온라인'}"></span>
-                </div>
                 <div class="big_content_intro">
                     파티 소개 : <span th:text="${big.content}"></span>
+                </div>
+                <div class="big_content_division">
+                    모임 방식 : <span class="big_division_name" th:text="${big.isOnline == 0 ? '오프라인' : '온라인'}"></span>
                 </div>
                 <div class="big_content_loc">
                     <span>
@@ -66,25 +70,21 @@
                     </span>
                     <span class="big_loc_name" th:text="${big.area}"></span>
                 </div>
+<!--                <div class="big_content_personnel">-->
+<!--                    모집 인원 : ( / <span th:text="${big.personnel}"></span>) 명-->
+<!--                </div>                -->
                 <div class="big_content_personnel">
-                    모집 인원 : ( / <span th:text="${big.personnel}"></span>) 명
-                </div>
+                   모집 인원 : (
+<!--                    <div th:each="partyInfo : ${allPartyInfo}">-->
+<!--                        <div th:if="${partyInfo.party.id == big.id}">-->
+<!--                            &lt;!&ndash; big.id와 PartyInfo의 party.id가 일치할 때 &ndash;&gt;-->
+<!--                            &lt;!&ndash; 일치하는 개수 카운트 &ndash;&gt;-->
+<!--                            <span th:text="${#lists.size(allPartyInfo)}"></span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    / <span th:text="${big.personnel}"></span>) 명
             </div>
-            <div th:unless="${#lists.size(big_items) > 1}" class="big_content" onclick="adMyParty(this)">
-        <div class="ad_my_party">
-            내 파티 홍보하기
-        </div>
-    </div>
-    <div th:unless="${#lists.size(big_items) > 2}" class="big_content" onclick="adMyParty(this)">
-        <div class="ad_my_party">
-            내 파티 홍보하기
-        </div>
-    </div>
-    <div th:unless="${#lists.size(big_items) > 3}" class="big_content" onclick="adMyParty(this)">
-        <div class="ad_my_party">
-            내 파티 홍보하기
-        </div>
-    </div>
    </div>
 
     <div class="small_container">

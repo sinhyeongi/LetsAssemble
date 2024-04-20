@@ -1,17 +1,3 @@
-function adMyParty(event){
-    const isValidClass = event.querySelector('.ad_my_party');
-    if(isValidClass){
-    //     내 파티 홍보하기 클래스가 있으면 파티 홍보 페이지로 이동
-        console.log('홈으로 이동해야함')
-        location.href = "/";
-    } else{
-        // 파티 인포 페이지로 이동
-        const hiddenInput = event.querySelector('input[type="hidden"]');
-        const party_id = hiddenInput.value;
-        console.log("party_id = " + party_id);
-        location.href=`/party/party_info?id=${party_id}`;
-    }
-}
 
 function go_partyInfo(event){
     const hiddenInput = event.querySelector('input[type="hidden"]');
@@ -25,6 +11,7 @@ const categories = document.querySelectorAll('.category-filter');
 const locations = document.querySelectorAll('.location-filter');
 const parties = document.querySelectorAll('.small_content');
 const big_parties = document.querySelectorAll('.big_content');
+const bigCategorySpans = document.querySelectorAll(".big_cate_name");
 
 let division = '전체';
 
@@ -66,7 +53,7 @@ function fetchPartiesByType(type) {
                         모임 방식: <span class="big_division_name">${party.isOnline === 0 ? '오프라인' : '온라인'}</span>
                     </div>
                     <div class="big_content_intro">
-                        파티 소개: <span>${party.intro}</span>
+                        파티 소개: <span>${party.content}</span>
                     </div>
                     <div class="big_content_loc">
                         <span>
@@ -77,9 +64,29 @@ function fetchPartiesByType(type) {
                         <span class="big_loc_name">${party.area}</span>
                     </div>
                     <div class="big_content_personnel">
-                        모집 인원 : (<span>${party.personnel}</span> / 5) 명
+                        모집 인원 : ( / <span>${party.personnel}</span>) 명
                     </div>
                 `;
+
+                switch (party.interest) {
+                    case '스포츠':
+                        div.querySelector('.big_cate_name').classList.add('category-sports');
+                        break;
+                    case '여행':
+                        div.querySelector('.big_cate_name').classList.add('category-travel');
+                        break;
+                    case '게임':
+                        div.querySelector('.big_cate_name').classList.add('category-game');
+                        break;
+                    case "스터디":
+                        div.querySelector('.big_cate_name').classList.add("category-study");
+                        break;
+                    case "스터디":
+                        div.querySelector('.big_cate_name').classList.add("category-boardGame");
+                        break;
+                    default:
+                        break;
+                }
 
                 // big_content 요소에 클릭 이벤트 리스너 등록
                 div.addEventListener('click', () => {
@@ -167,14 +174,13 @@ spans.forEach(function (span) {
                     party.style.display = 'none';
                 }
             }
-        })
+        });
 
     });
 });
 
 
 // 클릭시
-
 let category_name = '';
 categories.forEach(cate => {
     cate.addEventListener('click', function () {
@@ -240,16 +246,16 @@ categories.forEach(cate => {
                             party.style.display = 'block';
                         } else if(category_name === '전체' && selectedCategory === '전체' && division.includes(div.innerHTML)){
                             party.style.display = 'block';
-                        } else if(category_name === '전체' && selectedCategory === locNameText && division.includes('전체')){
+                        } else if(category_name === '전체' && selectedCategory.includes(locNameText) && division.includes('전체')){
                             party.style.display = 'block';
                         }  else if (category_name === cate.innerHTML && selectedCategory === '전체' && division.includes('전체')) {
                             party.style.display = 'block';
                         }
                         else if (category_name === cate.innerHTML && selectedCategory === '전체' && division.includes(div.innerHTML)) {
                             party.style.display = 'block';
-                        } else if (category_name === cate.innerHTML && locNameText === selectedCategory && division.includes(div.innerHTML)) {
+                        } else if (category_name === cate.innerHTML && selectedCategory.includes(locNameText) && division.includes(div.innerHTML)) {
                             party.style.display = 'block';
-                        } else if (category_name === cate.innerHTML && locNameText === selectedCategory && division.includes('전체')) {
+                        } else if (category_name === cate.innerHTML && selectedCategory.includes(locNameText) && division.includes('전체')) {
                             party.style.display = 'block';
                         }  else {
                             party.style.display = 'none';
@@ -264,4 +270,51 @@ categories.forEach(cate => {
 
 
 
+const smallCategorySpans = document.querySelectorAll('.small_cate_name');
 
+document.addEventListener("DOMContentLoaded", function () {
+    bigCategorySpans.forEach(categorySpan => {
+        const categoryValue = categorySpan.textContent.trim(); // 카테고리 값 가져오기
+        // 카테고리에 따라 클래스를 추가하여 스타일을 적용
+        switch (categoryValue) {
+            case "스포츠":
+                categorySpan.classList.add("category-sports");
+                break;
+            case "여행":
+                categorySpan.classList.add("category-travel");
+                break;
+            case "게임":
+                categorySpan.classList.add("category-game");
+                break;
+            case "스터디":
+                categorySpan.classList.add("category-study");
+                break;
+            case "스터디":
+                categorySpan.classList.add("category-boardGame");
+                break;
+            default:
+                break;
+        }
+    });
+
+    smallCategorySpans.forEach(categorySpan => {
+        const categoryValue = categorySpan.textContent.trim();
+        switch (categoryValue) {
+            case "스포츠":
+                categorySpan.classList.add("category-sports");
+                break;
+            case "여행":
+                categorySpan.classList.add("category-travel");
+                break;
+            case "게임":
+                categorySpan.classList.add("category-game");
+                break;
+            case "스터디":
+                categorySpan.classList.add("category-study");
+                break;
+            default:
+                break;
+        }
+    });
+
+});

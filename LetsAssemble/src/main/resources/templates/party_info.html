@@ -84,9 +84,16 @@
                 <div class="detail-content_main-content">
                     <h2>모집 내용</h2>
                     <div class="party_cont" th:text="${party.content}">
-<!--                        참여율 높고, 성실히 임하실 분들만 모집합니다!! 매너있는 분들도 환영해요-->
+
                     </div>
                 </div> <!-- _main-content -->
+                <hr>
+                <div class="detail-content_main-notice">
+                    <h2>전체 공지</h2>
+                    <div class="party_cont" th:text="${party.notification}">
+
+                    </div>
+                </div> <!-- _main-notice -->
             </div>
         </div>
     </div>

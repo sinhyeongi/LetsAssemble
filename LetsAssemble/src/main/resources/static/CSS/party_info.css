@@ -6,7 +6,7 @@ body{
 #subWrap{
     /* padding-top: 200px; */
     position: relative;
-    top:100px;
+    top:50px;
     /* border : 2px solid yellow; */
     width:1070px;
     margin: 0 auto;
@@ -113,6 +113,7 @@ body{
     font-size: 18px;
     font-weight: bold;
     color : gray;
+    margin-top: 10px;
 }
 
 .period{
@@ -120,6 +121,7 @@ body{
     margin-left: 200px;
 }
 .period_day{
+    margin-top:10px;
     font-weight: bold;
     color: gray;
     display: flex;
@@ -135,6 +137,11 @@ body{
     padding-bottom: 50px;
 }
 
+.detail-content_main-notice{
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
 hr {
     margin-top: 30px;
 }
@@ -142,4 +149,12 @@ hr {
 dd span{
     display: flex;
     align-items: center;
+}
+
+hr {
+    border: none; /* 기본 테두리 제거 */
+    height: 1px; /* 수평 선의 높이 설정 */
+    background-color: #ddd; /* 수평 선의 배경색 설정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 설정 */
+    margin-bottom: 5px;
 }

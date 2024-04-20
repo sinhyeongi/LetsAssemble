@@ -49,6 +49,11 @@ public class PartyInfoService {
         return repo.findByPartyAndUser(party,user);
     }
 
+    // 현재 파티 참여인원 위한 값
+    public List<PartyInfo> findAllPartyInfo(){
+        return repo.findAll();
+    }
+
     @Transactional
     public String changeStatus(Users user , Long partyInfoId, PartyInfoForm form){
         Optional<PartyInfo> optionalPartyInfo = repo.findById(partyInfoId);

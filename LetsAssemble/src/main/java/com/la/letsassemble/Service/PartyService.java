@@ -127,6 +127,39 @@ public class PartyService {
         return repo.findAllByUserAndState(user,state);
     }
 
+    // 온라인 무료 리스트
+    public List<Party> findOnlieList(){
+        return repo.findOnlineParties();
+    }
+
+    // 온라인 무료 리스트
+    public List<Party> findOfflieList(){
+        return repo.findOfflineParties();
+    }
+
+    // 무료 전체 리스트
+    public List<Party> findAllList(){
+        return repo.findAllList();
+    }
+
+    // 유료 전체 리스트 4개
+    public List<Party> findFourMoneyAllList(int limit){
+        return repo.findFourMoneyAllList(limit);
+    }
+    // 유료 리스트 4개
+    public List<Party> findFourMoneyOnlieList(int limit){
+        return repo.findFourMoneyOnlineList(limit);
+    }
+    // 무료 리스트 4개
+    public List<Party> findFourMoneyOffLineList(int limit){
+        return repo.findFourMoneyOfflineList(limit);
+    }
+
+    // 지역들
+    public List<Party> findAllParty(){
+        return repo.findAll();
+    }
+
     @Transactional
     public String applyJoinParty(Party party, Users user, PartyInfoForm form){
         try {
@@ -172,5 +205,11 @@ public class PartyService {
             redisLockRepository.unlock("party_join","party_join");
         }
         return "Fail";
+    }
+
+    @Transactional
+    public String deleteUser(Long id) {
+        repo.deleteById(id);
+        return "ok";
     }
 }
