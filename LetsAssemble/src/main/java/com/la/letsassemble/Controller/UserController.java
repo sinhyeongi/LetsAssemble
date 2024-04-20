@@ -5,37 +5,24 @@ import com.la.letsassemble.Security_Custom.PricipalDetails;
 import com.la.letsassemble.Service.MailSendService;
 import com.la.letsassemble.Service.UsersService;
 
-import com.la.letsassemble.dto.EmailRequestDto;
 import com.la.letsassemble.dto.PasswordForm;
 import com.la.letsassemble.dto.UserForm;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Null;
+
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
-@Slf4j
 public class UserController {
     private final UsersService usersService;
     private final MailSendService mailSendService;
@@ -94,8 +81,7 @@ public class UserController {
 
     @GetMapping("/resetPassword")
     public String resetPassword(HttpServletResponse response,String email,String authNumber,Model model) throws IOException {
-        log.error("email = {}", email);
-        log.error("authNumber = {}", authNumber);
+
         if (mailSendService.CheckAuthNum(email, authNumber)) {
             model.addAttribute("email",email);
             return "resetPassword";

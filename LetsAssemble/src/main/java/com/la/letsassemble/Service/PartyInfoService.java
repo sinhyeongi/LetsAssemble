@@ -38,7 +38,6 @@ public class PartyInfoService {
             return Optional.empty();
         }
         Optional<PartyInfo> info = repo.findByParty_IdAndUserEmailAndState(partyId,email,"Y");
-        System.err.println("info = " + info);
         return info;
     }
     public List<PartyInfo> findAllByPartyId(Party party){

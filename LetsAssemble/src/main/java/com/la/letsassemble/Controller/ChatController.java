@@ -1,5 +1,6 @@
 package com.la.letsassemble.Controller;
 
+import com.la.letsassemble.Entity.PartyInfo;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
 import com.la.letsassemble.Service.*;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -31,10 +33,12 @@ public class ChatController {
     @GetMapping("/{partyId}")
     public String ChatForm(Model model,@AuthenticationPrincipal PricipalDetails pricipalDetails, @PathVariable Long partyId){
         Users u = pricipalDetails.getUser();
-        if(partyInfoService.findByPartIdAndUser(partyId,u.getEmail()).isEmpty()){
+        Optional<PartyInfo> info = partyInfoService.findByPartIdAndUser(partyId,u.getEmail());
+        if(info.isEmpty()){
             return "redirect:/";
         }
         List<MessageDTO> messages = service.findByPartyIdLimit30(partyId);
+        model.addAttribute("note",info.get().getParty().getNotification());
         model.addAttribute("messages",messages);
         model.addAttribute("partyId",partyId);
         model.addAttribute("email",u.getEmail());

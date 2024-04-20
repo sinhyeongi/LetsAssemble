@@ -12,10 +12,25 @@
     margin: auto;
 }
 .Main_content_box{
-    max-height: 100vh;
+    min-height: 100vh;
     width: 90%;
     height: 100%;
     margin: auto;
-
+    display: flex;
     box-sizing: border-box;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 20px;
+}
+.Main_Image_div{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    height: 100%;
+    flex:1;
+}
+.Main_Image_div > img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }

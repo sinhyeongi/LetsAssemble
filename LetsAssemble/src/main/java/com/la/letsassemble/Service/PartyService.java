@@ -125,34 +125,33 @@ public class PartyService {
                 return "no address";
             }
             int count =0;
-            while(count < 10) {
-                if (!redisLockRepository.lock("party", "create")) {
-                    Thread.sleep(1000);
-                    count++;
-                    if (count >= 10) throw new Exception();
-                } else {
-                    //파티 생성
-                    Party party = Party.builder()
-                            .interest(from.getCategory()) //관심사
-                            .title(from.getName()) //파티이름
-                            .user(user)// 파티장
-                            .isOnline(from.getIsOnline().equals("online"))//온라인 여부
-                            .area(from.getAddress())
-                            .personnel(Integer.parseInt(from.getCapacity()))
-                            .build();
-                    //파티정보 생성
-                    PartyInfo partyInfo = PartyInfo.builder()
-                            .party(party)
-                            .applicant_id(user)
-                            .state("Y")
-                            .isBlack(false)
-                            .build();
-
-                    repo.save(party);
-                    partyInfoRepository.saveAndFlush(partyInfo);
-                    return party.getId().toString();
-                }
+            while(!redisLockRepository.lock("party_create","party_create") && count < 10){
+                Thread.sleep(1000);
+                count++;
             }
+            if(count >= 10){
+                throw new Exception();
+            }
+            //파티 생성
+            Party party = Party.builder()
+                    .interest(from.getCategory()) //관심사
+                    .title(from.getName()) //파티이름
+                    .user(user)// 파티장
+                    .isOnline(from.getIsOnline().equals("online"))//온라인 여부
+                    .area(from.getAddress())
+                    .personnel(Integer.parseInt(from.getCapacity()))
+                    .build();
+            repo.save(party);
+            //파티정보 생성
+            PartyInfo partyInfo = PartyInfo.builder()
+                    .party(party)
+                    .applicant_id(user)
+                    .state("Y")
+                    .isBlack(false)
+                    .build();
+
+            partyInfoRepository.saveAndFlush(partyInfo);
+            return party.getId().toString();
         }catch (Exception e){
 
         }finally {
