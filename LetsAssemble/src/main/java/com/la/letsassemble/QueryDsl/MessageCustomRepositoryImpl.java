@@ -28,7 +28,7 @@ public class MessageCustomRepositoryImpl implements MessageCustomRepository{
                 .from(message)
                 .where(message.party_id.id.eq(partyId))
                 .limit(1000L)
-                .orderBy(message.TDate.asc())
+                .orderBy(message.id.desc())
                 .fetch();
 
     }

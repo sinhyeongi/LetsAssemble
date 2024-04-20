@@ -47,9 +47,9 @@ function init(){
         '성별',
         'gender',
         [
-            { id: 'male', value: 'male', label: '남성' ,selected: true},
-            { id: 'female', value: 'female', label: '여성' },
-            { id: 'other', value: 'other', label: '기타' }
+            { id: 'male', value: 'M', label: '남성' ,selected: true},
+            { id: 'female', value: 'F', label: '여성' },
+            { id: 'other', value: 'O', label: '기타' }
         ],
         'genderInputBox',
         undefined

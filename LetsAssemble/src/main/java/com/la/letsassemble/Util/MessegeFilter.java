@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @Component
 public class MessegeFilter {
     private ArrayList<String> list;
-    public MessegeFilter(){
+    private MessegeFilter(){
         list = new ArrayList<>();
         ReadXls();
     }

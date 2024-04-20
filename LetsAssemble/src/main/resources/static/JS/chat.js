@@ -2,13 +2,21 @@ var socket = new SockJS('/ws?partyId=' + partyId);
 var stompClient = Stomp.over(socket);
 var email = document.getElementById("email").value;
 const messageInput = document.getElementById('messageInput');
+const chat_home = document.getElementsByClassName("chat_home")[0];
+chat_home.addEventListener("click",()=>{
+    location.href="/";
+})
 window.onload = function(){
+    if(note){
+        showNotification(note);
+    }
     if(!messages){
         return;
     }
     for(let i = 0 ; i < messages.length; i++){
         showMessage(messages[i]);
     }
+
 };
 messageInput.addEventListener('keyup',e =>{
     if(e.key === 'Enter'){
@@ -78,6 +86,37 @@ function showMessage(message) {
     const messageContent_date = document.createElement("div");
     messageContent_date.classList.add("chat_content_date");
     messageContent_date.textContent = getViewDate(message.date);
+    messageContent_box.appendChild(messageContent_date);
+    messageElement.appendChild(messageContent_box);
+
+
+
+    messageArea.appendChild(messageElement);
+
+    const mainElement = document.getElementById("Chat_main");
+    mainElement.scrollTop = mainElement.scrollHeight;
+}
+function showNotification(message) {
+    var messageArea = document.getElementById('messageArea');
+    var messageElement = document.createElement('div');
+    messageElement.classList.add("chat_content_box_notification")
+    const messageTitle = document.createElement("div");
+    messageTitle.classList.add("chat_notification");
+    messageTitle.textContent = "공지사항";
+    messageElement.appendChild(messageTitle);
+
+    const div = document.createElement('div');
+
+    const messageContent_box = document.createElement('div');
+    messageContent_box.classList.add('messageContent_box_wrap');
+
+    const messageContent = document.createElement("div");
+    messageContent.classList.add("chat_content");
+    messageContent.textContent = message;
+    messageContent_box.appendChild(messageContent);
+
+    const messageContent_date = document.createElement("div");
+    messageContent_date.classList.add("chat_content_date");
     messageContent_box.appendChild(messageContent_date);
     messageElement.appendChild(messageContent_box);
 

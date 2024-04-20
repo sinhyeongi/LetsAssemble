@@ -80,6 +80,7 @@ public class PartyService {
                     .area(from.getAddress())
                     .personnel(Integer.parseInt(from.getCapacity()))
                     .build();
+            repo.save(party);
             //파티정보 생성
             PartyInfo partyInfo = PartyInfo.builder()
                     .party(party)
@@ -88,7 +89,6 @@ public class PartyService {
                     .isBlack(false)
                     .build();
 
-            repo.save(party);
             partyInfoRepository.saveAndFlush(partyInfo);
             return party.getId().toString();
         }catch (Exception e){

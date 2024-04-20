@@ -23,11 +23,6 @@ public class MainController {
     public String test(){ return "qna"; }
 
 
-    @ResponseBody
-    @GetMapping("/oauth2/endpoint") // 테스트
-    public String Oauth2Login(@AuthenticationPrincipal PricipalDetails details){
-        return details.getUser().toString();
-    }
 
 
 }

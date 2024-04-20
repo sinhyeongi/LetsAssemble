@@ -5,6 +5,7 @@
     <title>Chat Application</title>
     <link rel="stylesheet" type="text/css" th:href="@{/CSS/Chat.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/8d0075b0a4.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script defer th:src="@{/JS/chat.js}" ></script>
@@ -14,8 +15,17 @@
 <script defer th:inline="javascript">
     var partyId=/*[[${partyId}]]*/ null;
     var messages = /*[[${messages}]]*/ '';
+    var note = /*[[${note}]]*/ undefined;
 </script>
 <input type="hidden" th:value="${#authentication.getPrincipal().getUser().getEmail()}" id="email">
+<header class="chat_header">
+    <div>
+        <i class="fa-solid fa-house chat_home" style="width: 36px; height: 36px; display: flex; justify-content: center; align-items: center"></i>
+    </div>
+    <div>
+
+    </div>
+</header>
 <main id="Chat_main">
     <div id="chatContainer">
         <div id="messageArea">
