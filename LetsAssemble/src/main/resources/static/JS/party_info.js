@@ -1,6 +1,8 @@
 const btn = document.querySelector('.joinParty');
-
+let isJoinBtn=false;
 btn.onclick = function (event){
+    if(isJoinBtn)return;
+    isJoinBtn = true;
     const type = event.target.getAttribute("data-text");
     const partyId = document.getElementById('partyId').value.trim();
     let data = {
@@ -17,6 +19,7 @@ btn.onclick = function (event){
     })
         .then(response => response.text())
         .then(result =>{
+            isJoinBtn = false;
             console.log(result)
             //비로그인
             if(result === 'login'){

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="disbandModal">
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="sections">
+                <section class="x-section">
+                    <i class="fa-solid fa-xmark close"></i>
+                </section>
+                <section class="content-section">
+                    <h1>정말로 파티를 해체하시겠습니까?</h1>
+                    <p style="color: red">경고! 파티를 해체할 경우 되돌릴 수 없으며 남은 옵션 및 기능을<br> 이용 하실 수 없습니다.</p>
+                    <div class="input">
+                        <input type="text" placeholder="파티명을 입력해주세요" id="partyName">
+                    </div>
+                </section>
+                <section class="msg-section" style = "display:none;">
+                    <div class="msg"></div>
+                </section>
+                <section class="btn-section">
+                    <div class="delegate_btn btn" onclick="disband(partyName)">해체하기</div>
+                    <div class="cancel_btn btn close">취소</div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

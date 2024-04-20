@@ -206,6 +206,26 @@ public class PartyController {
             model.addAttribute("party", party);
             return "party_info";
     }
+    @DeleteMapping("/disbandParty/{partyid}/partyname/{partyname}")
+    @ResponseBody
+    public String disbandParty(@PathVariable Long partyid,@PathVariable String partyname,@AuthenticationPrincipal PricipalDetails userDetails){
+        if(userDetails == null || userDetails.getUser() == null){
+            return "no login";
+        }
+        Users user = userDetails.getUser();
+        String result = partyService.deleteParty(partyid,user,partyname);
 
+        return result;
+    }
+    @PutMapping("/delegate/{partyId}/userId/{userId}")
+    @ResponseBody
+    public String delegate(@PathVariable Long partyId , @PathVariable Long userId, @AuthenticationPrincipal PricipalDetails userDetails){
+        if(userDetails == null || userDetails.getUser() == null){
+            return "no login";
+        }
+        Users user = userDetails.getUser();
+        String result = partyService.delegateParty(partyId,user,userId);
+        return result;
+    }
 
 }

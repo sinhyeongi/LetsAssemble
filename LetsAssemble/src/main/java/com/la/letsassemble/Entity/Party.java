@@ -64,4 +64,8 @@ public class Party {
         party.content = form.getContent();
         return party;
     }
+    public static Party delegateParty(Party party,Users user){
+        party.user = user;
+        return party;
+    }
 }

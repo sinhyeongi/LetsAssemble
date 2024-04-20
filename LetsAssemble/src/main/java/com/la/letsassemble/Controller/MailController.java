@@ -23,6 +23,7 @@ public class MailController {
     public String mailSend(@RequestBody @Valid EmailRequestDto emailDto){
         return mailService.joinEmail(emailDto.getEmail());
     }
+
     @PostMapping("/mailAuthCheck")
     public String AuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto){
         if(mailService.CheckAuthNum(emailCheckDto.getEmail(),emailCheckDto.getAuthNum())){

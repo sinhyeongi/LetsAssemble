@@ -2,6 +2,9 @@ const input = document.getElementById('emailInput');
 
 const form = document.getElementById('form');
 
+let isSubmitBtn = false;
+let pwChangeBtn = false;
+
 form.addEventListener('submit', function(event) {
     event.preventDefault();
 });
@@ -13,6 +16,7 @@ input.addEventListener('keydown', function(event) {
 });
 
 function submitForm(form){
+    if(isSubmitBtn)return;
     const email = form.email.value.trim();
     changeDisabledBtn(form.btn,"전송");
     fetch("/forgotEmail",{
@@ -26,6 +30,7 @@ function submitForm(form){
     })
         .then(response => response.text())
         .then(result => {
+            isSubmitBtn = false;
             changeDisabledBtn(form.btn,"전송");
             if(result === 'ok'){
                 alert("인증번호가 정상적으로 발송 되었습니다")
@@ -57,6 +62,8 @@ function changeDisabledBtn(btn, msg){
 
 /* 새 비밀번호 입력 */
 function pwSubmit(form){
+    if(pwChangeBtn)return;
+    pwChangeBtn=true;
     fetch("/user/resetPassword",{
         method :"POST",
         headers:{
@@ -70,6 +77,7 @@ function pwSubmit(form){
     })
      .then(response => response.text())
         .then(result => {
+            pwChangeBtn=false;
             if(result === 'ok'){
                 alert("비밀번호가 정상적으로 변경되었습니다.\n" +
                     "변경된 비밀번호로 로그인해주세요.")

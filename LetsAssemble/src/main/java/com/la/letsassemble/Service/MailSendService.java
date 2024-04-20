@@ -70,7 +70,7 @@ public class MailSendService {
         String content =
                 " 일단모여를 이용해주셔서 감사합니다." + 	//html 형식으로 작성 !
                         "<br><br>" +
-                        "임시 비밀번호 발급 링크입니다." +
+                        "회원님의 비밀번호 변경 링크입니다." +
                         "<br>"+
                         "http://localhost:8080/user/resetPassword?email="+email+"&authNumber="+ authNumber +
                         "<br>" +

@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 body{
     background-color: #f2f2f8;
+}
+:root {
+    --button-color: #ffffff;
+    --button-bg-color: #0d6efd;
+    --button-hover-bg-color: #025ce2;
 }
 .container{
     margin-top: 180px;
@@ -18,6 +25,46 @@ body{
     max-height: 360px;
     overflow: auto;
     margin-top: 10px;
+}
+.myParty_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.option_Btn_section{
+    display: flex;
+    gap: 10px;
+}
+.btn {
+    background: var(--button-bg-color);
+    color: var(--button-color);
+
+    margin: 0;
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    cursor: pointer;
+
+    transition: 0.5s;
+    /*line-height: 60px;*/
+}
+.option_Btn{
+    --button-bg-color: #28a745;
+    --button-hover-bg-color: #218838;
+    width: 80px;
+    height: 60px;
+}
+.info_Btn{
+    width: 80px;
+    height: 60px;
 }
 
 .party-wrap{
@@ -94,17 +141,19 @@ body{
     border-radius: 20px;
     padding: 10px;
     margin-bottom: 5px;
-    height: 50px;
 }
 .chat-content{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 100px;
 }
 .join-btn{
+    color: black;
+    --button-bg-color: #7ABAFF59;
+    --button-hover-bg-color: rgba(122, 186, 255, 0.63);
     width: 70px;
     border-radius: 10px;
-    background-color: rgba(122, 186, 255, 0.35);
     font-size: large;
     font-weight: bold;
     text-align: center;
@@ -114,17 +163,23 @@ body{
 .join-btn span{
     margin-right: 4px;
 }
+.option_Btn_section a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* 회원목록 */
+.memberList{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
 .memberList-title{
     display: grid;
     grid-template-columns: repeat(6,1fr);
     justify-items: center;
-}
-.memberList{
-    display: flex;
-    flex-direction: column;
-
 }
 .member-info{
     padding: 10px 0;
@@ -132,19 +187,50 @@ body{
     grid-template-columns: repeat(6, 1fr);
     text-align: center;
 }
+.member-info-wrap{
+    display: flex;
+}
 .member-info button{
-    background-color: rgba(214, 216, 219, 0.56);
     width: 80%;
     cursor: pointer;
 }
+.arkb_btn{
+    height: 30px;
+    line-height: 30px;
+}
 .kick{
+    --button-bg-color: #dc3545;
+    --button-hover-bg-color: #c82333;
 }
 .black{
+    --button-bg-color: rgba(17, 17, 17, 0.66);
+    --button-hover-bg-color: rgb(17, 17, 17);
 }
 .approve{
+
 }
 .reject{
+    --button-color: #212529;
+    --button-bg-color: #ffc107;
+    --button-hover-bg-color: #e0a800;
 }
+.bottom-btn{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.disband_btn{
+    --button-bg-color: #323232;
+    --button-hover-bg-color: #e0a800;
+    padding: 3px;
+}
+.delegate_btn{
+    --button-bg-color: #2b2b2b;
+    --button-hover-bg-color: #e0a800;
+    padding: 3px;
+}
+
 
 
 /* 스크롤바 전체의 너비를 설정합니다 */
@@ -162,4 +248,97 @@ body{
 /* 스크롤바의 핸들을 호버했을 때의 색상을 설정합니다 */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* 모달 */
+/******************* 모달 *****************/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 6;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    align-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+}
+.x-section{
+    display: flex;
+    justify-content: flex-end;
+}
+.close{
+    cursor: pointer;
+    position: relative;
+}
+.sections{
+    width: 100%;
+    overflow: hidden;
+}
+.content-section>p{
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: left;
+    color: rgb(101, 101, 101);
+}
+.input{
+    margin: 60px 0px;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgb(246, 246, 246);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input>input{
+    font-weight: bolder;
+    font-size: x-large;
+    background: none;
+    border: none;
+    outline: none;
+    text-align: center;
+}
+.btn-section{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.changeBtn{
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #fd7e14;
+    font-size: 16px;
+    font-weight: bolder;
+    line-height: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.msg-section{
+    text-align: center;
+    color: red;
+    font-size: 12px;
+    font-weight: 400;
+}
+.btn-section{
+    gap: 10px;
+}
+.cancel_btn{
+    width: 65px;
+    padding: 3px;
 }

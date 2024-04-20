@@ -46,8 +46,7 @@ public class UserController {
             Users u = details.getUser();
             //기존회원이 접근시.
             if(usersService.findByEmail(u.getEmail()).isPresent()){
-                response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                return null;
+                return "redirect:/";
             }
             model.addAttribute("user",u);
         }

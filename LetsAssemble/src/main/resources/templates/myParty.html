@@ -4,23 +4,23 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <section class="chat-container">
     <th:block th:each="party: ${myPartyList}">
-        <div style="display: flex;">
-            <div class="chat-wrap" style="flex:8;">
+        <div class="myParty_wrap">
+            <div class="chat-wrap">
                 <div class="chat-content">
                     <div class="chat-title"><h3 th:text="${party.title}"></h3></div>
                     <div class="chat-host">
-                        <p>파티장</p>
+                        <strong>파티장</strong>
                         <div th:text="${party.user.nickname}"></div>
                     </div>
-                    <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
+                    <a th:href="@{'/chat/' + ${party.id}}" class="join-btn btn">
                         <span>채팅</span>
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </a>
                 </div>
             </div>
-            <div style="display: flex; flex-direction: column; justify-content: space-around; flex:1.5;">
-                <a th:href="@{'/pay/'+${party.id}}" class="join-btn" style="font-size: 12px;">옵션 구매하러가기</a>
-                <a th:href="@{'/party/update/'+${party.id}}" class="join-btn" style="font-size: 12px;">파티 정보 수정하기</a>
+            <div class="option_Btn_section">
+                <a th:href="@{'/pay/'+${party.id}}" class="option_Btn btn">옵션 구매</a>
+                <a th:href="@{'/party/update/'+${party.id}}" class="info_Btn btn" >파티 정보</a>
             </div>
         </div>
     </th:block>
@@ -28,13 +28,15 @@
         <div class="chat-content" >
             <div class="chat-title"><h2 th:text="${party.title}"></h2></div>
             <div class="chat-host">
-                <p>파티장</p>
+                <strong>파티장</strong>
                 <div th:text="${party.user.nickname}"></div>
             </div>
-            <a th:href="@{'/chat/' + ${party.id}}" class="join-btn">
+            <a th:href="@{'/chat/' + ${party.id}}" class="join-btn btn ">
                 <span>채팅</span>
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </a>
+        </div>
+        <div class="option_Btn_section">
         </div>
     </div>
 </section>
