@@ -10,17 +10,11 @@ import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.dto.PartyForm;
 import com.la.letsassemble.dto.PartyInfoForm;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.sl.draw.geom.GuideIf;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

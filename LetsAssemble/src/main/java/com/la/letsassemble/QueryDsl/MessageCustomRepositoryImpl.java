@@ -1,15 +1,11 @@
 package com.la.letsassemble.QueryDsl;
 
-import com.la.letsassemble.Entity.Message;
-import com.la.letsassemble.Entity.QBuy_Option;
 import com.la.letsassemble.dto.MessageDTO;
 import com.la.letsassemble.dto.QMessageDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import static com.la.letsassemble.Entity.QMessage.message;
 

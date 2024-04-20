@@ -3,21 +3,16 @@ package com.la.letsassemble.Entity;
 import com.la.letsassemble.Role.UsersRole;
 import com.la.letsassemble.dto.UserForm;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 
 @Entity

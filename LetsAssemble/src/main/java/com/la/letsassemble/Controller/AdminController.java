@@ -5,7 +5,6 @@ import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Service.PartyService;
 import com.la.letsassemble.Service.UsersService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

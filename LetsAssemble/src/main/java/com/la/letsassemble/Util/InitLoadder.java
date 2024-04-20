@@ -9,9 +9,7 @@ import com.la.letsassemble.Repository.PartyInfoRepository;
 import com.la.letsassemble.Repository.PartyRepository;
 import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Role.UsersRole;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

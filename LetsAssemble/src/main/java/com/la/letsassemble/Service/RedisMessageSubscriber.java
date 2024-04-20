@@ -2,7 +2,6 @@ package com.la.letsassemble.Service;
 
 import com.la.letsassemble.dto.MessageDTO;
 import com.nimbusds.jose.shaded.gson.Gson;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;

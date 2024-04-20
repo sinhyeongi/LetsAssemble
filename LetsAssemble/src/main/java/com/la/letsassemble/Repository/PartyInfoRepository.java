@@ -3,10 +3,7 @@ package com.la.letsassemble.Repository;
 import com.la.letsassemble.Entity.Party;
 import com.la.letsassemble.Entity.PartyInfo;
 import com.la.letsassemble.Entity.Users;
-import org.apache.catalina.User;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;

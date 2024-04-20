@@ -8,7 +8,6 @@ import com.la.letsassemble.Service.PartyInfoService;
 import com.la.letsassemble.Service.PartyService;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

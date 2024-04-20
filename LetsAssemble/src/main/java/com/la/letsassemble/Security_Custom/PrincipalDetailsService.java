@@ -3,8 +3,6 @@ package com.la.letsassemble.Security_Custom;
 import com.la.letsassemble.Entity.Users;
 import com.la.letsassemble.Repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
