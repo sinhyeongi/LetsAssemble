@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface Buy_OptionRepository extends JpaRepository<Buy_Option,Long>, Buy_OptionCustomRepository {
     public int deleteByImpUidAndUserEmail(String uid,String email);
+
 }

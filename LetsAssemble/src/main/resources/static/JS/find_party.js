@@ -49,7 +49,7 @@ function fetchPartiesByType(type) {
                         카테고리: <span class="big_cate_name">${party.interest}</span>
                     </div>
                     <div class="big_content_division">
-                        모임 방식: <span class="big_division_name">${party.isOnline === 0 ? '오프라인' : '온라인'}</span>
+                        모임 방식: <span class="big_division_name">${party.isOnline ? '온라인' : '오프라인'}</span>
                     </div>
                     <div class="big_content_intro">
                         파티 소개: <span>${party.content}</span>
