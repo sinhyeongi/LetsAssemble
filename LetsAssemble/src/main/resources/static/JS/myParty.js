@@ -145,7 +145,10 @@ function ARKB(idx,type){
     if(isASKB_Btn)return;
     isASKB_Btn = true;
     let response = confirm(msg(type))
-    if(!response)return;
+    if(!response){
+        isASKB_Btn = false;
+        return;
+    }
     let data={
         state: null,
         isBlack: false,
@@ -226,7 +229,11 @@ function disband(partyName){
     }
     if(isDisbandBtn)return;
     isDisbandBtn=true;
-    confirm("파티를 해체 하시겠습니까?")
+    if(!confirm("파티를 해체 하시겠습니까?")){
+        isDisbandBtn=false;
+        return;
+    }
+
     fetch(`/party/disbandParty/${partyId}/partyname/${partyname}`,{
         method : "DELETE"
     })
@@ -266,7 +273,10 @@ function delegate() {
     if(selectedRadio.value.trim() === '')return;
     const memberId = selectedRadio.value;
     isDelegateBtn = true;
-    if(!confirm("정말로 위임하시겠습니까?"))return;
+    if(!confirm("정말로 위임하시겠습니까?")){
+        isDelegateBtn = false;
+        return;
+    }
 
     fetch(`/party/delegate/${partyId}/userId/${memberId}`,{
         method : "PUT"

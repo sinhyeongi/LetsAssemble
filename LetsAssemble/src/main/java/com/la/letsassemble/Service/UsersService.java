@@ -43,24 +43,23 @@ public class UsersService {
     public Users signup(UserForm form){
         try{
             int count = 0;
-            while(!redisLockRepository.lock("user","signup") && count < 10){
-                Thread.sleep(1000);
-                count++;
-                Users user = Users.createUser(form,encoder);
-
-                if(user != null){
+            while(count < 10){
+                if(redisLockRepository.lock("user","signup")){
+                    Users user = Users.createUser(form,encoder);
+                    if(user == null)return null;
                     return usersRepository.saveAndFlush(user);
-                }
-                if(count >= 10){
-                    throw new Exception();
+                }else{
+                    Thread.sleep(1000);
+                    count++;
+                    if(count >= 10){
+                        throw new Exception();
+                    }
                 }
             }
         }catch (Exception e){
-
         }finally {
             redisLockRepository.unlock("user","signup");
         }
-
         return null;
     }
     public void UpdatePricipal(Users u){
