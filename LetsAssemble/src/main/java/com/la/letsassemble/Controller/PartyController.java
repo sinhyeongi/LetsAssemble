@@ -15,12 +15,15 @@ import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -141,7 +144,11 @@ public class PartyController {
 
         private void addTest(Model model) {
 
-        List<Party> bigList = partyService.findFourMoneyAllList(4); // 유료 리스트 중 4개
+
+        List<Party> bigList = partyService.findAllMoneyAllList(); // 유료 리스트 중 4개
+
+        List<Party> limitedList = bigList.subList(0, Math.min(4, bigList.size())); // 최대 4개의 요소만 추출
+
         List<Long> bigListCount = partyService.findUserCounter(bigList); // 파티 마다 들어가있는 사람 queryDsl
             if(bigListCount != null && bigListCount.size() > 1){
                 Collections.reverse(bigListCount);
@@ -157,7 +164,7 @@ public class PartyController {
         if(allpartyCount != null && allpartyCount.size() > 1){
             Collections.reverse(allpartyCount);
         }
-        model.addAttribute("big_items", bigList);
+        model.addAttribute("big_items", limitedList);
         model.addAttribute("big_items_count",bigListCount);
         model.addAttribute("small_items", smallList);
         model.addAttribute("allpartyCount",allpartyCount);
@@ -170,14 +177,21 @@ public class PartyController {
     @ResponseBody
     public List<Party> getPartiesByType(@RequestParam(value = "type", required = false) String type) {
 
-        if ("online".equals(type)) {
-            return partyService.findFourMoneyOnlieList(4);
-        } else if ("offline".equals(type)) {
-            return partyService.findFourMoneyOffLineList(4);
-        } else {
-            // type이 all일때
-            return partyService.findFourMoneyAllList(4);
+        List<Party> list;
+        if("all".equals(type)){
+            list = partyService.findAllMoneyAllList();
+            list.subList(0, Math.min(4, list.size()));
+            return list.subList(0, Math.min(4, list.size()));
         }
+
+        Boolean isOnline = true;
+        if ("online".equals(type)) {
+            isOnline = true;
+        } else if ("offline".equals(type)) {
+            isOnline = false;
+        }
+        list =partyService.findAllMoneyDivisionList(isOnline);
+        return list.subList(0, Math.min(4, list.size()));
     }
 
 

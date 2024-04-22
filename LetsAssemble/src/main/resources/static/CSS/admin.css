@@ -122,7 +122,7 @@ hr {
     justify-content: flex-start;
 }
 .user_content {
-    border: 1px solid #ffe000;
+    border: 2px solid #ffe000;
     border-radius: 10px;
     padding: 0 29.5px;
     width: calc(25% - 84px);
@@ -141,12 +141,13 @@ hr {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    overflow: hidden;
-    /*margin-bottom: 25px;*/
+    /*overflow: hidden;*/
     height: 30px;
-    /*max-height: 75px;*/
     border-bottom: 2px solid rgb(227, 226, 226);
     margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .user_info{
     margin: 15px 0;
@@ -161,4 +162,6 @@ hr {
     margin-left : 20px;
     color:lightgray;
 }
+
+
 /* 신고 관리 css 끝*/

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -198,7 +199,7 @@ public class PartyService {
         return repo.findOnlineParties();
     }
 
-    // 온라인 무료 리스트
+    // 오프라인 무료 리스트
     public List<Party> findOfflieList(){
         return repo.findOfflineParties();
     }
@@ -208,23 +209,22 @@ public class PartyService {
         return repo.findAllList();
     }
 
-    // 유료 전체 리스트 4개
-    public List<Party> findFourMoneyAllList(int limit){
-        return repo.findFourMoneyAllList(limit);
+    // 유료 전체 리스트 구분 없을때
+    public List<Party> findAllMoneyAllList(){
+        String currentDate = LocalDate.now().toString();
+        return repo.findAllMoneyAllList(currentDate);
     }
     public List<Long> findUserCounter(List<Party> list){
         return partyInfoRepository.findUserCounter_Party(list);
     }
-    // 유료 리스트 4개
-    public List<Party> findFourMoneyOnlieList(int limit){
-        return repo.findFourMoneyOnlineList(limit);
-    }
-    // 무료 리스트 4개
-    public List<Party> findFourMoneyOffLineList(int limit){
-        return repo.findFourMoneyOfflineList(limit);
+
+    // 유료 리스트 -> online으로 구분지을때
+    public List<Party> findAllMoneyDivisionList(Boolean isOnline){
+        String currentDate = LocalDate.now().toString();
+        return repo.findAllMoneyDivisionList(currentDate, isOnline);
     }
 
-    // 지역들
+    // 파티 전체 리스트
     public List<Party> findAllParty(){
         return repo.findAll();
     }
