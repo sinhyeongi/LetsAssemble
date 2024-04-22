@@ -95,7 +95,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("경기")
                 .content("차 있으신 분들 대환영입니다")
                 .user(u)
-                .interest("여행")
+                .interest("travel")
                 .notification("이상한 짓 하시면 경찰에 신고할게요")
                 .title("서울, 경기 근교로 같이 여행 가실분 들어와주세요")
                 .build();
@@ -106,7 +106,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("서울")
                 .content("실력 상관없이 즐겁게 하실분들 모두 환영해요")
                 .user(u2)
-                .interest("스포츠")
+                .interest("sports")
                 .notification("축구화는 필수입니다 !!!")
                 .title("축구하고 싶은데 못 하셨던 분들 ! 같이 하시려면 들어오세요")
                 .build();
@@ -117,7 +117,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("경기")
                 .content("남녀노소 누구나 환영합니다 ㅎㅎ")
                 .user(u3)
-                .interest("보드게임")
+                .interest("boardGame")
                 .notification("서로 사이좋게 했으면 좋겠어요")
                 .title("보드게임 카페가서 재밌게 보드게임 하실 분들 구해요 !!")
                 .build();
@@ -138,7 +138,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("전남")
                 .content("성실하게 참여하실 분들 많이 환영합니다 ~~ !")
                 .user(u2)
-                .interest("게임")
+                .interest("game")
                 .notification("비매너 유저는 추방할게요 ! ")
                 .title("같이 서든어택 하실분 일단모여 !!!")
                 .build();
@@ -150,7 +150,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("경북")
                 .content("티어 상관없이 즐겁게 하실 분들만 신청해주세요")
                 .user(u3)
-                .interest("게임")
+                .interest("game")
                 .notification("비매너 유저는 추방할게요 ! ")
                 .title("같이 롤하실 분들 4명 구합니다!")
                 .build();
@@ -162,7 +162,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("인천")
                 .content("고수들만 들어와주세요 !!!")
                 .user(u)
-                .interest("게임")
+                .interest("game")
                 .notification("싸우면 추방합니다")
                 .title("오버워치 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
                 .build();
@@ -174,7 +174,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("서울")
                 .content("열정이 많으신 분들만 신청 부탁드릴게요")
                 .user(u3)
-                .interest("스터디")
+                .interest("study")
                 .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
                 .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
                 .build();
@@ -186,7 +186,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("경기")
                 .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
                 .user(u2)
-                .interest("스포츠")
+                .interest("sports")
                 .notification("야구 장비는 꼭!! 필수입니다 ")
                 .title("야구하러 가실분 들어와주세요")
                 .build();
@@ -198,7 +198,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("강원")
                 .content("서로 봐주면서 피드백 및 첨삭하는 방식입니다")
                 .user(u)
-                .interest("스터디")
+                .interest("study")
                 .notification("편한 분위기로 다 같이 열심히 했으면 좋겠습니다")
                 .title("면접 준비하시는 취준생 분들 같이 면접 준비해요 !!")
                 .build();
@@ -210,7 +210,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("제주")
                 .content("주 2회 스터디 예정입니다 ! 많이 참여 부탁드려요")
                 .user(u2)
-                .interest("스터디")
+                .interest("study")
                 .notification("약속 시간 안 지키시면 추방할게요")
                 .title("화상 채팅으로 개발 스터디 하실 분들 구해요!")
                 .build();
@@ -222,7 +222,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("경남")
                 .content("차 없으셔도 됩니다! 여행에 필요한 비용만 있으면 돼요")
                 .user(u3)
-                .interest("여행")
+                .interest("travel")
                 .notification("시간 약속은 필수로 지켜주셔야 합니다")
                 .title("해운대 가실 성격 좋으신 분들 구해요 ~ ")
                 .build();
