@@ -148,10 +148,10 @@ body{
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 265px;
+    /*transition: 700ms;*/
 }
 .chat-title h3:hover{
-    overflow: unset;
-    white-space: unset;
+    white-space: normal;
 }
 .chat-wrap{
     width: 500px;
