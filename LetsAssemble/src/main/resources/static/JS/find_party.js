@@ -68,20 +68,25 @@ function fetchPartiesByType(type) {
                 `;
 
                 switch (party.interest) {
-                    case '스포츠':
+                    case 'sports':
                         div.querySelector('.big_cate_name').classList.add('category-sports');
+                        div.querySelector('.big_cate_name').innerHTML = '스포츠';
                         break;
-                    case '여행':
+                    case 'travel':
                         div.querySelector('.big_cate_name').classList.add('category-travel');
+                        div.querySelector('.big_cate_name').innerHTML = '여행';
                         break;
-                    case '게임':
+                    case 'game':
                         div.querySelector('.big_cate_name').classList.add('category-game');
+                        div.querySelector('.big_cate_name').innerHTML = '게임';
                         break;
-                    case "스터디":
+                    case "study":
                         div.querySelector('.big_cate_name').classList.add("category-study");
+                        div.querySelector('.big_cate_name').innerHTML = '스터디';
                         break;
-                    case "스터디":
+                    case "boardGame":
                         div.querySelector('.big_cate_name').classList.add("category-boardGame");
+                        div.querySelector('.big_cate_name').innerHTML = '보드게임';
                         break;
                     default:
                         break;

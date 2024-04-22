@@ -11,11 +11,8 @@
             제목 : <span th:text="${party.title}"></span>
         </div>
         <div class="user_info">
-            카테고리 : <span th:text="${party.interest}"></span>
+            카테고리 : <span th:text="${party.interest}" class="cate_name"></span>
         </div>
-<!--        <div class="user_info">-->
-<!--            파티소개 : <span th:text="${party.phone}"></span>-->
-<!--        </div>-->
         <div class="user_info">
             모임방식 : <span th:text="${party.isOnline() == 0 ? '오프라인' : '온라인'}"></span>
         </div>
