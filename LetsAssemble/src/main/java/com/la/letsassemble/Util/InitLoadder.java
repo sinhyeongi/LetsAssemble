@@ -116,8 +116,8 @@ public class InitLoadder implements CommandLineRunner {
                 .email("test8@test.tes")
                 .password(encoder.encode("test8"))
                 .phone("010-1234-1234")
-                .name("김광규")
-                .nickname("느그아버지")
+                .name("손흥민")
+                .nickname("월클입니다")
                 .gender("M")
                 .age(60)
                 .build();
