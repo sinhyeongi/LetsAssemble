@@ -65,4 +65,6 @@ public class Party {
         party.user = user;
         return party;
     }
+
+
 }
