@@ -36,10 +36,10 @@ function fetchPartiesByType(type) {
             // 기존의 big_content 요소 모두 삭제
             big_container.innerHTML = '';
 
-            partyList.forEach(party => {
+            partyList.forEach((party, index) => {
                 const div = document.createElement('div');
                 div.classList.add('big_content');
-
+                console.log(party);
                 // 파티 정보를 표시
                 div.innerHTML = `
                     <input type="hidden" name="party_id" value="${party.id}">
@@ -47,18 +47,18 @@ function fetchPartiesByType(type) {
                         <span>${party.title}</span>
                     </div>
                     <div class="big_content_category">
-                        카테고리: <span class="big_cate_name">${party.interest}</span>
+                        카테고리 : <span class="big_cate_name">${party.interest}</span>
                     </div>
                     <div class="big_content_division">
-                        모임 방식: <span class="big_division_name">${party.isOnline === 0 ? '오프라인' : '온라인'}</span>
+                        모임 방식 : <span class="big_division_name">${party.online? '온라인' : '오프라인'}</span>
                     </div>
                     <div class="big_content_intro">
-                        파티 소개: <span>${party.content}</span>
+                        파티 소개 : <span>${party.content}</span>
                     </div>
                     <div class="big_content_loc">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
-                                <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                                <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" fill="red"/>
                             </svg>
                         </span>
                         <span class="big_loc_name">${party.area}</span>
@@ -90,7 +90,7 @@ function fetchPartiesByType(type) {
 
                 // big_content 요소에 클릭 이벤트 리스너 등록
                 div.addEventListener('click', () => {
-                    adMyParty(div); // 클릭 시 adMyParty 함수 호출
+                    go_partyInfo(div); // 클릭 시 adMyParty 함수 호출
                 });
 
                 big_container.appendChild(div);
@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
             case "스터디":
                 categorySpan.classList.add("category-study");
                 break;
-            case "스터디":
+            case "보드게임":
                 categorySpan.classList.add("category-boardGame");
                 break;
             default:
@@ -311,6 +311,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case "스터디":
                 categorySpan.classList.add("category-study");
+                break;
+            case "보드게임":
+                categorySpan.classList.add("category-boardGame");
                 break;
             default:
                 break;

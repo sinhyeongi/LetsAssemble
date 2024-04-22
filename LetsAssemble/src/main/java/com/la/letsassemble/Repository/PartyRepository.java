@@ -6,6 +6,7 @@ import com.la.letsassemble.QueryDsl.PartyCustomRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PartyRepository extends JpaRepository<Party,Long>, PartyCustomRepository {
@@ -16,58 +17,38 @@ public interface PartyRepository extends JpaRepository<Party,Long>, PartyCustomR
     // 온라인인 무료 파티 전체 가져오기
     @Query("SELECT p FROM Party p LEFT JOIN Buy_Option bo ON p.id = bo.party.id " +
             "WHERE (bo.party IS NULL OR p.id <> bo.party.id) AND p.isOnline = true " +
-            "ORDER BY p.id DESC")
+            "ORDER BY p.id ASC")
     List<Party> findOnlineParties();
 
 
     // 오프라인 무료 파티 전체 가져오기
     @Query("SELECT p FROM Party p LEFT JOIN Buy_Option bo ON p.id = bo.party.id " +
             "WHERE (bo.party IS NULL OR p.id <> bo.party.id) AND p.isOnline = false " +
-            "ORDER BY p.id DESC")
+            "ORDER BY p.id ASC")
     List<Party> findOfflineParties();
 
 
     // 무료인 전체 리스트
     @Query("SELECT p FROM Party p LEFT JOIN Buy_Option bo ON p.id = bo.party.id " +
             "WHERE (bo.party IS NULL OR p.id <> bo.party.id)" +
-            "ORDER BY p.id DESC")
+            "ORDER BY p.id ASC")
     List<Party> findAllList();
 
-    // 유료 전체 리스트
+    // 유료 전체 리스트 - 구분 없음
     @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id ) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findAllMoneyAllList();
+            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id " +
+            "              AND bo.even_day = :currentDate) " +  // buy_option의 even_day가 현재 날짜와 같은 경우
+            "ORDER BY p.id ASC")  // buy_option의 id를 내림차순으로 정렬
+    List<Party> findAllMoneyAllList(String currentDate);
 
-    // 유료 전체 중 4개 내림차순
+    // 유료 전체 리스트들 isOnlie의 여부에 따라 달라짐
     @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id ) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findFourMoneyAllList(int limit);
+            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id " +
+            "              AND bo.even_day = :currentDate " +  // buy_option의 even_day가 현재 날짜와 같은 경우
+            "              AND bo.party.isOnline = :isOnline) " +
+            "ORDER BY p.id ASC")  // buy_option의 id를 내림차순으로 정렬
+    List<Party> findAllMoneyDivisionList(String currentDate , Boolean isOnline); // 구분에 따른 유료 리스트
 
-    // 유료 온라인 전체 (내림차순)
-    @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id AND bo.party.isOnline = true) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findAllMoneyOnlineList();
-
-    // 유료 온라인 4개
-    @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id AND bo.party.isOnline = true) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findFourMoneyOnlineList(int limit);
-
-    // 유료 오프라인 전체 (내림차순)
-    @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id AND bo.party.isOnline = false) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findAllMoneyOfflineList();
-
-    // 유료 오프라인 4개
-    @Query("SELECT p FROM Party p " +
-            "WHERE p.id IN (SELECT bo.party.id FROM Buy_Option bo WHERE bo.party.id = p.id AND bo.party.isOnline = false) " +
-            "ORDER BY p.riterDay DESC")
-    List<Party> findFourMoneyOfflineList(int limit);
 
     // 유료 무료 상관 없는 모든 파티리스트
     // 모든 파티 정보를 가져오는 메서드

@@ -32,12 +32,7 @@
             </tr>
             <tr>
                 <th>지역</th>
-
                 <td class="location-filter selected">전체</td>
-<!--                <td class="location-filter">서울</td>-->
-<!--                <td class="location-filter">경기도</td>-->
-<!--                <td class="location-filter">부산</td>-->
-<!--                <td class="location-filter"></td>-->
                 <td th:each="party : ${allParty}" class="location-filter">
                     <span th:text="${party}"></span>
                 </td>
@@ -59,35 +54,25 @@
                     파티 소개 : <span th:text="${big.content}"></span>
                 </div>
                 <div class="big_content_division">
-                    모임 방식 : <span class="big_division_name" th:text="${big.isOnline == 0 ? '오프라인' : '온라인'}"></span>
+                    모임 방식 : <span class="big_division_name" th:text="${big.isOnline ? '온라인' : '오프라인'}"></span>
                 </div>
                 <div class="big_content_loc">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
                             <path
-                                d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                                d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" fill="red" />
                         </svg>
                     </span>
                     <span class="big_loc_name" th:text="${big.area}"></span>
                 </div>
-<!--                <div class="big_content_personnel">-->
-<!--                    모집 인원 : ( / <span th:text="${big.personnel}"></span>) 명-->
-<!--                </div>                -->
+
                 <div class="big_content_personnel">
                    모집 인원 : ( <span th:text="${big_items_count.get(status.index)}">0</span>
-<!--                    <div th:each="partyInfo : ${allPartyInfo}">-->
-<!--                        <div th:if="${partyInfo.party.id == big.id}">-->
-<!--                            &lt;!&ndash; big.id와 PartyInfo의 party.id가 일치할 때 &ndash;&gt;-->
-<!--                            &lt;!&ndash; 일치하는 개수 카운트 &ndash;&gt;-->
-<!--                            <span th:text="${#lists.size(allPartyInfo)}"></span>-->
-<!--                        </div>-->
-<!--                    </div>-->
 
                     / <span th:text="${big.personnel}"></span>) 명
             </div>
-
    </div>
-
+    </div>
     <div class="small_container">
     <div th:each="small,status : ${small_items}" class="small_content" onclick="go_partyInfo(this)">
         <input type="hidden" name="party_id" th:value="${small.id}">
@@ -96,7 +81,7 @@
             카테고리 : <span class="small_cate_name" th:text="${small.interest}"></span>
         </div>
         <div class="small_content_division">
-            모임방식 : <span class="small_division_name" th:text="${small.isOnline == 0 ? '오프라인' : '온라인'}"></span>
+            모임방식 : <span class="small_division_name" th:text="${small.isOnline ? '온라인' : '오프라인'}"></span>
         </div>
         <div class="small_content_intro">
             파티 소개 : <span th:text="${small.content}"></span>
@@ -105,7 +90,7 @@
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style="width:20px; height:17px;">
             <path
-                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                    d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" fill="red"/>
           </svg>
         </span>
             <span class="small_loc_name" th:text="${small.area}"></span>

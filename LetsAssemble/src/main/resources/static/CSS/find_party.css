@@ -11,7 +11,7 @@ body {
 .find_main {
     /*border: 2px solid green;*/
     margin: auto;
-    margin-top: 50px;
+    margin-top: 10px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;

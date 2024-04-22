@@ -46,7 +46,7 @@ public class SecurityConfig  {
                         .requestMatchers("/error/**").denyAll() // 전체 접근 불허용
                         .requestMatchers(HttpMethod.GET,"/chat/**").authenticated()
                         .requestMatchers("/oauth2/login").authenticated() // 인증된 사용자만 접근 허용
-                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","USER") // 매니저,어드민 역할만 허용
+                        .requestMatchers("/manager/**").hasAnyRole("MANAGER","USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN") // 어드민만 허용
                         .anyRequest().permitAll()
         ).formLogin(

@@ -30,28 +30,30 @@
                             <dl>
                                 <dt>모임방식</dt>
                                 <dd>
-                                 <span th:if="${party.isOnline() == 0}">
+                                 <span th:if="${party.isOnline() == true}">
+                                     온라인&nbsp;
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-monitor">
                                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line>
                                      <line x1="12" y1="17" x2="12" y2="21"></line>
                                     </svg>
-                                    온라인
+
                                 </span>
-                                <span th:if="${party.isOnline() != 0}">
+                                <span th:if="${party.isOnline() != true}">
+                                    오프라인&nbsp;
                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
                                     <path d="M17 11V7a5 5 0 0 0-10 0v4"></path>
                                     <circle cx="9" cy="12" r="2"></circle>
                                      <circle cx="17" cy="12" r="2"></circle>
                                     <path d="M12 17a5 5 0 0 0-5-5h10a5 5 0 0 0-5 5z"></path>
                                  </svg>
-                                    오프라인
+
                                     </span>
                                 </dd>
 <!--                                <dd th:text="${party.isOnline() == 0 ? '온라인' : '오프라인'}"></dd>-->
                             </dl>
                             <dl>
                                 <dt>모집인원</dt>
-                                <dd th:text="${party.personnel}"></dd>
+                                <dd th:text="${party.personnel} +'명'"></dd>
                             </dl>
                             <dl>
                                 <dt>지역</dt>
@@ -74,7 +76,7 @@
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <polyline points="12 6 12 12 16 14"></polyline>
                                 </svg>
-                                <span th:text="${party.riterDay}"></span> ~ 상시 모집
+                                <span th:text="${party.riterDay}"></span>&nbsp; ~ 상시 모집
                             </div>
                         </div>
                     </div>
