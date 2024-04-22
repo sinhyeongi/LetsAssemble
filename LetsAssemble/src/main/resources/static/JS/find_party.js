@@ -178,7 +178,7 @@ spans.forEach(function (span) {
 
 
 // 클릭시
-let category_name = '';
+let category_name = '전체';
 categories.forEach(cate => {
     cate.addEventListener('click', function () {
         locations.forEach(item => {
@@ -220,6 +220,7 @@ categories.forEach(cate => {
         // 지역 카테고리 고를때
         locations.forEach(loc => {
             loc.addEventListener('click', function () {
+
                 locations.forEach(item => {
                     item.classList.remove('selected');
                 });
