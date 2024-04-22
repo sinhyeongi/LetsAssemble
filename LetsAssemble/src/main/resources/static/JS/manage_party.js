@@ -27,3 +27,36 @@ function deleteParty(partyId) {
             alert('파티를 해체시키는데 실패했습니다');
         });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const cate_names = document.querySelectorAll('.cate_name');
+
+    cate_names.forEach(cate_name => {
+        const text = cate_name.textContent.trim();
+
+        switch (text) {
+            case "sports":
+                cate_name.classList.add("category-sports");
+                cate_name.textContent = '스포츠';
+                break;
+            case "travel":
+                cate_name.classList.add("category-travel");
+                cate_name.textContent = '여행';
+                break;
+            case "game":
+                cate_name.classList.add("category-game");
+                cate_name.textContent = '게임';
+                break;
+            case "study":
+                cate_name.classList.add("category-study");
+                cate_name.textContent = '스터디';
+                break;
+            case "boardGame":
+                cate_name.classList.add("category-boardGame");
+                cate_name.textContent = '보드게임';
+                break;
+            default:
+                break;
+        }
+    });
+});

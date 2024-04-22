@@ -40,33 +40,36 @@ btn.onclick = function (event){
 }
 
 // 카테고리 한글로 변경
-const cate_name = document.querySelector('.cate_name');
 document.addEventListener("DOMContentLoaded", function () {
 
+    const cate_name = document.querySelector('.cate_name');
 
-        // 카테고리에 따라 클래스를 추가하여 스타일을 적용
-        switch (cate_name) {
+    if (cate_name) {
+        const text = cate_name.textContent.trim();
+
+        switch (text) {
             case "sports":
                 cate_name.classList.add("category-sports");
-                cate_name.innerHTML = '스포츠';
+                cate_name.textContent = '스포츠';
                 break;
             case "travel":
                 cate_name.classList.add("category-travel");
-                cate_name.innerHTML = '여행';
+                cate_name.textContent = '여행';
                 break;
             case "game":
                 cate_name.classList.add("category-game");
-                cate_name.innerHTML = '게임';
+                cate_name.textContent = '게임';
                 break;
             case "study":
                 cate_name.classList.add("category-study");
-                cate_name.innerHTML = '스터디';
+                cate_name.textContent = '스터디';
                 break;
             case "boardGame":
                 cate_name.classList.add("category-boardGame");
-                cate_name.innerHTML ='보드게임';
+                cate_name.textContent = '보드게임';
                 break;
             default:
                 break;
         }
+    }
 });
