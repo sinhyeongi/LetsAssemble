@@ -271,20 +271,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const categoryValue = categorySpan.textContent.trim(); // 카테고리 값 가져오기
         // 카테고리에 따라 클래스를 추가하여 스타일을 적용
         switch (categoryValue) {
-            case "스포츠":
+            case "sports":
                 categorySpan.classList.add("category-sports");
+                categorySpan.innerHTML = '스포츠';
                 break;
-            case "여행":
+            case "travel":
                 categorySpan.classList.add("category-travel");
+                categorySpan.innerHTML = '여행';
                 break;
-            case "게임":
+            case "game":
                 categorySpan.classList.add("category-game");
+                categorySpan.innerHTML = '게임';
                 break;
-            case "스터디":
+            case "study":
                 categorySpan.classList.add("category-study");
+                categorySpan.innerHTML = '스터디';
                 break;
-            case "보드게임":
+            case "boardGame":
                 categorySpan.classList.add("category-boardGame");
+                categorySpan.innerHTML ='보드게임';
                 break;
             default:
                 break;
@@ -294,20 +299,25 @@ document.addEventListener("DOMContentLoaded", function () {
     smallCategorySpans.forEach(categorySpan => {
         const categoryValue = categorySpan.textContent.trim();
         switch (categoryValue) {
-            case "스포츠":
+            case "sports":
                 categorySpan.classList.add("category-sports");
+                categorySpan.innerHTML = '스포츠';
                 break;
-            case "여행":
+            case "travel":
                 categorySpan.classList.add("category-travel");
+                categorySpan.innerHTML = '여행';
                 break;
-            case "게임":
+            case "game":
                 categorySpan.classList.add("category-game");
+                categorySpan.innerHTML = '게임';
                 break;
-            case "스터디":
+            case "study":
                 categorySpan.classList.add("category-study");
+                categorySpan.innerHTML = '스터디';
                 break;
-            case "보드게임":
+            case "boardGame":
                 categorySpan.classList.add("category-boardGame");
+                categorySpan.innerHTML ='보드게임';
                 break;
             default:
                 break;

@@ -158,3 +158,22 @@ hr {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 설정 */
     margin-bottom: 5px;
 }
+
+.category-sports {
+    color: blue; /* 스포츠 카테고리일 때 글자색을 빨간색으로 설정 */
+}
+
+.category-travel {
+    color: green; /* 여행 카테고리일 때 글자색을 파란색으로 설정 */
+}
+
+.category-game {
+    color: crimson; /* 게임 카테고리일 때 글자색을 초록색으로 설정 */
+}
+
+.category-study {
+    color: hotpink;
+}
+.category-boardGame {
+    color : blueviolet;
+}
