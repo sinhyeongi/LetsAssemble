@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 import static com.la.letsassemble.Entity.QBuy_Option.buy_Option;
 
 
@@ -71,5 +73,13 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
                 .where(builder)
                 .groupBy(buy_Option.impUid)
                 .fetchOne();
+    }
+
+    @Override
+    public List<Buy_Option> findByParty_IdAndEven_day(Long partyId, String even_day) {
+        return factory.select(buy_Option)
+                .from(buy_Option)
+                .where(buy_Option.party.id.eq(partyId).and(buy_Option.even_day.eq(even_day)))
+                .fetch();
     }
 }

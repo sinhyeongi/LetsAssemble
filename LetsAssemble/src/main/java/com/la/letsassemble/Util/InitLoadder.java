@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+//@Component
 public class InitLoadder implements CommandLineRunner {
 
     private final UsersRepository repo;
