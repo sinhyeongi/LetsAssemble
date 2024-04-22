@@ -12,13 +12,13 @@ $('.option_view_cancel').click(function(e){
         viewList.push($(n).closest('.view_card'));
         viewList[idx].find('.option_view_cancel').attr('disabled',true);
         if($(n).closest('.view_card').find('.option_even_day').text() <= today){
-            b = true;
+            check = true;
         }
         dateString += $(n).closest('.view_card').find('.option_even_day').text()+'\n';
     })
-    if(b){
+    if(check){
         alert('사용한 옵션이 있어 환불이 불가능합니다.');
-        b = false;
+        check = false;
         $(this).removeAttr('disabled');
         uidlist.forEach((n,idx)=>{
             viewList[idx].find('.option_view_cancel').removeAttr('disabled');

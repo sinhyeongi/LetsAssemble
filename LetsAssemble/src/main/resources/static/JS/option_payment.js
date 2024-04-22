@@ -225,6 +225,8 @@ function ErrMsg(msg){
       return "파티 모집 상단 게시 가능 날은 오늘 이후 부터 가능합니다.";
    }else if(msg === "Number of times exceeded"){
       return "너무 많은 요청으로 인하여 데이터 추가에 실패하였습니다.\n잠시 후 다시 이용해주세요.";
+   }else if (msg === "No Script write"){
+      return "같은 날을 예약 할 수 없습니다.";
    }
 }
 //createoption_view("파티글 상단에 고정하기","선택날짜",'2024-04-04',1000);

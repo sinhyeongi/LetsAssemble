@@ -266,6 +266,7 @@ td{
 
 .selected {
     background-color: #fdf6b5; /* 선택된 항목의 배경색 */
+    border-radius: 3px;
     /*background-color: rgb(184, 225, 241); !* 선택된 항목의 배경색 *!*/
 }
 

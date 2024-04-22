@@ -216,7 +216,6 @@ categories.forEach(cate => {
             }
         })
 
-
         // 지역 카테고리 고를때
         locations.forEach(loc => {
             loc.addEventListener('click', function () {
@@ -261,7 +260,46 @@ categories.forEach(cate => {
 
     }); // cate 클릭
 }); // categorise.foreach문
+// 지역 카테고리 고를때
+locations.forEach(loc => {
+    loc.addEventListener('click', function () {
+        locations.forEach(item => {
+            item.classList.remove('selected');
+        });
 
+        this.classList.add('selected');
+        // console.log("test = " + this.innerHTML);
+        const selectedCategory = this.innerHTML;
+        parties.forEach(party => {
+            const locName = party.querySelector('.small_loc_name');
+            const cate = party.querySelector('.small_cate_name');
+            const div = party.querySelector('.small_division_name');
+            if (locName) {
+
+                // console.log("박스 안 cate = " + cate.innerHTML);
+                const locNameText = locName.innerHTML;
+                if(category_name === '전체' && selectedCategory === '전체' && division.includes('전체')){
+                    party.style.display = 'block';
+                } else if(category_name === '전체' && selectedCategory === '전체' && division.includes(div.innerHTML)){
+                    party.style.display = 'block';
+                } else if(category_name === '전체' && selectedCategory.includes(locNameText) && division.includes('전체')){
+                    party.style.display = 'block';
+                }  else if (category_name === cate.innerHTML && selectedCategory === '전체' && division.includes('전체')) {
+                    party.style.display = 'block';
+                }
+                else if (category_name === cate.innerHTML && selectedCategory === '전체' && division.includes(div.innerHTML)) {
+                    party.style.display = 'block';
+                } else if (category_name === cate.innerHTML && selectedCategory.includes(locNameText) && division.includes(div.innerHTML)) {
+                    party.style.display = 'block';
+                } else if (category_name === cate.innerHTML && selectedCategory.includes(locNameText) && division.includes('전체')) {
+                    party.style.display = 'block';
+                }  else {
+                    party.style.display = 'none';
+                }
+            }
+        });
+    });
+}); // 지역 카테고리
 
 
 const smallCategorySpans = document.querySelectorAll('.small_cate_name');

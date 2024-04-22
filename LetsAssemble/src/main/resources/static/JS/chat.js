@@ -3,6 +3,7 @@ var stompClient = Stomp.over(socket);
 var email = document.getElementById("email").value;
 const messageInput = document.getElementById('messageInput');
 const chat_home = document.getElementsByClassName("chat_home")[0];
+
 chat_home.addEventListener("click",()=>{
     location.href="/";
 })
@@ -16,7 +17,14 @@ window.onload = function(){
     for(let i = 0 ; i < messages.length; i++){
         showMessage(messages[i]);
     }
-
+    const notication_content = (document.getElementsByClassName("chat_content_box_notification")[0]).getElementsByClassName("chat_content")[0];
+    notication_content.addEventListener("click",(e)=>{
+        if(e.target.style.whiteSpace === "nowrap"){
+            e.target.style.whiteSpace = "unset";
+            return;
+        }
+        e.target.style.whiteSpace = "nowrap";
+    })
 };
 messageInput.addEventListener('keyup',e =>{
     if(e.key === 'Enter'){

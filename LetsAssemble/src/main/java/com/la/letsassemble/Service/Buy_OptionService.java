@@ -120,6 +120,11 @@ public class Buy_OptionService {
                     msg= even_date + "is Full";
                     throw new Exception();
                 }
+                List<Buy_Option> buy_list = repo.findByParty_IdAndEven_day(option.getParty().getId(), option.getEven_day());
+                if(!buy_list.isEmpty()){
+                    msg = "No Script write";
+                    throw new Exception();
+                }
                 option = repo.saveAndFlush(option);
 
                 if (option == null) {
@@ -213,15 +218,19 @@ public class Buy_OptionService {
         String respon = "?";
         try {
             Buy_Option buyOption = repo.findById(id).orElse(null);
+            if (buyOption == null) {
+                return "No search Id";
+            }
+            List<Buy_Option> list = repo.findByImpUid(buyOption.getImpUid());
+            for(Buy_Option b : list){
+                if(LocalDate.now().isAfter(LocalDate.parse(b.getEven_day()))){
+                    return "already passed";
+                }
+            }
             /*
             *  Test환경으로인한 추가 로직
             * */
-            if(repo.Even_day_ge_TodayAndUid(buyOption.getImpUid()) != 0){
-                return "already passed";
-            }
-            if (buyOption == null) {
-                return "No search Id";
-            } else if (!buyOption.getUser().getEmail().equals(email)) {
+            if (!buyOption.getUser().getEmail().equals(email)) {
                 return "Not Match Email";
             }
             while ((!redisLockRepository.lock("pay_del", "del")) && count < 20) {

@@ -325,6 +325,7 @@ public class InitLoadder implements CommandLineRunner {
                 .content("열정이 많으신 분들만 신청 부탁드릴게요")
                 .user(u3)
                 .interest("study")
+
                 .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
                 .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
                 .build();
@@ -337,6 +338,7 @@ public class InitLoadder implements CommandLineRunner {
                 .content("고수들만 들어와주세요 !!!")
                 .user(u)
                 .interest("game")
+
                 .notification("싸우면 추방합니다")
                 .title("온라인 게임 같이 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
                 .build();
@@ -349,6 +351,7 @@ public class InitLoadder implements CommandLineRunner {
                 .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
                 .user(u2)
                 .interest("sports")
+
                 .notification("야구 장비는 꼭!! 필수입니다 ")
                 .title("야구하러 가실분 들어와주세요")
                 .build();
@@ -389,7 +392,7 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         buy_repo.save(option);
 
-       // 유료 테스트 더미
+        // 유료 테스트 더미
 
         Buy_Option option2 = new Buy_Option().builder()
                 .party(party2)
@@ -593,8 +596,10 @@ public class InitLoadder implements CommandLineRunner {
                 .state("Y")
                 .isBlack(false)
                 .build();
+
     List<Party> parties = Arrays.asList(party, party2, party3, party4, party5, party6, party7, party8, party9, party10,party11,party12,party13,party14);
     List<Users> applicants = Arrays.asList(u5, u6, u7, u8, u9, u10, u11, u12);
+
 
         for (Party currentParty : parties) {
             for (Users currentApplicant : applicants) {
@@ -652,5 +657,7 @@ public class InitLoadder implements CommandLineRunner {
         partyInfoRepository.save(partyInfo12);
         partyInfoRepository.save(partyInfo13);
         partyInfoRepository.save(partyInfo14);
+
         }
+
 }
