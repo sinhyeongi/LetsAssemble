@@ -84,7 +84,7 @@ public class OptionCotroller {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
         if(details.getUser().getPhone() == null || details.getUser().getEmail() == null){
-            return "redirect:/user/";
+            return "redirect:/user";
         }
         model.addAttribute("list",service.findByUserEmail(details.getUser().getEmail()));
         return "option_view";
