@@ -17,7 +17,7 @@ public class PartyCustomRepositoryImpl implements PartyCustomRepository{
     public List<String> GetArea() {
         return jpaQueryFactory.select(party.area.substring(0,2))
                 .from(party)
-                .groupBy(party.area)
+                .groupBy(party.area.substring(0,2))
                 .fetch();
     }
 

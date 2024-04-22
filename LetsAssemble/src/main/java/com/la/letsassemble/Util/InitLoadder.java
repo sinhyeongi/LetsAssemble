@@ -181,7 +181,7 @@ public class InitLoadder implements CommandLineRunner {
 
         Party party = new Party().builder()
                 .isOnline(false)
-                .personnel(10)
+                .personnel(25)
                 .area("경기")
                 .content("차 있으신 분들 대환영입니다")
                 .user(u)
@@ -203,7 +203,7 @@ public class InitLoadder implements CommandLineRunner {
         partyRepository.saveAndFlush(party2);
         Party party3 = new Party().builder()
                 .isOnline(false)
-                .personnel(8)
+                .personnel(25)
                 .area("경기")
                 .content("남녀노소 누구나 환영합니다 ㅎㅎ")
                 .user(u3)
@@ -236,7 +236,7 @@ public class InitLoadder implements CommandLineRunner {
 
         Party party5 = new Party().builder()
                 .isOnline(true)
-                .personnel(10)
+                .personnel(25)
                 .area("경북")
                 .content("티어 상관없이 즐겁게 하실 분들만 신청해주세요")
                 .user(u3)
@@ -248,7 +248,7 @@ public class InitLoadder implements CommandLineRunner {
 
         Party party6 = new Party().builder()
                 .isOnline(true)
-                .personnel(10)
+                .personnel(60)
                 .area("인천")
                 .content("고수들만 들어와주세요 !!!")
                 .user(u)
@@ -333,7 +333,7 @@ public class InitLoadder implements CommandLineRunner {
 
         Party party13 = new Party().builder()
                 .isOnline(true)
-                .personnel(10)
+                .personnel(33)
                 .area("서울")
                 .content("고수들만 들어와주세요 !!!")
                 .user(u)
