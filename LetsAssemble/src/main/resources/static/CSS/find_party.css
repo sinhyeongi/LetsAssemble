@@ -327,3 +327,28 @@ td{
 .category-boardGame {
     color : blueviolet;
 }
+table{
+    display: flex;
+}
+table > tbody{
+    flex:1;
+    width: 100%;
+}
+tr{
+    display: flex;
+    width: 100%;
+}
+th{
+    width: 10%;
+}
+
+tr > td:nth-child(n+3){
+    flex:1;
+    border-left: 0;
+    border-right: 0;
+}
+tr > td:nth-child(2){
+    width: 10%;
+    max-width: 100px;
+
+}
