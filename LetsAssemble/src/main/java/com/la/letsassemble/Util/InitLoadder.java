@@ -13,9 +13,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-//@Component
+@Component
 public class InitLoadder implements CommandLineRunner {
 
     private final UsersRepository repo;
@@ -76,6 +78,94 @@ public class InitLoadder implements CommandLineRunner {
                 .age(33)
                 .build();
         repo.saveAndFlush(u3);
+
+        Users u5 = new Users().builder()
+                .email("test5@test.tes")
+                .password(encoder.encode("test5"))
+                .phone("010-1234-1234")
+                .name("김두한")
+                .nickname("종로원펀치")
+                .gender("M")
+                .age(27)
+                .build();
+        repo.saveAndFlush(u5);
+
+        Users u6 = new Users().builder()
+                .email("test6@test.tes")
+                .password(encoder.encode("test6"))
+                .phone("010-1234-1234")
+                .name("홍해인")
+                .nickname("눈물의여왕")
+                .gender("F")
+                .age(27)
+                .build();
+        repo.saveAndFlush(u6);
+
+        Users u7 = new Users().builder()
+                .email("test7@test.tes")
+                .password(encoder.encode("test7"))
+                .phone("010-1234-1234")
+                .name("곽철용")
+                .nickname("묻고더블로가")
+                .gender("M")
+                .age(53)
+                .build();
+        repo.saveAndFlush(u7);
+
+        Users u8 = new Users().builder()
+                .email("test8@test.tes")
+                .password(encoder.encode("test8"))
+                .phone("010-1234-1234")
+                .name("김광규")
+                .nickname("느그아버지")
+                .gender("M")
+                .age(60)
+                .build();
+        repo.saveAndFlush(u8);
+
+        Users u9 = new Users().builder()
+                .email("test9@test.tes")
+                .password(encoder.encode("test9"))
+                .phone("010-1234-1234")
+                .name("진도준")
+                .nickname("분당땅부자")
+                .gender("M")
+                .age(22)
+                .build();
+        repo.saveAndFlush(u9);
+
+        Users u10 = new Users().builder()
+                .email("test10@test.tes")
+                .password(encoder.encode("test10"))
+                .phone("010-1234-1234")
+                .name("진양철")
+                .nickname("순양자동차")
+                .gender("M")
+                .age(88)
+                .build();
+        repo.saveAndFlush(u10);
+
+        Users u11 = new Users().builder()
+                .email("test11@test.tes")
+                .password(encoder.encode("test11"))
+                .phone("010-1234-1234")
+                .name("차무식")
+                .nickname("카지노ㄱㄱ")
+                .gender("M")
+                .age(44)
+                .build();
+        repo.saveAndFlush(u11);
+
+        Users u12 = new Users().builder()
+                .email("test12@test.tes")
+                .password(encoder.encode("test12"))
+                .phone("010-1234-1234")
+                .name("손석구")
+                .nickname("너납치됨")
+                .gender("M")
+                .age(31)
+                .build();
+        repo.saveAndFlush(u12);
 
         // 추가.  나중에 관리자 -> 회원 삭제 시연할때 쓸 더미임
         Users u4 = new Users().builder()
@@ -228,6 +318,41 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         partyRepository.saveAndFlush(party11);
 
+        Party party12 = new Party().builder()
+                .isOnline(false)
+                .personnel(50)
+                .area("서울")
+                .content("열정이 많으신 분들만 신청 부탁드릴게요")
+                .user(u3)
+                .interest("스터디")
+                .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
+                .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
+                .build();
+        partyRepository.saveAndFlush(party12);
+
+        Party party13 = new Party().builder()
+                .isOnline(true)
+                .personnel(10)
+                .area("서울")
+                .content("고수들만 들어와주세요 !!!")
+                .user(u)
+                .interest("게임")
+                .notification("싸우면 추방합니다")
+                .title("온라인 게임 같이 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
+                .build();
+        partyRepository.saveAndFlush(party13);
+
+        Party party14 = new Party().builder()
+                .isOnline(false)
+                .personnel(22)
+                .area("서울")
+                .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
+                .user(u2)
+                .interest("스포츠")
+                .notification("야구 장비는 꼭!! 필수입니다 ")
+                .title("야구하러 가실분 들어와주세요")
+                .build();
+        partyRepository.saveAndFlush(party14);
         // 더미 끝
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
@@ -264,7 +389,7 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         buy_repo.save(option);
 
-       // 유료 테스트 더미
+        // 유료 테스트 더미
 
         Buy_Option option2 = new Buy_Option().builder()
                 .party(party2)
@@ -468,7 +593,41 @@ public class InitLoadder implements CommandLineRunner {
                 .state("Y")
                 .isBlack(false)
                 .build();
+        List<Party> parties = Arrays.asList(party, party2, party3, party4, party5, party6, party7, party8, party9, party10,party11,party12,party13,party14);
+        List<Users> applicants = Arrays.asList(u5, u6, u7, u8, u9, u10, u11, u12);
 
+        for (Party currentParty : parties) {
+            for (Users currentApplicant : applicants) {
+                PartyInfo partyInfo = PartyInfo.builder()
+                        .party(currentParty)
+                        .applicant_id(currentApplicant)
+                        .state("Y")  // Set state and isBlack according to your requirements
+                        .isBlack(false)
+                        .build();
+                partyInfoRepository.save(partyInfo);
+            }
+        }
+
+        PartyInfo partyInfo12 = PartyInfo.builder()
+                .party(party12)
+                .applicant_id(u3)
+                .state("Y")
+                .isBlack(false)
+                .build();
+
+        PartyInfo partyInfo13 = PartyInfo.builder()
+                .party(party13)
+                .applicant_id(u)
+                .state("Y")
+                .isBlack(false)
+                .build();
+
+        PartyInfo partyInfo14 = PartyInfo.builder()
+                .party(party14)
+                .applicant_id(u2)
+                .state("Y")
+                .isBlack(false)
+                .build();
 
         // 인포 더미 추가 끝
         partyInfoRepository.save(partyInfo1_1);
@@ -490,5 +649,8 @@ public class InitLoadder implements CommandLineRunner {
         partyInfoRepository.save(partyInfo9);
         partyInfoRepository.save(partyInfo10);
         partyInfoRepository.save(partyInfo11);
-        }
+        partyInfoRepository.save(partyInfo12);
+        partyInfoRepository.save(partyInfo13);
+        partyInfoRepository.save(partyInfo14);
+    }
 }

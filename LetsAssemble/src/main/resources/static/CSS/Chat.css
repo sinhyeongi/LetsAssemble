@@ -136,7 +136,9 @@ a{
     flex-direction: column;
 }
 .chat_content_box_notification{
-    width: 100%;
+    top:1%;
+    position: fixed;
+    width: 80%;
     margin-bottom: 10px;
     padding-right: 10px;
     box-sizing: border-box;
@@ -160,6 +162,7 @@ a{
     margin-left: 12px;
 }
 .chat_content_box > .chat_notification{
+
     width: 100%;
     display: flex;
     font-size: 24px;
@@ -178,7 +181,9 @@ a{
     padding: 10px;
     margin-right: 10px;
     margin-left: 50px;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .chat_content_box_notification > .messageContent_box_wrap > .chat_content{
     width: fit-content;
@@ -192,6 +197,9 @@ a{
     padding: 10px;
     margin-right: 10px;
     margin-left: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .chat_content_box > .messageContent_box_wrap> .chat_content_date,
 .chat_content_box_notification > .messageContent_box_wrap > .chat_content_date{

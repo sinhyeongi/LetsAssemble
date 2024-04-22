@@ -112,8 +112,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-left: 60px;
-    box-sizing: border-box;
 }
 .small_content {
     border: 3px solid #ffe000;
