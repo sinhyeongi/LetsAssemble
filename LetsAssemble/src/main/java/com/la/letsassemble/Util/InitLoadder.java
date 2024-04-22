@@ -13,6 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -316,6 +318,41 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         partyRepository.saveAndFlush(party11);
 
+        Party party12 = new Party().builder()
+                .isOnline(false)
+                .personnel(50)
+                .area("서울")
+                .content("열정이 많으신 분들만 신청 부탁드릴게요")
+                .user(u3)
+                .interest("스터디")
+                .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
+                .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
+                .build();
+        partyRepository.saveAndFlush(party12);
+
+        Party party13 = new Party().builder()
+                .isOnline(true)
+                .personnel(10)
+                .area("서울")
+                .content("고수들만 들어와주세요 !!!")
+                .user(u)
+                .interest("게임")
+                .notification("싸우면 추방합니다")
+                .title("온라인 게임 같이 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
+                .build();
+        partyRepository.saveAndFlush(party13);
+
+        Party party14 = new Party().builder()
+                .isOnline(false)
+                .personnel(22)
+                .area("서울")
+                .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
+                .user(u2)
+                .interest("스포츠")
+                .notification("야구 장비는 꼭!! 필수입니다 ")
+                .title("야구하러 가실분 들어와주세요")
+                .build();
+        partyRepository.saveAndFlush(party14);
         // 더미 끝
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
@@ -556,477 +593,41 @@ public class InitLoadder implements CommandLineRunner {
                 .state("Y")
                 .isBlack(false)
                 .build();
+    List<Party> parties = Arrays.asList(party, party2, party3, party4, party5, party6, party7, party8, party9, party10,party11,party12,party13,party14);
+    List<Users> applicants = Arrays.asList(u5, u6, u7, u8, u9, u10, u11, u12);
 
-        PartyInfo partyInfo4_1 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u5)
+        for (Party currentParty : parties) {
+            for (Users currentApplicant : applicants) {
+                PartyInfo partyInfo = PartyInfo.builder()
+                        .party(currentParty)
+                        .applicant_id(currentApplicant)
+                        .state("Y")  // Set state and isBlack according to your requirements
+                        .isBlack(false)
+                        .build();
+                partyInfoRepository.save(partyInfo);
+            }
+        }
+
+        PartyInfo partyInfo12 = PartyInfo.builder()
+                .party(party12)
+                .applicant_id(u3)
                 .state("Y")
                 .isBlack(false)
                 .build();
-        partyInfoRepository.save(partyInfo4_1);
-        PartyInfo partyInfo4_2 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u6)
+
+        PartyInfo partyInfo13 = PartyInfo.builder()
+                .party(party13)
+                .applicant_id(u)
                 .state("Y")
                 .isBlack(false)
                 .build();
-        partyInfoRepository.save(partyInfo4_2);
-        PartyInfo partyInfo4_3 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo4_3);
-        PartyInfo partyInfo4_4 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u8)
+
+        PartyInfo partyInfo14 = PartyInfo.builder()
+                .party(party14)
+                .applicant_id(u2)
                 .state("Y")
                 .isBlack(false)
                 .build();
-        partyInfoRepository.save(partyInfo4_4);
-        PartyInfo partyInfo4_5 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo4_5);
-        PartyInfo partyInfo4_6 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo4_6);
-
-        PartyInfo partyInfo4_7 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo4_7);
-
-        PartyInfo partyInfo4_8 = PartyInfo.builder()
-                .party(party)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo4_8);
-
-        PartyInfo partyInfo5_1 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_1);
-        PartyInfo partyInfo5_2 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_2);
-        PartyInfo partyInfo5_3 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_3);
-        PartyInfo partyInfo5_4 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_4);
-        PartyInfo partyInfo5_5 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_5);
-        PartyInfo partyInfo5_6 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_6);
-
-        PartyInfo partyInfo5_7 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_7);
-
-        PartyInfo partyInfo5_8 = PartyInfo.builder()
-                .party(party2)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo5_8);
-
-        PartyInfo partyInfo6_1 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_1);
-        PartyInfo partyInfo6_2 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_2);
-        PartyInfo partyInfo6_3 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_3);
-        PartyInfo partyInfo6_4 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_4);
-        PartyInfo partyInfo6_5 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_5);
-        PartyInfo partyInfo6_6 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_6);
-
-        PartyInfo partyInfo6_7 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_7);
-
-        PartyInfo partyInfo6_8 = PartyInfo.builder()
-                .party(party3)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo6_8);
-
-        // Party 7
-        PartyInfo partyInfo7_1 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_1);
-
-        PartyInfo partyInfo7_2 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_2);
-
-        PartyInfo partyInfo7_3 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_3);
-
-        PartyInfo partyInfo7_4 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_4);
-
-        PartyInfo partyInfo7_5 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_5);
-
-        PartyInfo partyInfo7_6 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_6);
-
-        PartyInfo partyInfo7_7 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_7);
-
-        PartyInfo partyInfo7_8 = PartyInfo.builder()
-                .party(party7)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo7_8);
-
-// Party 8
-        PartyInfo partyInfo8_1 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_1);
-
-        PartyInfo partyInfo8_2 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_2);
-
-        PartyInfo partyInfo8_3 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_3);
-
-        PartyInfo partyInfo8_4 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_4);
-
-        PartyInfo partyInfo8_5 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_5);
-
-        PartyInfo partyInfo8_6 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_6);
-
-        PartyInfo partyInfo8_7 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_7);
-
-        PartyInfo partyInfo8_8 = PartyInfo.builder()
-                .party(party8)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo8_8);
-
-// Party 9
-        PartyInfo partyInfo9_1 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_1);
-
-        PartyInfo partyInfo9_2 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_2);
-
-        PartyInfo partyInfo9_3 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_3);
-
-        PartyInfo partyInfo9_4 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_4);
-
-        PartyInfo partyInfo9_5 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_5);
-
-        PartyInfo partyInfo9_6 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_6);
-
-        PartyInfo partyInfo9_7 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_7);
-
-        PartyInfo partyInfo9_8 = PartyInfo.builder()
-                .party(party9)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo9_8);
-
-// Party 10
-        PartyInfo partyInfo10_1 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_1);
-
-        PartyInfo partyInfo10_2 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_2);
-
-        PartyInfo partyInfo10_3 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_3);
-
-        PartyInfo partyInfo10_4 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_4);
-
-        PartyInfo partyInfo10_5 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u9)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_5);
-
-        PartyInfo partyInfo10_6 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u10)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_6);
-
-        PartyInfo partyInfo10_7 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u11)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_7);
-
-        PartyInfo partyInfo10_8 = PartyInfo.builder()
-                .party(party10)
-                .applicant_id(u12)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo10_8);
-
-// Party 11
-        PartyInfo partyInfo11_1 = PartyInfo.builder()
-                .party(party11)
-                .applicant_id(u5)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo11_1);
-
-        PartyInfo partyInfo11_2 = PartyInfo.builder()
-                .party(party11)
-                .applicant_id(u6)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo11_2);
-
-        PartyInfo partyInfo11_3 = PartyInfo.builder()
-                .party(party11)
-                .applicant_id(u7)
-                .state("W")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo11_3);
-
-        PartyInfo partyInfo11_4 = PartyInfo.builder()
-                .party(party11)
-                .applicant_id(u8)
-                .state("Y")
-                .isBlack(false)
-                .build();
-        partyInfoRepository.save(partyInfo11_4);
-
 
         // 인포 더미 추가 끝
         partyInfoRepository.save(partyInfo1_1);
@@ -1048,5 +649,8 @@ public class InitLoadder implements CommandLineRunner {
         partyInfoRepository.save(partyInfo9);
         partyInfoRepository.save(partyInfo10);
         partyInfoRepository.save(partyInfo11);
+        partyInfoRepository.save(partyInfo12);
+        partyInfoRepository.save(partyInfo13);
+        partyInfoRepository.save(partyInfo14);
         }
 }
