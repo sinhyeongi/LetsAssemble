@@ -37,7 +37,9 @@
                         <a th:href="@{'/party/party_info?id=' + ${party.id}}" th:each="party : ${joinedPartyList}">
                             <div class="party-wrap joinParty">
                                 <div class="party-title" th:text="${party.title}"></div>
-                                <div class="party-notice" th:text="${party.notification}"></div>
+                                <div class="party-notice">
+                                    <span><strong>공지사항</strong></span><p th:text="${party.notification}"></p>
+                                </div>
                             </div>
                         </a>
                         <div class="no party" th:if="${joinedPartyList.isEmpty()}">해당하는 파티가 없습니다</div>
@@ -51,7 +53,9 @@
                         <a th:href="@{'/party/party_info?id=' + ${party.id}}" th:each="party : ${requestParty}">
                             <div class="party-wrap waitParty">
                                 <div class="party-title" th:text="${party.title}"></div>
-                                <div class="party-notice" th:text="${party.notification}"></div>
+                                <div class="party-notice">
+                                    <span><strong>공지사항</strong></span><p th:text="${party.notification}"></p>
+                                </div>
                             </div>
                         </a>
                         <div class="no party" th:if="${requestParty.isEmpty()}">해당하는 파티가 없습니다</div>

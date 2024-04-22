@@ -324,7 +324,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("서울")
                 .content("열정이 많으신 분들만 신청 부탁드릴게요")
                 .user(u3)
-                .interest("스터디")
+                .interest("study")
                 .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
                 .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
                 .build();
@@ -336,7 +336,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("서울")
                 .content("고수들만 들어와주세요 !!!")
                 .user(u)
-                .interest("게임")
+                .interest("game")
                 .notification("싸우면 추방합니다")
                 .title("온라인 게임 같이 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
                 .build();
@@ -348,7 +348,7 @@ public class InitLoadder implements CommandLineRunner {
                 .area("서울")
                 .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
                 .user(u2)
-                .interest("스포츠")
+                .interest("sports")
                 .notification("야구 장비는 꼭!! 필수입니다 ")
                 .title("야구하러 가실분 들어와주세요")
                 .build();
