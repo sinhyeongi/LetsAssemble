@@ -4,7 +4,6 @@ package com.la.letsassemble.Controller;
 import com.la.letsassemble.Entity.Party;
 import com.la.letsassemble.Entity.Users;
 
-import com.la.letsassemble.Repository.UsersRepository;
 import com.la.letsassemble.Security_Custom.PricipalDetails;
 import com.la.letsassemble.Service.Buy_OptionService;
 import com.la.letsassemble.Service.PartyService;
@@ -37,7 +36,6 @@ import java.util.Optional;
 public class OptionCotroller {
     private final Buy_OptionService service;
     private final PartyService partyService;
-    private final UsersRepository usersRepository;
 
     //옵션 선택 및 결제 페이지 이동
     @GetMapping(value = {"/{partyId}","/"})
@@ -61,7 +59,7 @@ public class OptionCotroller {
 
 
         String imp = "imp62080161";
-        model.addAttribute("disabledDates",service.getDisabledDates(p.isOnline(),u.getEmail()));
+        model.addAttribute("disabledDates",service.getDisabledDates(p.isOnline(),p.getId()));
         model.addAttribute("imp_data",imp);
         model.addAttribute("party",p);
         model.addAttribute("user",u);

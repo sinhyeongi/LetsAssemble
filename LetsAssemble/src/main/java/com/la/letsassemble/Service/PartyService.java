@@ -132,9 +132,6 @@ public class PartyService {
             if(count >= 10){
                 throw new Exception();
             }
-            if(from.getAddress().indexOf(" ") != -1){
-                from.setAddress(from.getAddress().substring(0,2));
-            }
             //파티 생성
             Party party = Party.builder()
                     .interest(from.getCategory()) //관심사

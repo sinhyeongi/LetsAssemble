@@ -36,7 +36,7 @@ function goManage(type) {
         url += '/manage_user';
     }
 
-    console.log(url);
+
     fetch(url)
         .then(response => {
             if (!response.ok) {

@@ -112,27 +112,27 @@ public class InitLoadder implements CommandLineRunner {
         Optional<Users> user = repo.findByEmail(u.getEmail());
         partyRepository.saveAndFlush(party3);
 
-        for(int i = 0 ; i < 10; i++) {
+        for(int i = 0 ; i < 4; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
-                    .even_day("2024-04-11")
+                    .even_day("2024-04-22")
                     .price(1000)
                     .name("test")
                     .user(user.get())
                     .imp_uid("test")
-                    .isOnline(true)
+                    .isOnline(party.isOnline())
                     .build();
             buy_repo.save(option);
         }
-        for(int i = 0 ; i < 10; i++) {
+        for(int i = 0 ; i < 8; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
-                    .even_day("2024-05-01")
+                    .even_day("2024-04-24")
                     .price(1000)
                     .name("test")
                     .user(user.get())
                     .imp_uid("test")
-                    .isOnline(false)
+                    .isOnline(party.isOnline())
                     .build();
             buy_repo.save(option);
         }
@@ -143,7 +143,7 @@ public class InitLoadder implements CommandLineRunner {
                 .name("test")
                 .user(user.get())
                 .imp_uid("test")
-                .isOnline(false)
+                .isOnline(party.isOnline())
                 .build();
         buy_repo.save(option);
         PartyInfo partyInfo1_1 = PartyInfo.builder()

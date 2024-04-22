@@ -6,12 +6,9 @@ qnaItems.forEach((qnaItem)=>{
         const target = event.target.parentElement.parentElement;
         const content = target.querySelector('.boarder-content');
         if(content.style.display === 'none'){
-            console.log('열림');
-            console.log(content.style.display);
             content.style.display = 'block';
         }else{
             console.log(content.style.display);
-            console.log('닫힘');
             content.style.display = 'none';
         }
     });

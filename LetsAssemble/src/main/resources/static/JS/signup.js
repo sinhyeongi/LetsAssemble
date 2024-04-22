@@ -87,7 +87,6 @@ const onEmailButtonClickHandler = async (event) => {
     let result;
     await emailValidate(email).then(data => {result = data});
     //중복검사
-    console.log(result);
     if(result === "true"){
         setErrorMessage(emailMessage,'이미 가입된 이메일 입니다.')
         return;

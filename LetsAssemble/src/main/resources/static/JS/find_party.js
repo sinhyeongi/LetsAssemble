@@ -2,7 +2,6 @@
 function go_partyInfo(event){
     const hiddenInput = event.querySelector('input[type="hidden"]');
     const party_id = hiddenInput.value;
-    console.log("party_id = " + party_id);
     location.href=`/party/party_info?id=${party_id}`;
 }
 
@@ -50,7 +49,7 @@ function fetchPartiesByType(type) {
                         카테고리: <span class="big_cate_name">${party.interest}</span>
                     </div>
                     <div class="big_content_division">
-                        모임 방식: <span class="big_division_name">${party.isOnline === 0 ? '오프라인' : '온라인'}</span>
+                        모임 방식: <span class="big_division_name">${party.isOnline ? '온라인' : '오프라인'}</span>
                     </div>
                     <div class="big_content_intro">
                         파티 소개: <span>${party.content}</span>
@@ -116,7 +115,7 @@ spans.forEach(function (span) {
         locations[0].classList.add('selected');
         categories[0].classList.add('selected');
 
-        console.log(this.innerHTML.trim());
+
         division = this.innerHTML.trim();
         // 기존에 생성된 밑줄 요소가 있는지 확인
         const existingUnderlines = document.querySelectorAll('.underline');
@@ -134,7 +133,7 @@ spans.forEach(function (span) {
 
         // 클릭한 곳 전체, 온라인, 오프라인 인지
         // let division = this.innerHTML.trim();
-        console.log('여기서 divison은 ' + division);
+
 
 
         // 유료 파티들
@@ -164,8 +163,6 @@ spans.forEach(function (span) {
         parties.forEach(party => {
             const div = party.querySelector('.small_division_name');
             if (div) {
-                console.log("division = " + division);
-                console.log("div.inner = " + div.innerHTML);
                 if (division.includes('전체')) {
                     party.style.display = 'block';
                 } else if (division.includes(div.innerHTML)) {
@@ -196,12 +193,11 @@ categories.forEach(cate => {
         this.classList.add('selected');
         category_name = this.innerHTML;
         // console.log("여긴 들어오나 " + category_name);
-        console.log("여기서 division 은 ? " + division);
 
         // 지역 카테고리 상관 없이 관심사만 고를때
 
         parties.forEach(party => {
-            console.log('여기서 category_name = ' + category_name);
+
             const cate = party.querySelector('.small_cate_name');
             // console.log('여기서 cate = ' + cate.innerHTML);
             const div = party.querySelector('.small_division_name'); //온,오프라인
@@ -236,12 +232,9 @@ categories.forEach(cate => {
                     const cate = party.querySelector('.small_cate_name');
                     const div = party.querySelector('.small_division_name');
                     if (locName) {
-                        console.log("여기서 카테고리는 ? " + category_name);
+
                         // console.log("박스 안 cate = " + cate.innerHTML);
                         const locNameText = locName.innerHTML;
-                        console.log(locNameText);
-                        console.log("selectedCategory = " + selectedCategory);
-                        console.log("여기서 division은 ??? " + division);
                         if(category_name === '전체' && selectedCategory === '전체' && division.includes('전체')){
                             party.style.display = 'block';
                         } else if(category_name === '전체' && selectedCategory === '전체' && division.includes(div.innerHTML)){

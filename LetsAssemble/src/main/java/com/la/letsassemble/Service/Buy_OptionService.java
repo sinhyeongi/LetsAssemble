@@ -116,7 +116,7 @@ public class Buy_OptionService {
                         .imp_uid(n.get("imp_uid").toString())
                         .isOnline(party.get().isOnline())
                         .build();
-                if (repo.searchEven_day(even_date) >= 4) {
+                if (repo.searchEven_day(even_date,party.get().isOnline()) >= 4) {
                     msg= even_date + "is Full";
                     throw new Exception();
                 }
@@ -144,12 +144,12 @@ public class Buy_OptionService {
         response.setStatus(HttpServletResponse.SC_OK);
         return "ok";
     }
-    public List<String> getDisabledDates(Boolean isOnline,String email){
+    public List<String> getDisabledDates(Boolean isOnline,Long partyId){
         List<String> list =repo.searchFullDate(isOnline);
-        List<String> list2 = repo.getUserSelectDay(email);
+        List<String> list2 = repo.getUserSelectDay(partyId);
         if(!list.isEmpty() && !list2.isEmpty()){
             list.addAll(list2);
-            return list2;
+            return list;
         }else if(list.isEmpty()&& !list2.isEmpty()){
             return list2;
         }
@@ -212,6 +212,18 @@ public class Buy_OptionService {
         int count = 0;
         String respon = "?";
         try {
+            Buy_Option buyOption = repo.findById(id).orElse(null);
+            /*
+            *  Test환경으로인한 추가 로직
+            * */
+            if(repo.Even_day_ge_TodayAndUid(buyOption.getImpUid()) != 0){
+                return "already passed";
+            }
+            if (buyOption == null) {
+                return "No search Id";
+            } else if (!buyOption.getUser().getEmail().equals(email)) {
+                return "Not Match Email";
+            }
             while ((!redisLockRepository.lock("pay_del", "del")) && count < 20) {
                 Thread.sleep(1000L);
                 count++;
@@ -220,12 +232,6 @@ public class Buy_OptionService {
             if(count >= 20){
                 respon = "Time Over";
                 throw new Exception();
-            }
-            Buy_Option buyOption = repo.findById(id).orElse(null);
-            if (buyOption == null) {
-                return "No search Id";
-            } else if (!buyOption.getUser().getEmail().equals(email)) {
-                return "Not Match Email";
             }
             respon = inicisUtil.Cancel(buyOption.getImpUid(), inicisUtil.RefundableAmount(buyOption.getImpUid()));
             if (respon.equals("ok")) {

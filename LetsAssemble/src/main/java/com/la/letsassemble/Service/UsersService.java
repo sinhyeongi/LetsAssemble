@@ -55,6 +55,7 @@ public class UsersService {
                     }
                 }
             }
+
         }catch (Exception e){
         }finally {
             redisLockRepository.unlock("user","signup");

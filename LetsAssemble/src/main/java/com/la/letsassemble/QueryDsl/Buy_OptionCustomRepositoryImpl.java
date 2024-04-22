@@ -34,18 +34,18 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
     }
 
     @Override
-    public List<String> getUserSelectDay(String email) {
+    public List<String> getUserSelectDay(Long partyId) {
         return factory.select(buy_Option.even_day)
                 .from(buy_Option)
-                .where(buy_Option.user.email.eq(email))
+                .where(buy_Option.party.id.eq(partyId))
                 .fetch();
     }
 
     @Override
-    public Long searchEven_day(String even_day) {
+    public Long searchEven_day(String even_day,Boolean Online) {
         return factory.select(buy_Option.count())
                 .from(buy_Option)
-                .where(buy_Option.even_day.eq(even_day))
+                .where(buy_Option.even_day.eq(even_day).and(buy_Option.party.isOnline.eq(Online)))
                 .fetchOne();
     }
 
@@ -56,5 +56,20 @@ public class Buy_OptionCustomRepositoryImpl implements Buy_OptionCustomRepositor
                 .where(buy_Option.user.email.eq(email))
                 .orderBy(buy_Option.even_day.desc())
                 .fetch();
+    }
+
+    /*
+    * Test환경으로 인한 부분 환불 불가에 대한 추가 로직
+    * */
+    @Override
+    public Long Even_day_ge_TodayAndUid(String uid) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(buy_Option.even_day.goe(LocalDate.now().toString()));
+        builder.and(buy_Option.impUid.eq(uid));
+        return factory.select(buy_Option.count())
+                .from(buy_Option)
+                .where(builder)
+                .groupBy(buy_Option.impUid)
+                .fetchOne();
     }
 }
