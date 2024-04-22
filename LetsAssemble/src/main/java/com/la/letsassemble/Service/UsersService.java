@@ -46,7 +46,6 @@ public class UsersService {
             while(count < 10){
                 if(redisLockRepository.lock("user","signup")){
                     Users user = Users.createUser(form,encoder);
-                    if(user == null)return null;
                     return usersRepository.saveAndFlush(user);
                 }else{
                     Thread.sleep(1000);
@@ -77,27 +76,30 @@ public class UsersService {
         Users user = u.get();
         //임시 비밀번호 생성
         String temporary = Users.generateRandomString(8);
-
         //임시비밀번호 주입
-        user.builder().password(encoder.encode(temporary));
+        user = Users.changePassword(user,encoder.encode(temporary));
         return temporary;
     }
 
     @Transactional
     public String changePassword(Users user, PasswordForm form){
         try{
-            if(user == null)return"not user error";
-            if(form.getEmail() == "" || form.getPassword1() == "" || form.getPassword2() == "")return "empty error";
-            if(!form.getPassword1().equals(form.getPassword2()))return "not equals password";
-            if(form.getPassword1().length() < 8) return "not 8 characters";
             int count = 0;
-            while (!redisLockRepository.lock("changePw","changePw") && count < 10){
-                Thread.sleep(1000);
-                count++;
-                user.changePassword(user,encoder.encode(form.getPassword1()));
-                usersRepository.saveAndFlush(user);
-                if(count >= 10){
-                    throw new Exception("시도횟수 초과");
+            while (count < 10) {
+                if(redisLockRepository.lock("changePw","changePw")){
+                    if(user == null)return"not user error";
+                    if(form.getEmail() == "" || form.getPassword1() == "" || form.getPassword2() == "")return "empty error";
+                    if(!form.getPassword1().equals(form.getPassword2()))return "not equals password";
+                    if(form.getPassword1().length() < 8) return "not 8 characters";
+                    user.changePassword(user,encoder.encode(form.getPassword1()));
+                    usersRepository.saveAndFlush(user);
+                    return "ok";
+                }else{
+                    Thread.sleep(1000);
+                    count++;
+                    if(count >= 10){
+                        throw new Exception("시도횟수 초과");
+                    }
                 }
             }
         }catch (Exception e){
@@ -105,36 +107,38 @@ public class UsersService {
         }finally {
             redisLockRepository.unlock("changePw","changePw");
         }
-
-
-        return "ok";
+        return "error";
     }
     @Transactional
     public ResponseEntity<String> changeNickname(PricipalDetails userDetails, UserForm form){
         try{
             int count = 0;
-            while(!redisLockRepository.lock("user","changeNickname") && count < 10) {
-                Thread.sleep(1000);
-                count++;
-
-                Users user = userDetails.getUser();
-
-                if (form.getNickname().length() < 3) {
-                    return ResponseEntity.badRequest().body("not length");
+            while(count < 10) {
+                if(redisLockRepository.lock("user","changeNickname")){
+                    Users user = userDetails.getUser();
+                    if (form.getNickname().length() < 3) {
+                        return ResponseEntity.badRequest().body("not length");
+                    }
+                    if (!user.getEmail().equals(form.getEmail())) {
+                        return ResponseEntity.badRequest().body("badRequest");
+                    }
+                    if (user.getNickname().equals(form.getNickname())) {
+                        return ResponseEntity.badRequest().body("same");
+                    }
+                    if (usersRepository.findByNickname(form.getNickname()).isPresent()) {
+                        return ResponseEntity.badRequest().body("not valid");
+                    }
+                    user.changeNickname(user, form.getNickname());
+                    usersRepository.saveAndFlush(user);
+                    userDetails.setUser(user);
+                    return ResponseEntity.ok().body("ok");
+                }else{
+                    Thread.sleep(1000);
+                    count++;
+                    if(count >= 10){
+                        throw new Exception();
+                    }
                 }
-                if (!user.getEmail().equals(form.getEmail())) {
-                    return ResponseEntity.badRequest().body("badRequest");
-                }
-                if (user.getNickname().equals(form.getNickname())) {
-                    return ResponseEntity.badRequest().body("same");
-                }
-                if (usersRepository.findByNickname(form.getNickname()).isPresent()) {
-                    return ResponseEntity.badRequest().body("not valid");
-                }
-                user.changeNickname(user, form.getNickname());
-                usersRepository.saveAndFlush(user);
-                userDetails.setUser(user);
-                return ResponseEntity.ok().body("ok");
             }
         }catch (Exception e){
 

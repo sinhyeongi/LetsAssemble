@@ -36,16 +36,19 @@ public class PartyService {
     @Transactional
     public String delegateParty(Long partyId,Users user,Long userId){
         try {
-            Optional<Party> optionalParty = repo.findById(partyId);
-            if(!optionalParty.isPresent())return "no party";
-            Party party = optionalParty.get();
-            if(!party.getUser().getEmail().equals(user.getEmail()))return "no host";
             int count = 0;
-            Optional<Users> optionalUsers = usersRepository.findById(userId);
-            if(!optionalUsers.isPresent())return "no user";
-            Users recevingUser = optionalUsers.get();
             while(count < 10){
                 if(redisLockRepository.lock("party","delegate")){
+                    Optional<Party> optionalParty = repo.findById(partyId);
+                    if(!optionalParty.isPresent())return "no party";
+
+                    Party party = optionalParty.get();
+                    if(!party.getUser().getEmail().equals(user.getEmail()))return "no host";
+
+                    Optional<Users> optionalUsers = usersRepository.findById(userId);
+                    if(!optionalUsers.isPresent())return "no user";
+
+                    Users recevingUser = optionalUsers.get();
                     party = Party.delegateParty(party, recevingUser);
                     repo.saveAndFlush(party);
                     return recevingUser.getNickname();
@@ -67,15 +70,15 @@ public class PartyService {
     @Transactional
     public String deleteParty(Long id,Users user,String inputPartyName){
         try {
-            Optional<Party> optionalParty = repo.findById(id);
-            if(!optionalParty.isPresent())return "no party";
-            Party party = optionalParty.get();
-            if(!party.getUser().getEmail().equals(user.getEmail()))return "no host";
-            if(!party.getTitle().equals(inputPartyName))return "no title";
-
             int count = 0;
             while(count < 10){
                 if(redisLockRepository.lock("party","delete")){
+                    Optional<Party> optionalParty = repo.findById(id);
+                    if(!optionalParty.isPresent())return "no party";
+                    Party party = optionalParty.get();
+                    if(!party.getUser().getEmail().equals(user.getEmail()))return "no host";
+                    if(!party.getTitle().equals(inputPartyName))return "no title";
+
                     repo.deleteById(id);
                     return "ok";
                 }else{
@@ -130,7 +133,7 @@ public class PartyService {
                 throw new Exception();
             }
             if(from.getAddress().indexOf(" ") != -1){
-                from.setAddress(from.getAddress().substring(0,from.getAddress().indexOf(" ")+1));
+                from.setAddress(from.getAddress().substring(0,2));
             }
             //파티 생성
             Party party = Party.builder()
@@ -171,7 +174,7 @@ public class PartyService {
                         Party updateparty = Party.updateParty(party.get(), partyForm);
                         repo.saveAndFlush(updateparty);
                     }
-                    break;
+                    return;
                 }else{
                     Thread.sleep(1000);
                     count++;

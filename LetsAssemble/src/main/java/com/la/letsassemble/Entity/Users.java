@@ -67,11 +67,11 @@ public class Users {
         this.gender = gender;
         this.age = age;
     }
-    public Users changePassword(Users user,String password){
+    public static Users changePassword(Users user,String password){
         user.password = password;
         return user;
     }
-    public Users changeNickname(Users user,String nickname){
+    public static Users changeNickname(Users user,String nickname){
         user.nickname = nickname;
         return user;
     }
