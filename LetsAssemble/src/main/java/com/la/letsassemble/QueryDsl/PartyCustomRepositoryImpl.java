@@ -15,7 +15,7 @@ public class PartyCustomRepositoryImpl implements PartyCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
     @Override
     public List<String> GetArea() {
-        return jpaQueryFactory.select(party.area)
+        return jpaQueryFactory.select(party.area.substring(0,2))
                 .from(party)
                 .groupBy(party.area)
                 .fetch();

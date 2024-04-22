@@ -46,15 +46,17 @@ public class UsersService {
             while(!redisLockRepository.lock("user","signup") && count < 10){
                 Thread.sleep(1000);
                 count++;
+            }
+            if(count >= 10){
+                throw new Exception();
+            }
                 Users user = Users.createUser(form,encoder);
 
                 if(user != null){
                     return usersRepository.saveAndFlush(user);
                 }
-                if(count >= 10){
-                    throw new Exception();
-                }
-            }
+
+
         }catch (Exception e){
 
         }finally {
@@ -117,7 +119,10 @@ public class UsersService {
             while(!redisLockRepository.lock("user","changeNickname") && count < 10) {
                 Thread.sleep(1000);
                 count++;
-
+            }
+            if(count >= 10){
+                throw new Exception();
+            }
                 Users user = userDetails.getUser();
 
                 if (form.getNickname().length() < 3) {
@@ -136,7 +141,7 @@ public class UsersService {
                 usersRepository.saveAndFlush(user);
                 userDetails.setUser(user);
                 return ResponseEntity.ok().body("ok");
-            }
+
         }catch (Exception e){
 
         }finally {

@@ -124,10 +124,10 @@ public class InitLoadder implements CommandLineRunner {
                     .build();
             buy_repo.save(option);
         }
-        for(int i = 0 ; i < 10; i++) {
+        for(int i = 0 ; i < 8; i++) {
             Buy_Option option = new Buy_Option().builder()
                     .party(party)
-                    .even_day("2024-05-23")
+                    .even_day("2024-04-24")
                     .price(1000)
                     .name("test")
                     .user(user.get())
