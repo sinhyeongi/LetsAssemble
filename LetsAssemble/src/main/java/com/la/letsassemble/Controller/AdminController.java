@@ -41,7 +41,6 @@ public class AdminController {
         return "manage_user";
     }
 
-
     @DeleteMapping("/delete")
     @ResponseBody
     public ResponseEntity<String> deleteUser(@RequestParam Long userId) {
