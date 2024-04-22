@@ -93,6 +93,9 @@ body{
     text-align: center;
     font-weight: bolder;
     font-size: large;
+    margin-left: 7px;
+    margin-right: 3px;
+    box-sizing: border-box;
 }
 .party-notice{
     padding: 0 10px;
