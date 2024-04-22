@@ -26,7 +26,7 @@
     </th:block>
     <div class="chat-wrap" th:each="party : ${joinedPartyList}" style="flex:1;">
         <div class="chat-content" >
-            <div class="chat-title"><h2 th:text="${party.title}"></h2></div>
+            <div class="chat-title"><h3 th:text="${party.title}"></h3></div>
             <div class="chat-host">
                 <strong>파티장</strong>
                 <div th:text="${party.user.nickname}"></div>
