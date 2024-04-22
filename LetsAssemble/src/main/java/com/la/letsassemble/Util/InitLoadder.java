@@ -228,6 +228,41 @@ public class InitLoadder implements CommandLineRunner {
                 .build();
         partyRepository.saveAndFlush(party11);
 
+        Party party12 = new Party().builder()
+                .isOnline(false)
+                .personnel(50)
+                .area("서울")
+                .content("열정이 많으신 분들만 신청 부탁드릴게요")
+                .user(u3)
+                .interest("스터디")
+                .notification("서로 도와주며 한달안에 프로젝트 완성하는 것이 목표입니다")
+                .title("웹 개발 프로젝트 같이 만드실 분들 눌러주세요 ! ")
+                .build();
+        partyRepository.saveAndFlush(party12);
+
+        Party party13 = new Party().builder()
+                .isOnline(true)
+                .personnel(10)
+                .area("서울")
+                .content("고수들만 들어와주세요 !!!")
+                .user(u)
+                .interest("게임")
+                .notification("싸우면 추방합니다")
+                .title("온라인 게임 같이 하실분들 저희 파티 들어와서 같이 해요 ~~ ")
+                .build();
+        partyRepository.saveAndFlush(party13);
+
+        Party party14 = new Party().builder()
+                .isOnline(false)
+                .personnel(22)
+                .area("서울")
+                .content("실력이 낮아도 괜찮으니 즐겁게 하시고 싶은 분들 환영해요 ~")
+                .user(u2)
+                .interest("스포츠")
+                .notification("야구 장비는 꼭!! 필수입니다 ")
+                .title("야구하러 가실분 들어와주세요")
+                .build();
+        partyRepository.saveAndFlush(party14);
         // 더미 끝
         for(int i = 0 ; i < 10; i++) {
             Buy_Option option = new Buy_Option().builder()
@@ -469,6 +504,26 @@ public class InitLoadder implements CommandLineRunner {
                 .isBlack(false)
                 .build();
 
+        PartyInfo partyInfo12 = PartyInfo.builder()
+                .party(party12)
+                .applicant_id(u3)
+                .state("Y")
+                .isBlack(false)
+                .build();
+
+        PartyInfo partyInfo13 = PartyInfo.builder()
+                .party(party13)
+                .applicant_id(u)
+                .state("Y")
+                .isBlack(false)
+                .build();
+
+        PartyInfo partyInfo14 = PartyInfo.builder()
+                .party(party14)
+                .applicant_id(u2)
+                .state("Y")
+                .isBlack(false)
+                .build();
 
         // 인포 더미 추가 끝
         partyInfoRepository.save(partyInfo1_1);
@@ -490,5 +545,8 @@ public class InitLoadder implements CommandLineRunner {
         partyInfoRepository.save(partyInfo9);
         partyInfoRepository.save(partyInfo10);
         partyInfoRepository.save(partyInfo11);
+        partyInfoRepository.save(partyInfo12);
+        partyInfoRepository.save(partyInfo13);
+        partyInfoRepository.save(partyInfo14);
         }
 }
